@@ -1,4 +1,4 @@
-## 1.	Introduction: 
+## 1.	Introduction: - Storm 
 ## 2.	Storyboard (screen mockups): Invision, FluidUI, Powerpoint, paint, etc... will be fine. - Storm
 ## 3.	Functional Requirements in the format (fill in the square brackets with your own words):  - Luke
 
