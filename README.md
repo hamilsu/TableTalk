@@ -1,5 +1,33 @@
 ## 1.	Introduction: - Storm 
+TableTalk a collaboration tool for organizing board game nights with other people. It could be for personal or business use, as many game stores love to host tournaments or other get-togethers. The website would link with the BoardgameAtlas Api (Links to an external site.) which is a REST API which would allows for the integration of search features for boardgame rules and pictures so that users could make lobbies based on the game(s) they have and/or want to play.
 ## 2.	Storyboard (screen mockups): Invision, FluidUI, Powerpoint, paint, etc... will be fine. - Storm
+
+
+Start Page
+![Start Page](https://user-images.githubusercontent.com/55035232/106964285-e0494280-670f-11eb-912f-d6710a576ce2.PNG)
+
+Log In Page
+![Sign in](https://user-images.githubusercontent.com/55035232/106964297-e5a68d00-670f-11eb-9277-5954339d77eb.PNG)
+
+Start Page after logging in
+![Logged In](https://user-images.githubusercontent.com/55035232/106964304-e9d2aa80-670f-11eb-86ed-02f22f7dfe2b.PNG)
+
+Create New Room
+![Create Game](https://user-images.githubusercontent.com/55035232/106964529-3b7b3500-6710-11eb-85a9-e60c96bd1319.PNG)
+
+Join Game
+![Join Game](https://user-images.githubusercontent.com/55035232/106964343-f48d3f80-670f-11eb-9c48-7d652faac351.PNG)
+
+Time Selector
+![Time Selector](https://user-images.githubusercontent.com/55035232/106964352-f7883000-670f-11eb-9b76-f45a364fbe4d.PNG)
+
+
+Overall View of Storyboard 
+![TableTalk Overview](https://user-images.githubusercontent.com/55035232/106964268-da536180-670f-11eb-8e81-6292d25e4611.PNG)
+
+
+
+
 ## 3.	Functional Requirements in the format (fill in the square brackets with your own words):  - Luke
 
 o	As a [User]
