@@ -28,6 +28,8 @@ o	UML-based class diagram.
 o	Class Diagram Description: One or two lines for each class to describe use of interfaces,  classes and resources, interfaces, etc. Don't worry about putting 
 more than a few words to each class; this does not need to be thorough.
 
+![Class Diagram](C:\Users\konem\IdeaProjects\images\ClassDiagram.PNG)
+
 ## 5.	JSON Schema – Mamadou
 
 o	 Your project should have an REST endpoint that emits JSON, which another group can consume.  The design document should contain a draft JSON schema for this endpoint. 
