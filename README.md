@@ -42,7 +42,7 @@ Luke is UI Specialist
 
 Storm And Mamadou Business Logic
 
-Anne Scum Master
+Anne Scrum Master
 
 ## 7.	github.com project link - Anne
 ## 8.	 A scrum or kanban board, using GitHub projects or something similar, that contains: - Anne
@@ -61,7 +61,7 @@ Anne Scum Master
 	
 	The Product Owner/Scrum Master/DevOps person on your team should select stories to play for each sprint, from the list of available stories in the Product Backlog.
 	
-	As long as you have the tasks in GitHub Projects, under Projects, and associated with milestones, you do not need to repeat them in the design doc.  I'll look at  the Project and Milestone view to see them. 
+	As long as you have the tasks in GitHub Projects, under Projects, and associated with milestones, you do not need to repeat them in the design doc.  I'll look at  the Project 	       and Milestone view to see them. 
 	
 	Milestones for Milestone #2 and #3.   
 	
