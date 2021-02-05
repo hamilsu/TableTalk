@@ -29,25 +29,47 @@ Overall View of Storyboard
 
 
 ## 3.	Functional Requirements in the format (fill in the square brackets with your own words):  - Luke
+o As a User
+o I want to log in
+o So that I can use the app.
+Given a username and password field
+When I enter valid credentials
+Then I should be logged in
+-or-
+Given a username and password field
+When I enter invalid credentials
+Then I should be notified of the incorrect credentials
 
-o	As a [User]
+o As a user
+o I want to search for games
+o So that I can find the game I want to play
+Given a search field
+When I type in the name of a game
+Then I should be shown the correct game
+-or-
+Given a search field
+When I type in the name of an unknown game
+Then I should be shown a “Game Not Found” screen
 
-o	I want [Feature]
+o As a user
+o I want to add friends
+o So that I can interact with them
+Given an “add” button on other people’s profiles
+When I tap the button
+Then it should send an invite to them to be friends
 
-o	So that I can [Do something]
+o As a user
+o I want to create groups of friends (rooms)
+o So that I can plan group events
+Given a screen for rooms
+When I tap “Create Room” button
+Then I should create a room and add friends to it
+-or-
+Given a list of friends
+When I tap “Add to room” button on friend’s profile
+Then I should choose from my list of rooms or create a new room to add my friend to
 
-o	Elaborate each of these with several examples in this format: 
 
-  Given [Prerequisite]
-  
-  When [Series of Steps]
-  
-  Then [Expected Result]
-  
-o	Notes: 
-   You should have a few (2-4) requirements.
-   
-   The Given/When/Then syntax will form the basis of our unit tests. Consider different cases: good data, bad data, multiple sets of data, etc.
    
 ## 4.	Class Diagram – Mamadou
 
