@@ -116,7 +116,7 @@ o	UML-based class diagram.
 o	Class Diagram Description: One or two lines for each class to describe use of interfaces,  classes and resources, interfaces, etc. Don't worry about putting 
 more than a few words to each class; this does not need to be thorough.
 
-![Class Diagram](C:\Users\konem\IdeaProjects\images\ClassDiagram.PNG)
+![Class Diagram](images/Class%20Diagram.PNG)
 
 ## 5.	JSON Schema – Mamadou
 
