@@ -123,7 +123,77 @@ more than a few words to each class; this does not need to be thorough.
 o	 Your project should have an REST endpoint that emits JSON, which another group can consume.  The design document should contain a draft JSON schema for this endpoint. 
 
   You can create a schema from a Java class at QuickType.io.  This Java class is typically a DTO.  That's all you need at this point.
-  
+
+{
+"Location":[
+{
+"id": "http://json-schema.org/geo",
+"$schema": "http://json-schema.org/draft-06/schema#",
+"description": "A geographical coordinate",
+"type": "object",
+"properties": {
+"latitude": {
+"type": "number"
+},
+"longitude": {
+"type": "number"
+}
+}
+},
+{
+"Person":[
+{
+"Register()": " ",
+"Login()": " ",
+"Profile()": " ",
+"viewProfile": " "
+},
+{
+"Register User":[
+{
+"firstName": "",
+"lastName": "",
+"userName": "",
+"password": "",
+"displayProfile": ""
+},
+{
+"Login":[
+{
+"Verify()":"",
+"printErrorMessage":""
+},
+{
+"Games":[
+{
+"gameName": "",
+"gameDate": ""
+},
+{
+"GameListing":[
+{
+"Create()":"",
+"Edit": "",
+"View":""
+},
+{
+"GameDescription":[
+{
+"gameName()":"",
+"username":"",
+"date": "",
+"time": "",
+"gameLocation":""
+}]
+}]
+}]   
+}]    
+}]
+}]
+
+}]
+}
+ 
 ## 6.	Scrum Roles, and who will fill those roles
 
 Luke is UI Specialist
