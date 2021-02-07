@@ -30,6 +30,8 @@ Overall View of Storyboard
 
 
 ## 3.	Functional Requirements:
+
+1. 
 o As a User
 
 o I want to log in
@@ -51,6 +53,7 @@ When I enter invalid credentials
 Then I should be notified of the incorrect credentials
 
 
+2.
 
 o As a user
 
@@ -73,6 +76,7 @@ When I type in the name of an unknown game
 Then I should be shown a “Game Not Found” screen
 
 
+3.
 
 o As a user
 
@@ -87,6 +91,7 @@ When I tap the button
 Then it should send an invite to them to be friends
 
 
+4.
 
 o As a user
 
