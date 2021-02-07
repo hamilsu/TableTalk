@@ -122,7 +122,7 @@ o	UML-based class diagram.
 o	Class Diagram Description: One or two lines for each class to describe use of interfaces,  classes and resources, interfaces, etc. Don't worry about putting 
 more than a few words to each class; this does not need to be thorough.
 
-![Class Diagram](images/Class%20Diagram.PNG)
+![Class Diagram](images/ClassDiagram.PNG)
 
 ## 5.	JSON Schema: 
 
@@ -130,66 +130,89 @@ o	 Your project should have an REST endpoint that emits JSON, which another grou
 
   You can create a schema from a Java class at QuickType.io.  This Java class is typically a DTO.  That's all you need at this point.
 
+
 {
-"Location":[
+"Room":[
+
 {
-"id": "http://json-schema.org/geo",
-"$schema": "http://json-schema.org/draft-06/schema#",
-"description": "A geographical coordinate",
-"type": "object",
-"properties": {
-"latitude": {
-"type": "number"
+
+"createInviteLink": "The user will be able to create a link which they can use to invite friends",
+
+"Roomname": "Friends can find your room using the name if they don't have a link",
+
+"Gamelibrary": "have  the games that you can choose from",
+
+"gameDescrption": " What the game is about who created the room"
+
 },
-"longitude": {
-"type": "number"
-}
-}
-},
+
 {
+
 "Person":[
 {
-"Register()": " ",
-"Login()": " ",
-"Profile()": " ",
-"viewProfile": " "
+
+"Register()": "user doesn't have an account need to register",
+
+"Login()": "after registering users can login",
+
+"Profile()": "users can have acces to their profile ",
+
+"viewProfile": " they can have a viewprofile where they can change name"
 },
 {
+
 "Register User":[
 {
-"firstName": "",
-"lastName": "",
-"userName": "",
-"password": "",
-"displayProfile": ""
+
+"firstName": "user registering entering the firstname",
+
+"lastName": "user registering entering the lastname",
+
+"userName": " users also have to create a username that they can use to login",
+
+"password": " password for authentication",
+
+"displayProfile": " Displaying the user profile"
 },
 {
 "Login":[
 {
-"Verify()":"",
-"printErrorMessage":""
+
+"Verify()":"Make sure that the user authentications are correct",
+
+"printErrorMessage":" send error message if authentication is wrong"
 },
 {
 "Games":[
 {
-"gameName": "",
-"gameDate": ""
+
+"gameName": "have a game name when created",
+
+"gameDate": "date is needed for games"
 },
 {
 "GameListing":[
 {
-"Create()":"",
-"Edit": "",
-"View":""
+
+"Create()":" have to create a room",
+
+"Edit": "user can also edit the room",
+
+"View":"users can see the room they created"
 },
 {
 "GameDescription":[
 {
-"gameName()":"",
-"username":"",
-"date": "",
-"time": "",
-"gameLocation":""
+
+"gameName()":"when someone else is looking at the room",
+
+"username":"need to know who created the room",
+
+"date": "date of the game",
+
+"time": "time of the game",
+
+"gameRoom":"name of gameroom"
 }]
 }]
 }]   
@@ -197,8 +220,7 @@ o	 Your project should have an REST endpoint that emits JSON, which another grou
 }]
 }]
 
-}]
-}
+}]}
  
 ## 6.	Scrum Roles:
 
