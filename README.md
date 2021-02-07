@@ -202,28 +202,10 @@ Storm And Mamadou Business Logic
 
 Anne Scrum Master
 
-## 7.	github.com project link - Anne
-## 8.	 A scrum or kanban board, using GitHub projects or something similar, that contains: - Anne
+## 7.	github.com project link
+## 8.	 A scrum or kanban board, using GitHub projects or something similar, that contains:
 
-	A milestone for Milestone #1, with tasks associated.
-	
-	Projects for Milestone #1.
-	
-	Tasked stores for Projects for Milestone #1. 
-	
-	Sprint tasks that elaborate on the stories, with technical details.
-	
-	These should be technical tasks that are required to implement one of the features.
-	
-	You only need to task out stories for Sprint #1.  You can task out stories for Sprint #2 and #3 as we get closer to those sprints. 
-	
-	The Product Owner/Scrum Master/DevOps person on your team should select stories to play for each sprint, from the list of available stories in the Product Backlog.
-	
-	As long as you have the tasks in GitHub Projects, under Projects, and associated with milestones, you do not need to repeat them in the design doc.  I'll look at  the Project 	       and Milestone view to see them. 
-	
-	Milestones for Milestone #2 and #3.   
-	
-	You do not need projects or tasks for these later milestones. You can define those in planning meetings, as we get closer.
+	[Project Board](https://github.com/hamilsu/TableTalk/projects)
 	
 ## 9) Link to Teams for your 8:00 Sunday group stand up. 
 Wednesdays @ 8:30 on Teams.
