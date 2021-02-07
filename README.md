@@ -1,6 +1,7 @@
-## 1.	Introduction: - Storm 
+## 1.	Introduction:
 TableTalk a collaboration tool for organizing board game nights with other people. It could be for personal or business use, as many game stores love to host tournaments or other get-togethers. The website would link with the BoardgameAtlas Api (Links to an external site.) which is a REST API which would allows for the integration of search features for boardgame rules and pictures so that users could make lobbies based on the game(s) they have and/or want to play.
-## 2.	Storyboard (screen mockups): Invision, FluidUI, Powerpoint, paint, etc... will be fine. - Storm
+
+## 2.	Storyboard:
 
 
 Start Page
@@ -28,7 +29,7 @@ Overall View of Storyboard
 
 
 
-## 3.	Functional Requirements in the format (fill in the square brackets with your own words):  - Luke
+## 3.	Functional Requirements:
 o As a User
 
 o I want to log in
@@ -109,7 +110,7 @@ Then I should choose from my list of rooms or create a new room to add my friend
 
 
    
-## 4.	Class Diagram – Mamadou
+## 4.	Class Diagram: 
 
 o	UML-based class diagram.
 
@@ -118,7 +119,7 @@ more than a few words to each class; this does not need to be thorough.
 
 ![Class Diagram](images/Class%20Diagram.PNG)
 
-## 5.	JSON Schema – Mamadou
+## 5.	JSON Schema: 
 
 o	 Your project should have an REST endpoint that emits JSON, which another group can consume.  The design document should contain a draft JSON schema for this endpoint. 
 
@@ -194,19 +195,21 @@ o	 Your project should have an REST endpoint that emits JSON, which another grou
 }]
 }
  
-## 6.	Scrum Roles, and who will fill those roles
+## 6.	Scrum Roles:
 
-Luke is UI Specialist
+UI Specialist: Luke Greeley
 
-Storm And Mamadou Business Logic
+Business Logic Specialists: Storm Hamilton & Mamadou Kone
 
-Anne Scrum Master
+Scrum Master: Anne Catherwood
 
-## 7.	github.com project link
+## 7.	GitHub Project Link:
+
 [Repository](https://github.com/hamilsu/TableTalk)
-## 8.	 A scrum or kanban board, using GitHub projects or something similar, that contains:
+
+## 8.	 Scrum Board (AKA Github Projects):
 [Project Board](https://github.com/discospiff/SpringBootMicroservicesWithIntelliJIDEA/milestone/1)
 
-## 9) Link to Teams for your 8:00 Sunday group stand up. 
-Wednesdays @ 8:30 on Teams.
+## 9) Standup Time and Link:  
+[Wednesdays @ 8:30 on Teams](https://teams.microsoft.com/l/meetup-join/19%3ameeting_OThiNzkzYTgtYzAzMi00YzBkLTk2ZWUtYzMyYjFjYmRkNDM2%40thread.v2/0?context=%7b%22Tid%22%3a%22f5222e6c-5fc6-48eb-8f03-73db18203b63%22%2c%22Oid%22%3a%220a98679a-f018-43b0-b7ad-e6cb6d74f56d%22%7d) 
 
