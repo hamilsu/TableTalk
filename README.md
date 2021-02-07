@@ -117,12 +117,22 @@ Then I should choose from my list of rooms or create a new room to add my friend
    
 ## 4.	Class Diagram: 
 
-o	UML-based class diagram.
-
-o	Class Diagram Description: One or two lines for each class to describe use of interfaces,  classes and resources, interfaces, etc. Don't worry about putting 
-more than a few words to each class; this does not need to be thorough.
-
 ![Class Diagram](images/ClassDiagram.PNG)
+
+
+Person: Class assigned to each visitor of the website, allows them to register, login, and make changes to their profile.
+Register User: Temporary class used to register a new user account.
+
+Login: Temporary class used to verify and login a user, as well as print an error message
+
+GameLibrary: Personal library of games, allows for the creation of new games in the library. The editing of the games currently in the library, and a standard view for the library.
+
+GameDescription: Basically the individual games themselves. Allows for the name of the game, the user it belongs to, and tie ins to specific rooms if applicable at the time. See Room for more info
+
+Games: More of a shorthand for each room the user is currently a part of. Gives access to the name, date, time, and member list of each room that has already been set up.
+
+Room: Synonymous with a lobby. Main class that controls the collaboration aspects of each game night. Allows for invite links to be generated, the list of games available in the host’s library, and a description of the of game night the host wants to plan.
+
 
 ## 5.	JSON Schema: 
 
@@ -142,7 +152,7 @@ o	 Your project should have an REST endpoint that emits JSON, which another grou
 
 "Gamelibrary": "have  the games that you can choose from",
 
-"gameDescrption": " What the game is about who created the room"
+"gameDescription": " What the game is about who created the room"
 
 },
 
