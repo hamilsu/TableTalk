@@ -204,9 +204,8 @@ Anne Scrum Master
 
 ## 7.	github.com project link
 ## 8.	 A scrum or kanban board, using GitHub projects or something similar, that contains:
+[Project Board](https://github.com/discospiff/SpringBootMicroservicesWithIntelliJIDEA/milestone/1)
 
-	[Project Board](https://github.com/hamilsu/TableTalk/projects)
-	
 ## 9) Link to Teams for your 8:00 Sunday group stand up. 
 Wednesdays @ 8:30 on Teams.
 
