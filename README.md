@@ -203,6 +203,7 @@ Storm And Mamadou Business Logic
 Anne Scrum Master
 
 ## 7.	github.com project link
+[Repository](https://github.com/hamilsu/TableTalk)
 ## 8.	 A scrum or kanban board, using GitHub projects or something similar, that contains:
 [Project Board](https://github.com/discospiff/SpringBootMicroservicesWithIntelliJIDEA/milestone/1)
 
