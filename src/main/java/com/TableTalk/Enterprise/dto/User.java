@@ -18,7 +18,7 @@ public @Data class User {
     private String password;
 
 
-    @OneToMany (mappedBy = "username")
+    //@OneToMany (mappedBy = "username")
     private ProfilePicture photo; //Might be part of firebase
 
 }
