@@ -1,4 +1,4 @@
-package com.TableTalk.Enterprise;
+package com.tabletalk.enterprise;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
