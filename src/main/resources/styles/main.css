@@ -1,0 +1,15 @@
+.centered {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card {
+    width: 18rem;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.svg {
+    width: 24px;
+    vertical-align: bottom;
+}
