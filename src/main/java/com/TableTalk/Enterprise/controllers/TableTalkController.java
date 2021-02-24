@@ -1,4 +1,4 @@
-package com.tabletalk.Enterprise.controllers;
+package com.TableTalk.Enterprise.controllers;
 
 import com.tabletalk.Enterprise.dto.Game;
 import com.tabletalk.Enterprise.services.ITableTalkService;
@@ -32,6 +32,7 @@ import java.util.List;
             return "start";
         }
 
+<<<<<<< HEAD
 
         @GetMapping("/games")
         public ResponseEntity searchGames(@RequestParam(value="searchTerm", required = true, defaultValue = "None") String searchTerm){
@@ -48,6 +49,12 @@ import java.util.List;
 
         }
 
+=======
+        @RequestMapping("/availability")
+        public String availability() {
+            return "availability";
+        }
+>>>>>>> WIP
     }
 
 
