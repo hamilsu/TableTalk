@@ -1,9 +1,9 @@
-package com.tabletalk.Enterprise.services;
+package com.TableTalk.Enterprise.services;
 
-import com.tabletalk.Enterprise.dao.IGameDAO;
-import com.tabletalk.Enterprise.dto.Game;
-import com.tabletalk.Enterprise.dto.Room;
-import com.tabletalk.Enterprise.dto.User;
+import com.TableTalk.Enterprise.dao.IGameDAO;
+import com.TableTalk.Enterprise.dto.Game;
+import com.TableTalk.Enterprise.dto.Room;
+import com.TableTalk.Enterprise.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

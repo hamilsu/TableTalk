@@ -1,7 +1,7 @@
-/*package com.tabletalk.enterprise.dao;
+/*package com.TableTalk.Enterprise.dao;
 
-import com.tabletalk.enterprise.dto.Room;
-import com.tabletalk.enterprise.dto.User;
+import com.TableTalk.Enterprise.dto.Room;
+import com.TableTalk.Enterprise.dto.User;
 
 import java.util.*;
 import java.util.stream.Stream;

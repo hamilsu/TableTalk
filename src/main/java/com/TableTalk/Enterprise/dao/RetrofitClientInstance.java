@@ -1,4 +1,4 @@
-package com.tabletalk.Enterprise.dao;
+package com.TableTalk.Enterprise.dao;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

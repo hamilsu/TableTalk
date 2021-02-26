@@ -1,4 +1,4 @@
-package com.tabletalk.Enterprise.dto;
+package com.TableTalk.Enterprise.dto;
 
 
 /*

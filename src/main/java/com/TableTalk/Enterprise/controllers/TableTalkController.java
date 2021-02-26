@@ -1,13 +1,14 @@
 package com.TableTalk.Enterprise.controllers;
 
-import com.tabletalk.Enterprise.dto.Game;
-import com.tabletalk.Enterprise.services.ITableTalkService;
+import com.TableTalk.Enterprise.services.ITableTalkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import com.TableTalk.Enterprise.dto.Game;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +21,7 @@ import java.util.List;
 
 
     @Autowired
-    ITableTalkService tableTalkService;
+    ITableTalkService TableTalkService;
         /**
          * Handle the root (/) endpoint and return a start page.
          * @return
@@ -32,12 +33,10 @@ import java.util.List;
             return "start";
         }
 
-<<<<<<< HEAD
-
         @GetMapping("/games")
         public ResponseEntity searchGames(@RequestParam(value="searchTerm", required = true, defaultValue = "None") String searchTerm){
             try{
-                List<Game> games = tableTalkService.fetchGamesByName(searchTerm);
+                List<Game> games = TableTalkService.fetchGamesByName(searchTerm);
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
                 return new ResponseEntity(games,headers,HttpStatus.OK);
@@ -49,12 +48,18 @@ import java.util.List;
 
         }
 
-=======
         @RequestMapping("/availability")
-        public String availability() {
+        public String availability(Model model) {
+            // testing proof of concept
+            Game game = new Game();
+            game.setName("UNO");
+            game.setId("1");
+            model.addAttribute(game);
+
+
+
             return "availability";
         }
->>>>>>> WIP
     }
 
 

@@ -1,6 +1,6 @@
-package com.tabletalk.Enterprise.dao;
+package com.TableTalk.Enterprise.dao;
 
-import com.tabletalk.Enterprise.dto.Game;
+import com.TableTalk.Enterprise.dto.Game;
 import org.springframework.stereotype.Repository;
 import retrofit2.Call;
 import retrofit2.Response;
