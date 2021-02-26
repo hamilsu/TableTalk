@@ -14,9 +14,6 @@
 </head>
 <body>
 <div class="navbar navbar-dark bg-primary">
-    <!--    <h1 class="centered">-->
-    <!--        <a class="navbar-brand" href="/">Table Talk</a>-->
-    <!--    </h1>-->
     <img class="centered" src="/logo.png">
 </div>
 <nav class="navbar navbar-dark bg-primary">
@@ -64,9 +61,10 @@
             <h2>Pick the days and times you'd be available to play</h2>
         </div>
         <div class="form-row">
-            <div class="form-group col-md-2">
-                <select id="inputState" class="form-control">
-                    <option selected>S!!!unday</option>
+            <div class="form-group col-md-2
+">
+                <select id="inputState" class=" selectpicker">
+                    <option selected>Sunday</option>
                     <option>Monday</option>
                     <option>Tuesday</option>
                     <option>Wednesday</option>
@@ -97,15 +95,17 @@
                 </select>
             </div>
 
-            <div class="form-group col-md-2">
+            <div id="checkbox" class="form-group col-md-2">
                 <div class=" text-center custom-control custom-checkbox checkbox-xl">
                     <input type="checkbox" class="custom-control-input" id="checkbox-3" checked="">
-                    <label class="custom-control-label" for="checkbox-3">Repeat?</label>
+                    <label class="custom-control-label" for="checkbox-3"><strong>Repeat?</strong></label>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Add Another Time</button>
         </div>
     </form>
+
+
 </div>
 </div>
 
@@ -117,6 +117,9 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 <style>
+    p{
+        margin-top: .5em;
+    }
     #timeSheet{
         margin: auto;
         width: 50%;
@@ -125,6 +128,12 @@
     }
     .btn{
         width: 100em;
+    }
+    #checkbox{
+        top:-15px;
+    }
+    .page-header{
+        margin-bottom: 2em
     }
     .checkbox-xl .custom-control-label::before,
     .checkbox-xl .custom-control-label::after {
