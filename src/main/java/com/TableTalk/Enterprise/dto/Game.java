@@ -7,7 +7,7 @@ import lombok.Data;
 public @Data class Game {
     private String gameId;
     private String url;
-    private String name;
+    private String gameName;
     private int min_Players;
     private int max_Players;
     private int min_gameTime;
