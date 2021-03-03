@@ -8,10 +8,6 @@ public @Data class Game {
     private String gameId;
     private String url;
     private String gameName;
-    private int min_Players;
-    private int max_Players;
-    private int min_gameTime;
-    private int max_gameTime;
     private String thumb_url;
     private String picture_url;
     private String description;
