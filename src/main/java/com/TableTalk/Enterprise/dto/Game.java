@@ -5,7 +5,7 @@ package com.tabletalk.enterprise.dto;
 import lombok.Data;
 
 public @Data class Game {
-    private String id;
+    private String game_id;
     private String url;
     private String name;
     private int min_Players;
