@@ -1,29 +1,30 @@
 package com.tabletalk.enterprise.services;
 
+import com.tabletalk.enterprise.dao.IGameDAO;
 import com.tabletalk.enterprise.dao.IRoomServiceDAO;
 import com.tabletalk.enterprise.dto.Game;
-import com.tabletalk.enterprise.dto.ProfilePicture;
 import com.tabletalk.enterprise.dto.Room;
 import com.tabletalk.enterprise.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
 
 @Service
-public class RoomServiceStub implements IRoomService {
+public class TableTalkServiceStub implements ITableTalkService {
 
     @Autowired
     private IRoomServiceDAO roomServiceDAO;
 
+    @Autowired
+    private IGameDAO gameDAO;
 
-    public RoomServiceStub() {
+    public TableTalkServiceStub() {
 
     }
 
-    public RoomServiceStub(IRoomServiceDAO roomServiceDAO){
+    public TableTalkServiceStub(IRoomServiceDAO roomServiceDAO){
         this.roomServiceDAO = roomServiceDAO;
     }
 
@@ -45,5 +46,10 @@ public class RoomServiceStub implements IRoomService {
     @Override
     public List<Room> fetchAvailableRooms(User user) {
         return null;
+    }
+
+    @Override
+    public List<Game> fetchGamesByName(String name) throws IOException {
+        return gameDAO.fetchGamesByName(name);
     }
 }

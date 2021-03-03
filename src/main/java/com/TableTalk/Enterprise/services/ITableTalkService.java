@@ -9,10 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
-public interface IRoomService {
-    /*
-
-     */
+public interface ITableTalkService {
 
     Room fetchById(String id);
 
@@ -21,4 +18,6 @@ public interface IRoomService {
     Room saveRoom(Room room) throws Exception;
 
     List<Room> fetchAvailableRooms(User user);
+
+    List<Game> fetchGamesByName(String name) throws IOException;
 }
