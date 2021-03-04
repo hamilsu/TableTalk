@@ -13,19 +13,12 @@ import java.util.List;
 @Service
 public class TableTalkServiceStub implements ITableTalkService {
 
-    //  @Autowired
-    // private IRoomServiceDAO roomServiceDAO;
-
     @Autowired
     private IGameDAO gameDAO;
 
     public TableTalkServiceStub() {
 
     }
-
-    // public TableTalkServiceStub(IRoomServiceDAO roomServiceDAO){
-    //   this.roomServiceDAO = roomServiceDAO;
-    // }
 
     @Override
     public Room fetchById(String id) {
