@@ -51,7 +51,7 @@ import java.util.List;
         @RequestMapping("/availability")
         public String availability(Model model) {
             // testing proof of concept
-            Game game = new Game();
+            com.tabletalk.enterprise.dto.Game game = new com.tabletalk.enterprise.dto.Game();
             game.setName("UNO");
             game.setId("1");
             model.addAttribute(game);
