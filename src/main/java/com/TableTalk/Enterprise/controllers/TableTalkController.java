@@ -154,7 +154,7 @@ import org.springframework.web.bind.annotation.*;
     public String availability(Model model) {
         // testing proof of concept
         com.TableTalk.Enterprise.dto.Game game = new com.TableTalk.Enterprise.dto.Game();
-        game.setName("UNO");
+        game.setGameName("UNO");
         game.setId("1");
         model.addAttribute(game);
 
