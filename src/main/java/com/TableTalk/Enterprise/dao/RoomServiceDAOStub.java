@@ -1,10 +1,9 @@
-/*package com.TableTalk.Enterprise.dao;
+package com.TableTalk.Enterprise.dao;
 
 import com.TableTalk.Enterprise.dto.Room;
-import com.TableTalk.Enterprise.dto.User;
 
-import java.util.*;
-import java.util.stream.Stream;
+import java.util.HashMap;
+import java.util.List;
 
 public class RoomServiceDAOStub implements IRoomServiceDAO {
 
@@ -12,30 +11,39 @@ public class RoomServiceDAOStub implements IRoomServiceDAO {
 
 
     @Override
-    public Room fetch(String id) {
-
+    public void fetch(String id) {
+        //TODO: Add your function code
     }
 
     @Override
     public void delete(String id) throws Exception {
-
+        //TODO: Add your function code
     }
 
     @Override
     public Room save(Room room) throws Exception {
         String roomID = room.getId();
-        allRooms.put(roomID,room);
+        allRooms.put(roomID, room);
         return room;
     }
 
     @Override
     public List<Room> fetchAvailableRooms(String userID) {
-        List<Room> availableRooms = new ArrayList<Room>();
-        Set<String> roomIDSet = allRooms.keySet();
-        Stream<String> roomStream = roomIDSet.stream();
-        roomStream.
+        return null;
+    }
 
+//    @Override
+//    public List<Room> fetchAvailableRooms(String userID) {
+//        List<Room> availableRooms = new ArrayList<Room>();
+//        Set<String> roomIDSet = allRooms.keySet();
+//        Stream<String> roomStream = roomIDSet.stream();
+//        roomStream.
+//
+//    }
+
+    @Override
+    public void addPlayer(String userID) {
+        //TODO: Add your function code
     }
 }
 
- */

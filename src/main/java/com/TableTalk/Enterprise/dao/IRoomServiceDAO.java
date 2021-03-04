@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IRoomServiceDAO {
 
-    Room fetch(String id);
+    void fetch(String id);
 
     void delete(String id) throws Exception;
 

@@ -6,5 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface IDAOGame {
+
     List<Game> fetchGameNames(String names) throws IOException;
+
 }
