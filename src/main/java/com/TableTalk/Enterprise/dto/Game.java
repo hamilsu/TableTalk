@@ -1,18 +1,53 @@
-package com.tabletalk.enterprise.dto;
+package com.tabletalk.Enterprise.dto;
 
-//This class might be unnecessary as it's essentially just a refined version of what we get from the BoardGameAtlas (BGA) API. We could probably just cut most of the information out on our end and make it link to the BGA page.
 
+
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
+import java.util.List;
+import java.util.Map;
+
 public @Data class Game {
+    @SerializedName("id")
     private String id;
+    @SerializedName("url")
     private String url;
+    @SerializedName("name")
     private String name;
-    private int min_Players;
-    private int max_Players;
-    private int min_gameTime;
-    private int max_gameTime;
-    private String thumb_url;
-    private String picture_url;
+    @SerializedName("year_published")
+    private Integer yearPublished;
+    @SerializedName("min_players")
+    private Integer minPlayers;
+    @SerializedName("max_players")
+    private Integer maxPlayers;
+    @SerializedName("min_playtime")
+    private Integer minPlaytime;
+    @SerializedName("max_playtime")
+    private Integer maxPlaytime;
+    @SerializedName("min_age")
+    private Integer minAge;
+    @SerializedName("description")
     private String description;
+    @SerializedName("thumb_url")
+    private String thumbUrl;
+    @SerializedName("image_url")
+    private String imageUrl;
+    @SerializedName("primary_publisher")
+    private Map<String,String> primaryPublisher;
+    @SerializedName("primary_designer")
+    private Map<String,String> primaryDesigner;
+    @SerializedName("rules_url")
+    private String rulesUrl;
+    @SerializedName("official_url")
+    private String officialUrl;
+    @SerializedName("num_user_ratings")
+    private Integer numUserRatings;
+    @SerializedName("average_user_rating")
+    private Double averageUserRating;
+    @SerializedName("tags")
+    private List<String> tags = null;
+    @SerializedName("description_preview")
+    private String descriptionPreview;
+
 }

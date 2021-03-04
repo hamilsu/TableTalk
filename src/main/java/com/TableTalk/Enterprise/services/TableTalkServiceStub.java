@@ -1,4 +1,54 @@
-package com.tabletalk.enterprise.services;
+package com.tabletalk.Enterprise.services;
 
-public class TableTalkServiceStub {
+import com.tabletalk.Enterprise.dao.IGameDAO;
+import com.tabletalk.Enterprise.dto.Game;
+import com.tabletalk.Enterprise.dto.Room;
+import com.tabletalk.Enterprise.dto.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.util.List;
+
+@Service
+public class TableTalkServiceStub implements ITableTalkService {
+
+  //  @Autowired
+   // private IRoomServiceDAO roomServiceDAO;
+
+    @Autowired
+    private IGameDAO gameDAO;
+
+    public TableTalkServiceStub() {
+
+    }
+
+   // public TableTalkServiceStub(IRoomServiceDAO roomServiceDAO){
+     //   this.roomServiceDAO = roomServiceDAO;
+   // }
+
+    @Override
+    public Room fetchById(String id) {
+        return null;
+    }
+
+    @Override
+    public void deleteRoom(String id) throws Exception {
+
+    }
+
+    @Override
+    public Room saveRoom(Room room) throws Exception {
+        return null;
+    }
+
+    @Override
+    public List<Room> fetchAvailableRooms(User user) {
+        return null;
+    }
+
+    @Override
+    public List<Game> fetchGamesByName(String name) throws IOException {
+        return gameDAO.fetchGamesByName(name);
+    }
 }
