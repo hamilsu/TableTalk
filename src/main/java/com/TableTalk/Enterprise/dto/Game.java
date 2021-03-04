@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 public @Data class Game {
-    @SerializedName("id")
+    @SerializedName("game_id")
     private String id;
-    @SerializedName("url")
-    private String url;
-    @SerializedName("name")
-    private String name;
+    @SerializedName("game_url")
+    private String gameUrl;
+    @SerializedName("game_name")
+    private String gameName;
     @SerializedName("year_published")
     private Integer yearPublished;
     @SerializedName("min_players")
