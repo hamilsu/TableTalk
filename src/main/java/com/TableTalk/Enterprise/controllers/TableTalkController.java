@@ -1,168 +1,119 @@
 package com.TableTalk.Enterprise.controllers;
 
+import com.TableTalk.Enterprise.dto.Game;
+import com.TableTalk.Enterprise.dto.ProfilePicture;
+import com.TableTalk.Enterprise.dto.Room;
+import com.TableTalk.Enterprise.dto.User;
 import com.TableTalk.Enterprise.services.ITableTalkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import com.TableTalk.Enterprise.dto.Game;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
 import java.io.IOException;
 import java.util.List;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-    public class TableTalkController {
-
+public class TableTalkController {
 
     @Autowired
     ITableTalkService TableTalkService;
-        /**
-         * Handle the root (/) endpoint and return a start page.
-         * @return
-         */
 
+    /**
+     * Handle the root (/) endpoint and return a start page.
+     *
+     * @return
+     */
     @RequestMapping("/")
     public String index() {
         return "start";
     }
 
     @GetMapping("/Game")
-
-    public ResponseEntity fetchGames(){
-
+    public ResponseEntity fetchGames() {
         return new ResponseEntity(HttpStatus.OK);
-
     }
 
-    @PostMapping(value="/Game", consumes="application/jason", produces="application/json")
-
-    public com.TableTalk.Enterprise.dto.Game createGame(@RequestBody com.TableTalk.Enterprise.dto.Game game){
-
+    @PostMapping(value = "/Game", consumes = "application/json", produces = "application/json")
+    public com.TableTalk.Enterprise.dto.Game createGame(@RequestBody Game game) {
         return game;
-
     }
 
     @DeleteMapping("/Game")
-
-    public ResponseEntity deleteGames(){
-
+    public ResponseEntity deleteGames() {
         return new ResponseEntity(HttpStatus.OK);
-
     }
-
-
 
     @GetMapping("/ProfilePicture")
-
-    public ResponseEntity fetchProfilePicture(){
-
+    public ResponseEntity fetchProfilePicture() {
         return new ResponseEntity(HttpStatus.OK);
-
     }
 
-    @PostMapping(value="/ProfilePicture", consumes="application/jason", produces="application/json")
-
-    public com.TableTalk.Enterprise.dto.ProfilePicture createProfilePicture(@RequestBody com.TableTalk.Enterprise.dto.ProfilePicture profilePicture){
-
+    @PostMapping(value = "/ProfilePicture", consumes = "application/json", produces = "application/json")
+    public com.TableTalk.Enterprise.dto.ProfilePicture createProfilePicture(@RequestBody ProfilePicture profilePicture) {
         return profilePicture;
-
     }
 
     @DeleteMapping("/ProfilePicture")
-
-    public ResponseEntity deleteProfilePicture(){
-
+    public ResponseEntity deleteProfilePicture() {
         return new ResponseEntity(HttpStatus.OK);
-
     }
-
-
 
     @GetMapping("/Room")
-
-    public ResponseEntity fetchRooms(){
-
+    public ResponseEntity fetchRooms() {
         return new ResponseEntity(HttpStatus.OK);
-
     }
 
-    @PostMapping(value="/Room", consumes="application/jason", produces="application/json")
-
-    public com.TableTalk.Enterprise.dto.Room createRoom(@RequestBody com.TableTalk.Enterprise.dto.Room room){
-
+    @PostMapping(value = "/Room", consumes = "application/json", produces = "application/json")
+    public com.TableTalk.Enterprise.dto.Room createRoom(@RequestBody Room room) {
         return room;
-
     }
 
     @DeleteMapping("/Room")
-
-    public ResponseEntity deleteRoom(){
-
+    public ResponseEntity deleteRoom() {
         return new ResponseEntity(HttpStatus.OK);
-
     }
-
-
 
     @GetMapping("/User")
-
-    public ResponseEntity fetchUsers(){
-
+    public ResponseEntity fetchUsers() {
         return new ResponseEntity(HttpStatus.OK);
-
     }
 
-    @PostMapping(value="/User", consumes="application/jason", produces="application/json")
-
-    public com.TableTalk.Enterprise.dto.User createUser(@RequestBody com.TableTalk.Enterprise.dto.User user){
-
+    @PostMapping(value = "/User", consumes = "application/json", produces = "application/json")
+    public com.TableTalk.Enterprise.dto.User createUser(@RequestBody User user) {
         return user;
-
     }
 
     @DeleteMapping("/User")
-
-    public ResponseEntity deleteUser(){
-
+    public ResponseEntity deleteUser() {
         return new ResponseEntity(HttpStatus.OK);
-
     }
 
     @GetMapping("/games")
-    public ResponseEntity searchGames(@RequestParam(value="searchTerm", required = true, defaultValue = "None") String searchTerm){
-        try{
+    public ResponseEntity searchGames(@RequestParam(value = "searchTerm", required = true, defaultValue = "None") String searchTerm) {
+        try {
             List<Game> games = TableTalkService.fetchGamesByName(searchTerm);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            return new ResponseEntity(games,headers,HttpStatus.OK);
-        }
-        catch (IOException e){
+            return new ResponseEntity(games, headers, HttpStatus.OK);
+        } catch (IOException e) {
             e.printStackTrace();
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 
     @RequestMapping("/availability")
     public String availability(Model model) {
         // testing proof of concept
-        com.TableTalk.Enterprise.dto.Game game = new com.TableTalk.Enterprise.dto.Game();
+        Game game = new Game();
         game.setName("UNO");
         game.setId("1");
         model.addAttribute(game);
-
-
-
         return "availability";
     }
 }

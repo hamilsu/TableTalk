@@ -1,6 +1,7 @@
 package com.TableTalk.Enterprise.services;
 
 import com.TableTalk.Enterprise.dao.IGameDAO;
+import com.TableTalk.Enterprise.dao.IRoomServiceDAO;
 import com.TableTalk.Enterprise.dto.Game;
 import com.TableTalk.Enterprise.dto.Room;
 import com.TableTalk.Enterprise.dto.User;
@@ -13,8 +14,8 @@ import java.util.List;
 @Service
 public class TableTalkServiceStub implements ITableTalkService {
 
-    //  @Autowired
-    // private IRoomServiceDAO roomServiceDAO;
+    @Autowired
+    private IRoomServiceDAO roomServiceDAO;
 
     @Autowired
     private IGameDAO gameDAO;
@@ -23,9 +24,9 @@ public class TableTalkServiceStub implements ITableTalkService {
 
     }
 
-    // public TableTalkServiceStub(IRoomServiceDAO roomServiceDAO){
-    //   this.roomServiceDAO = roomServiceDAO;
-    // }
+    public TableTalkServiceStub(IRoomServiceDAO roomServiceDAO){
+       this.roomServiceDAO = roomServiceDAO;
+     }
 
     @Override
     public Room fetchById(String id) {
