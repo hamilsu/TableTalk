@@ -1,10 +1,7 @@
 package com.TableTalk.Enterprise.dto;
 
-
-
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
-
 import java.util.List;
 import java.util.Map;
 
