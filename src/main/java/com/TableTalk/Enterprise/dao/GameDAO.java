@@ -15,7 +15,7 @@ import java.util.Map;
 @Repository
 public class GameDAO implements IGameDAO{
 
-    private static String CLIENT_ID = "ASOEAibUZS";
+    final private static String CLIENT_ID = "ASOEAibUZS";
 
     @Override
     public List<Game> fetchGamesByName(String inputtedName) throws IOException {
