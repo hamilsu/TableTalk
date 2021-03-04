@@ -1,6 +1,6 @@
-package com.tabletalk.enterprise.dao;
+package com.tabletalk.Enterprise.dao;
 
-import com.tabletalk.enterprise.dto.Game;
+import com.tabletalk.Enterprise.dto.Game;
 
 import java.io.IOException;
 import java.util.List;

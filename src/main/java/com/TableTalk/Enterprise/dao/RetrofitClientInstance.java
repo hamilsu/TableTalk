@@ -1,4 +1,4 @@
-package com.tabletalk.enterprise.dao;
+package com.tabletalk.Enterprise.dao;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -7,7 +7,7 @@ public class RetrofitClientInstance {
 
     private static Retrofit retrofit;
     private static String BASE_URL = "https://api.boardgameatlas.com";
-    private static String clientID = "ASOEAibUZS";
+
 
     public static Retrofit getRetrofitInstance(){
         if (retrofit == null){
@@ -16,5 +16,6 @@ public class RetrofitClientInstance {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
+        return retrofit;
     }
 }

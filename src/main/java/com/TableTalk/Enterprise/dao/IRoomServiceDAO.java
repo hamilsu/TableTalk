@@ -1,7 +1,6 @@
-package com.tabletalk.enterprise.dao;
+package com.tabletalk.Enterprise.dao;
 
-import com.tabletalk.enterprise.dto.Room;
-import com.tabletalk.enterprise.dto.User;
+import com.tabletalk.Enterprise.dto.Room;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.tabletalk.enterprise.dto;
+package com.tabletalk.Enterprise.dto;
 
 import lombok.Data;
 

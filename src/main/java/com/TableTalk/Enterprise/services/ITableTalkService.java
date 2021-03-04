@@ -1,10 +1,8 @@
-package com.tabletalk.enterprise.services;
+package com.tabletalk.Enterprise.services;
 
-import com.tabletalk.enterprise.dto.Game;
-import com.tabletalk.enterprise.dto.ProfilePicture;
-import com.tabletalk.enterprise.dto.Room;
-import com.tabletalk.enterprise.dto.User;
-import org.springframework.web.multipart.MultipartFile;
+import com.tabletalk.Enterprise.dto.Game;
+import com.tabletalk.Enterprise.dto.Room;
+import com.tabletalk.Enterprise.dto.User;
 
 import java.io.IOException;
 import java.util.List;

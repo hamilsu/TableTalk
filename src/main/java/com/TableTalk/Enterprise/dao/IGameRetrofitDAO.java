@@ -1,15 +1,16 @@
-package com.tabletalk.enterprise.dao;
+package com.tabletalk.Enterprise.dao;
 
-import com.tabletalk.enterprise.dto.Game;
+import com.tabletalk.Enterprise.dto.Game;
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IGameRetrofitDAO {
 
-    @GET("https://api.boardgameatlas.com/api/search")
-    Call<List<Game>> getGamesByName(@Query("name") String name);
+    @GET("/api/search")
+    Call<List<Game>> getGamesByName(@QueryMap Map<String,String> filter);
 
 }

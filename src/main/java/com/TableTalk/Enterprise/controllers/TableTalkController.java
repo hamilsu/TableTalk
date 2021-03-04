@@ -1,12 +1,26 @@
-package com.tabletalk.enterprise.controllers;
+package com.tabletalk.Enterprise.controllers;
 
+import com.tabletalk.Enterprise.dto.Game;
+import com.tabletalk.Enterprise.services.ITableTalkService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-    @Controller
+import java.io.IOException;
+import java.util.List;
+
+@Controller
     public class TableTalkController {
 
+
+    @Autowired
+    ITableTalkService tableTalkService;
         /**
          * Handle the root (/) endpoint and return a start page.
          * @return
@@ -17,6 +31,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
         public String index() {
             return "start";
         }
+
+
+        @GetMapping("/games")
+        public ResponseEntity searchGames(@RequestParam(value="searchTerm", required = true, defaultValue = "None") String searchTerm){
+            try{
+                List<Game> games = tableTalkService.fetchGamesByName(searchTerm);
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_JSON);
+                return new ResponseEntity(games,headers,HttpStatus.OK);
+            }
+            catch (IOException e){
+                e.printStackTrace();
+                return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+        }
+
     }
 
 
