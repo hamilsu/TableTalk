@@ -6,16 +6,14 @@ import lombok.Data;
 
    // @Entity
    // @Table(name="photos")
-    public @Data
-    class ProfilePicture {
-
-       // @Id
+    public @Data class ProfilePicture {
+      //  @Id
       //  @GeneratedValue
         private int photoId;
         private String path;
         private String fileName;
 
-     //   @ToString.Exclude
+      //  @ToString.Exclude
       //  @ManyToOne
       //  @JoinColumn(name="username")
         private com.TableTalk.Enterprise.dto.User user;

@@ -1,10 +1,7 @@
 package com.TableTalk.Enterprise.dto;
-
-
 /*
-This could all be completely wrong considering I'm unfamiliar with firebase.
+ *This could all be completely wrong considering I'm unfamiliar with firebase.
  */
-
 import lombok.Data;
 
 import java.util.List;
@@ -17,7 +14,6 @@ public @Data class User {
     //The following attributes are assumed as part of firebase and may be redundant to add here.
     private String username;
     private String password;
-
 
     //@OneToMany (mappedBy = "username")
     private ProfilePicture photo; //Might be part of firebase
