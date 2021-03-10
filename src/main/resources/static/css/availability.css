@@ -1,0 +1,30 @@
+p{
+    margin-top: .5em;
+}
+#timeSheet{
+    margin: auto;
+    width: 50%;
+    /*border: 3px solid green; debug only*/
+    padding-right: 20%;
+    padding-left: 20%;
+}
+.btn{
+    width: 100em;
+}
+#checkbox{
+    top:-15px;
+}
+.page-header{
+    margin-bottom: 2em
+}
+.checkbox-xl .custom-control-label::before,
+.checkbox-xl .custom-control-label::after {
+    top: 1.2rem;
+    width: 1.85rem;
+    height: 1.85rem;
+}
+
+.checkbox-xl .custom-control-label {
+    padding-top: 23px;
+    padding-left: 10px;
+}

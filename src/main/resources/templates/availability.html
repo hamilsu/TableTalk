@@ -1,12 +1,12 @@
-<!doctype html>
-<html xmlns:th="https://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="/main.css" type="text/css"/>
-
+    <link rel="stylesheet" href="/main.css" type="text/css">
+    <link rel="stylesheet" href="/availability.css" type="text/css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -14,15 +14,15 @@
 </head>
 <body>
 <!-- testing proof of concept -->
-<p th:text="${game}" />
+<p th:text="${game}"></p>
 <div th:replace="fragments/navbar :: navbar">
 </div>
 
 
 
-<div id="timeSheet" >
+<div id="timeSheet">
     <div>
-    <form >
+    <form>
         <div class="page-header">
             <h2>Pick the days and times you'd be available to play</h2>
         </div>
@@ -81,35 +81,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
-<style>
-    p{
-        margin-top: .5em;
-    }
-    #timeSheet{
-        margin: auto;
-        width: 50%;
-        /*border: 3px solid green; debug only*/
-        padding: 10px;
-    }
-    .btn{
-        width: 100em;
-    }
-    #checkbox{
-        top:-15px;
-    }
-    .page-header{
-        margin-bottom: 2em
-    }
-    .checkbox-xl .custom-control-label::before,
-    .checkbox-xl .custom-control-label::after {
-        top: 1.2rem;
-        width: 1.85rem;
-        height: 1.85rem;
-    }
-
-    .checkbox-xl .custom-control-label {
-        padding-top: 23px;
-        padding-left: 10px;
-    }
-</style>
 </html>
