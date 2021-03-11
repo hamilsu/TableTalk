@@ -18,7 +18,7 @@ import lombok.Data;
      //   @ToString.Exclude
       //  @ManyToOne
       //  @JoinColumn(name="username")
-        private com.TableTalk.Enterprise.dto.User user;
+        private User user;
     }
 
 
