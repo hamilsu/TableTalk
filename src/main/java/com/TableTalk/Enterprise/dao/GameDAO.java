@@ -13,7 +13,7 @@ import java.util.Map;
 
 
 @Repository
-public class GameDAO implements IGameDAO{
+public class GameDAO implements IGameDAO {
 
     final private static String CLIENT_ID = "ASOEAibUZS";
 
@@ -21,11 +21,11 @@ public class GameDAO implements IGameDAO{
     public List<Game> fetchGamesByName(String inputtedName) throws IOException {
         Retrofit retrofitInstance = RetrofitClientInstance.getRetrofitInstance();
         IGameRetrofitDAO gameRetrofitDAO = retrofitInstance.create(IGameRetrofitDAO.class);
-        Map<String,String> filter = new HashMap<>();
-        filter.put("name",inputtedName);
-        filter.put("client_id",CLIENT_ID);
+        Map<String, String> filter = new HashMap<>();
+        filter.put("name", inputtedName);
+        filter.put("client_id", CLIENT_ID);
         System.out.println(filter);
-        Call<List<Game>> games =  gameRetrofitDAO.getGamesByName(filter);
+        Call<List<Game>> games = gameRetrofitDAO.getGamesByName(filter);
         Response<List<Game>> execute = games.execute();
         List<Game> gameList = execute.body();
         return gameList;

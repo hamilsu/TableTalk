@@ -11,6 +11,6 @@ import java.util.Map;
 public interface IGameRetrofitDAO {
 
     @GET("/api/search")
-    Call<List<Game>> getGamesByName(@QueryMap Map<String,String> filter);
+    Call<List<Game>> getGamesByName(@QueryMap Map<String, String> filter);
 
 }
