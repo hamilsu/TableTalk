@@ -7,15 +7,30 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
 @Repository
-public class GameDAO implements IGameDAO {
+public class GameDAOStub implements IGameDAO {
 
     final private static String CLIENT_ID = "ASOEAibUZS";
+
+    Map<String, Game> allGameEntries = new HashMap<String, Game>();
+
+    @Override
+    public Game save(Game game) throws Exception {
+        allGameEntries.put(game.getId(), game);
+        return game;
+    }
+
+    @Override
+    public List<Game> fetchAll() {
+        List<Game> returnGameEntries = new ArrayList(allGameEntries.values());
+        return returnGameEntries;
+    }
 
     @Override
     public List<Game> fetchGamesByName(String inputtedName) throws IOException {
