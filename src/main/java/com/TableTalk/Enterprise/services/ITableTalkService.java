@@ -1,5 +1,5 @@
 package com.TableTalk.Enterprise.services;
-import com.TableTalk.Enterprise.dto.Game;
+import com.TableTalk.Enterprise.dto.GameCollection;
 import com.TableTalk.Enterprise.dto.Room;
 import com.TableTalk.Enterprise.dto.User;
 
@@ -16,5 +16,5 @@ public interface ITableTalkService {
 
     List<Room> fetchAvailableRooms(User user);
 
-    List<Game> fetchGamesByName(String name) throws IOException;
+    GameCollection fetchGamesByName(String name) throws IOException;
 }

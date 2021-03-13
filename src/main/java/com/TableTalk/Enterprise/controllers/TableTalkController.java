@@ -1,5 +1,6 @@
 package com.TableTalk.Enterprise.controllers;
 
+import com.TableTalk.Enterprise.dto.GameCollection;
 import com.TableTalk.Enterprise.services.ITableTalkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-    public class TableTalkController {
+    public class    TableTalkController {
 
 
     @Autowired
@@ -141,7 +142,7 @@ import org.springframework.web.bind.annotation.*;
     @GetMapping("/games")
     public ResponseEntity searchGames(@RequestParam(value="searchTerm", required = true, defaultValue = "None") String searchTerm){
         try{
-            List<Game> games = TableTalkService.fetchGamesByName(searchTerm);
+            GameCollection games = TableTalkService.fetchGamesByName(searchTerm);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             return new ResponseEntity(games,headers,HttpStatus.OK);
