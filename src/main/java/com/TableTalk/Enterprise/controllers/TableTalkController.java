@@ -45,7 +45,7 @@ import org.springframework.web.bind.annotation.*;
 
     }
 
-    @PostMapping(value="/Game", consumes="application/jason", produces="application/json")
+    @PostMapping(value="/Game", consumes="application/json", produces="application/json")
 
     public com.TableTalk.Enterprise.dto.Game createGame(@RequestBody com.TableTalk.Enterprise.dto.Game game){
 
@@ -71,7 +71,7 @@ import org.springframework.web.bind.annotation.*;
 
     }
 
-    @PostMapping(value="/ProfilePicture", consumes="application/jason", produces="application/json")
+    @PostMapping(value="/ProfilePicture", consumes="application/json", produces="application/json")
 
     public com.TableTalk.Enterprise.dto.ProfilePicture createProfilePicture(@RequestBody com.TableTalk.Enterprise.dto.ProfilePicture profilePicture){
 
@@ -97,7 +97,7 @@ import org.springframework.web.bind.annotation.*;
 
     }
 
-    @PostMapping(value="/Room", consumes="application/jason", produces="application/json")
+    @PostMapping(value="/Room", consumes="application/json", produces="application/json")
 
     public com.TableTalk.Enterprise.dto.Room createRoom(@RequestBody com.TableTalk.Enterprise.dto.Room room){
 
@@ -123,7 +123,7 @@ import org.springframework.web.bind.annotation.*;
 
     }
 
-    @PostMapping(value="/User", consumes="application/jason", produces="application/json")
+    @PostMapping(value="/User", consumes="application/json", produces="application/json")
 
     public com.TableTalk.Enterprise.dto.User createUser(@RequestBody com.TableTalk.Enterprise.dto.User user){
 
