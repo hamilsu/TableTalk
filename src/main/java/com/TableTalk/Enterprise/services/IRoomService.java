@@ -1,6 +1,7 @@
 package com.TableTalk.Enterprise.services;
 
 import com.TableTalk.Enterprise.dto.Room;
+import com.TableTalk.Enterprise.dto.User;
 
 import java.util.List;
 
@@ -23,4 +24,11 @@ public interface IRoomService {
      * @return a collection of all room entries.
      */
     List<Room> fetchAll();
+
+    void delete(Integer id) throws Exception;
+
+
+    Room fetchById(Integer id);
+
+    List<Room> fetchUserRooms(User user);
 }

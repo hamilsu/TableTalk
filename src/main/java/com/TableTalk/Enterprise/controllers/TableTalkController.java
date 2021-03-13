@@ -4,6 +4,7 @@ import com.TableTalk.Enterprise.dto.Game;
 import com.TableTalk.Enterprise.dto.ProfilePicture;
 import com.TableTalk.Enterprise.dto.Room;
 import com.TableTalk.Enterprise.dto.User;
+import com.TableTalk.Enterprise.services.IRoomService;
 import com.TableTalk.Enterprise.services.ITableTalkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -24,6 +25,9 @@ public class TableTalkController {
 
     @Autowired
     ITableTalkService TableTalkService;
+
+    @Autowired
+    IRoomService roomService;
 
     /**
      * Handle the root (/) endpoint and return a start page.
@@ -46,7 +50,7 @@ public class TableTalkController {
 
     @PostMapping(value = "/Game", consumes = "application/json", produces = "application/json")
 
-    public Game createGame(@RequestBody com.TableTalk.Enterprise.dto.Game game) {
+    public Game createGame(@RequestBody Game game) {
 
         return game;
 
@@ -85,21 +89,34 @@ public class TableTalkController {
 
     }
 
+    @RequestMapping("/room")
+    public String room(Model model) {
+        Room room = new Room();
+        room.setGameId(1);
+        room.setAddress("101 Main St");
 
-    @GetMapping("/Room")
-
-    public ResponseEntity fetchRooms() {
-
-        return new ResponseEntity(HttpStatus.OK);
-
+        model.addAttribute(room);
+        return "room";
     }
 
-    @PostMapping(value = "/Room", consumes = "application/json", produces = "application/json")
+    @RequestMapping("/createRoom")
+    public String createRoom(Room room) throws Exception {
+        Room newRoom = null;
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        try {
+            newRoom = roomService.save(room);
+        }catch (Exception e) {
 
-    public Room createRoom(@RequestBody Room room) {
+            return "room";
+        }
+       return "room";
+    }
 
-        return room;
-
+    @GetMapping("/allRooms")
+    @ResponseBody
+    public List<Room> fetchAllRooms(){
+        return roomService.fetchAll();
     }
 
     @DeleteMapping("/Room")
@@ -154,7 +171,7 @@ public class TableTalkController {
         // testing proof of concept
         Game game = new Game();
         game.setName("UNO");
-        game.setId("1");
+        game.setId(1);
         model.addAttribute(game);
 
 

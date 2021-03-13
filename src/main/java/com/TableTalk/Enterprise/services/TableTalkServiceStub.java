@@ -27,25 +27,7 @@ public class TableTalkServiceStub implements ITableTalkService {
     //   this.roomServiceDAO = roomServiceDAO;
     // }
 
-    @Override
-    public Room fetchById(String id) {
-        return null;
-    }
 
-    @Override
-    public void deleteRoom(String id) throws Exception {
-
-    }
-
-    @Override
-    public Room saveRoom(Room room) throws Exception {
-        return null;
-    }
-
-    @Override
-    public List<Room> fetchAvailableRooms(User user) {
-        return null;
-    }
 
     @Override
     public List<Game> fetchGamesByName(String name) throws IOException {

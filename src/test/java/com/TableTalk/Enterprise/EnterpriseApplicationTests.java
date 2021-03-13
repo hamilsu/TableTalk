@@ -95,7 +95,7 @@ class EnterpriseApplicationTests {
      * Validate that the RoomService can save and return Room Entries.
      */
     @Test
-    void verifyAddAndRemoveRoomEntries() throws Exception {
+    void verifyCreateRoomEntries() throws Exception {
         String address =  "101 sunshine way";
 
         Room room = new Room();

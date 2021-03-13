@@ -6,11 +6,13 @@ import java.util.List;
 
 public interface IRoomServiceDAO {
 
-    Room fetch(String id);
+    Room fetch(Integer id);
 
-    void delete(String id) throws Exception;
+    void delete(Integer id) throws Exception;
 
     Room save(Room room) throws Exception;
+
+    List<Room> fetchAll();
 
     List<Room> fetchAvailableRooms(String userID);
 

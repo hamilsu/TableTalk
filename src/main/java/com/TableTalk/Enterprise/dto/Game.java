@@ -10,7 +10,7 @@ import java.util.Map;
 public @Data
 class Game {
     @SerializedName("id")
-    private String id;
+    private Integer id;
     @SerializedName("url")
     private String url;
     @SerializedName("name")

@@ -2,13 +2,16 @@ package com.TableTalk.Enterprise.services;
 
 import com.TableTalk.Enterprise.dao.IRoomDAO;
 import com.TableTalk.Enterprise.dto.Room;
+import com.TableTalk.Enterprise.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class RoomServiceStub implements IRoomService {
+
     @Autowired
     private IRoomDAO roomDAO;
 
@@ -27,7 +30,23 @@ public class RoomServiceStub implements IRoomService {
     }
 
     @Override
+    @Cacheable("rooms")
     public List<Room> fetchAll() {
         return roomDAO.fetchAll();
+    }
+
+    @Override
+    public void delete(Integer id) throws Exception {
+
+    }
+
+    @Override
+    public Room fetchById(Integer id) {
+        return null;
+    }
+
+    @Override
+    public List<Room> fetchUserRooms(User user) {
+        return null;
     }
 }

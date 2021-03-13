@@ -18,7 +18,7 @@ public class GameDAOStub implements IGameDAO {
 
     final private static String CLIENT_ID = "ASOEAibUZS";
 
-    Map<String, Game> allGameEntries = new HashMap<String, Game>();
+    Map<Integer, Game> allGameEntries = new HashMap<Integer, Game>();
 
     @Override
     public Game save(Game game) throws Exception {
