@@ -1,7 +1,7 @@
 package com.TableTalk.Enterprise.services;
 
 import com.TableTalk.Enterprise.dao.IGameDAO;
-import com.TableTalk.Enterprise.dto.Game;
+import com.TableTalk.Enterprise.dto.GameCollection;
 import com.TableTalk.Enterprise.dto.Room;
 import com.TableTalk.Enterprise.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class TableTalkServiceStub implements ITableTalkService {
     }
 
     @Override
-    public List<Game> fetchGamesByName(String name) throws IOException {
+    public GameCollection fetchGamesByName(String name) throws IOException {
         return gameDAO.fetchGamesByName(name);
     }
 }
