@@ -5,12 +5,13 @@ import com.TableTalk.Enterprise.dto.Game;
 import java.util.List;
 
 /**
- * Game Service handles business logic for Game DTOs.
+ * Game Service handles business logic for Game DTO.
  */
 public interface IGameService {
 
     /**
      * Save a new Game
+     *
      * @param game the entry to save.
      * @return
      */
@@ -18,6 +19,7 @@ public interface IGameService {
 
     /**
      * Return all game entries.
+     *
      * @return a collection of all game entries.
      */
     List<Game> fetchAll();
