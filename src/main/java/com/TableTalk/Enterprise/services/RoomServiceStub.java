@@ -30,7 +30,6 @@ public class RoomServiceStub implements IRoomService {
     }
 
     @Override
-    @Cacheable("rooms")
     public List<Room> fetchAll() {
         return roomDAO.fetchAll();
     }

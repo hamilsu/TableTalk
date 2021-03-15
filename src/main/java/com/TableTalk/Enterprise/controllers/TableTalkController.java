@@ -94,20 +94,21 @@ public class TableTalkController {
         Room room = new Room();
         room.setGameId(1);
         room.setAddress("101 Main St");
+        room.setId(1);
 
         model.addAttribute(room);
         return "room";
     }
 
-    @RequestMapping("/createRoom")
-    public String createRoom(Room room) throws Exception {
+    @RequestMapping("/saveRoom")
+    public String saveRoom(Room room) throws Exception {
         Room newRoom = null;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         try {
             newRoom = roomService.save(room);
         }catch (Exception e) {
-
+            e.printStackTrace();
             return "room";
         }
        return "room";
