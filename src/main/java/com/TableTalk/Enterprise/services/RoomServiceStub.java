@@ -4,6 +4,7 @@ import com.TableTalk.Enterprise.dao.IRoomDAO;
 import com.TableTalk.Enterprise.dto.Room;
 import com.TableTalk.Enterprise.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -34,9 +35,11 @@ public class RoomServiceStub implements IRoomService {
         return roomDAO.fetchAll();
     }
 
-    @Override
-    public void delete(Integer id) throws Exception {
 
+    @Override
+    @CacheEvict(value="room", key="#id")
+    public void delete(Integer id) throws Exception {
+        roomDAO.delete(id);
     }
 
     @Override

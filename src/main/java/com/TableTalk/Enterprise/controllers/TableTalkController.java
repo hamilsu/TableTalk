@@ -6,6 +6,8 @@ import com.TableTalk.Enterprise.dto.Room;
 import com.TableTalk.Enterprise.dto.User;
 import com.TableTalk.Enterprise.services.IRoomService;
 import com.TableTalk.Enterprise.services.ITableTalkService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,6 +31,7 @@ public class TableTalkController {
     @Autowired
     IRoomService roomService;
 
+    Logger log = LoggerFactory.getLogger(this.getClass());
     /**
      * Handle the root (/) endpoint and return a start page.
      *
@@ -120,11 +123,17 @@ public class TableTalkController {
         return roomService.fetchAll();
     }
 
-    @DeleteMapping("/Room")
-
-    public ResponseEntity deleteRoom() {
-
-        return new ResponseEntity(HttpStatus.OK);
+    @DeleteMapping("/delete/id/")
+    public ResponseEntity deleteRoom(@PathVariable("id") int id) {
+        log.debug("Entering delete room endpoint");
+        try {
+            roomService.delete(id);
+            log.info("Room with ID " + id + " was deleted.");
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            log.error("Unable to delete room with ID: " + id + ", message: " + e.getMessage(), e);
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
     }
 

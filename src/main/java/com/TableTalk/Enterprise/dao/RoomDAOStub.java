@@ -26,4 +26,10 @@ public class RoomDAOStub  implements IRoomDAO {
         return returnRoomEntries;
     }
 
+    @Override
+    public void delete(int id) {
+        allRoomEntries.remove(id);
+
+    }
+
 }
