@@ -1,6 +1,7 @@
 package com.TableTalk.Enterprise.dao;
 
 import com.TableTalk.Enterprise.dto.Game;
+import com.TableTalk.Enterprise.dto.GameCollection;
 import org.springframework.stereotype.Repository;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -33,16 +34,16 @@ public class GameDAOStub implements IGameDAO {
     }
 
     @Override
-    public List<Game> fetchGamesByName(String inputtedName) throws IOException {
+    public GameCollection fetchGamesByName(String inputtedName) throws IOException {
         Retrofit retrofitInstance = RetrofitClientInstance.getRetrofitInstance();
         IGameRetrofitDAO gameRetrofitDAO = retrofitInstance.create(IGameRetrofitDAO.class);
         Map<String, String> filter = new HashMap<>();
         filter.put("name", inputtedName);
         filter.put("client_id", CLIENT_ID);
         System.out.println(filter);
-        Call<List<Game>> games = gameRetrofitDAO.getGamesByName(filter);
-        Response<List<Game>> execute = games.execute();
-        List<Game> gameList = execute.body();
+        Call<GameCollection> games =  gameRetrofitDAO.getGamesByName(filter);
+        Response<GameCollection> execute = games.execute();
+        GameCollection gameList = execute.body();
         return gameList;
     }
 }

@@ -5,6 +5,7 @@ import com.TableTalk.Enterprise.dto.ProfilePicture;
 import com.TableTalk.Enterprise.dto.Room;
 import com.TableTalk.Enterprise.dto.User;
 import com.TableTalk.Enterprise.services.IRoomService;
+import com.TableTalk.Enterprise.dto.GameCollection;
 import com.TableTalk.Enterprise.services.ITableTalkService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,6 @@ import java.util.List;
 
 @Controller
 public class TableTalkController {
-
 
     @Autowired
     ITableTalkService TableTalkService;
@@ -51,7 +51,7 @@ public class TableTalkController {
 
     }
 
-    @PostMapping(value = "/Game", consumes = "application/json", produces = "application/json")
+    @PostMapping(value="/Game", consumes="application/json", produces="application/json")
 
     public Game createGame(@RequestBody Game game) {
 
@@ -76,7 +76,7 @@ public class TableTalkController {
 
     }
 
-    @PostMapping(value = "/ProfilePicture", consumes = "application/json", produces = "application/json")
+    @PostMapping(value="/ProfilePicture", consumes="application/json", produces="application/json")
 
     public ProfilePicture createProfilePicture(@RequestBody com.TableTalk.Enterprise.dto.ProfilePicture profilePicture) {
 
@@ -173,7 +173,7 @@ public class TableTalkController {
 
     }
 
-    @PostMapping(value = "/User", consumes = "application/json", produces = "application/json")
+    @PostMapping(value="/User", consumes="application/json", produces="application/json")
 
     public User createUser(@RequestBody com.TableTalk.Enterprise.dto.User user) {
 
@@ -190,9 +190,9 @@ public class TableTalkController {
     }
 
     @GetMapping("/games")
-    public ResponseEntity searchGames(@RequestParam(value = "searchTerm", required = true, defaultValue = "None") String searchTerm) {
-        try {
-            List<Game> games = TableTalkService.fetchGamesByName(searchTerm);
+    public ResponseEntity searchGames(@RequestParam(value="searchTerm", required = true, defaultValue = "None") String searchTerm){
+        try{
+            GameCollection games = TableTalkService.fetchGamesByName(searchTerm);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             return new ResponseEntity(games, headers, HttpStatus.OK);
