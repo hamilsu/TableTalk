@@ -1,5 +1,4 @@
-
-<div th:fragment="navbar">
+<div th:fragment="navbar" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="navbar navbar-dark bg-primary">
         <a class="centered" href="/">
         <img class="centered" src="/logo.png">
@@ -7,37 +6,27 @@
     </div>
     <nav class="navbar navbar-dark bg-primary">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
+            <div id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-layout">
+                    <li class="nav-item nav-li">
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Games</a>
+                    <li class="nav-item nav-li">
+                        <a class="nav-link" href="availability">Availability</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <li class="nav-item dropdown nav-li">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Profile
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">My Profile</a></li>
-                            <li><a class="dropdown-item" href="/friends">My Friends</a></li>
-                            <li><a class="dropdown-item" href="/rooms">My Rooms</a></li>
+                        <ul class="dropdown-menu absolute-dropdown" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="profile">My Profile</a></li>
+                            <li><a class="dropdown-item" href="friends">My Friends</a></li>
+                            <li><a class="dropdown-item" href="rooms">My Rooms</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/settings">Settings</a></li>
+                            <li><a class="dropdown-item" href="settings">Settings</a></li>
                         </ul>
                     </li>
                 </ul>
-            </div>
-            <div style="margin-left: -48em;">
-                <a href="availability">
-                    <button type="button" class="btn btn-light">
-                        See Availability
-                    </button>
-                </a>
             </div>
             <div>
                 <form class="d-flex">

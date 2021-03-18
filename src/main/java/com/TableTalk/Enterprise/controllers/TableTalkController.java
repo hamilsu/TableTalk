@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-    public class    TableTalkController {
+    public class TableTalkController {
 
 
     @Autowired

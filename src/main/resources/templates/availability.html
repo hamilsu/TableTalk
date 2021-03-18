@@ -13,10 +13,10 @@
     <title>TableTalk</title>
 </head>
 <body>
-<!-- testing proof of concept -->
-<p th:text="${game}" />
 <div th:replace="fragments/navbar :: navbar">
 </div>
+<!-- testing proof of concept -->
+<p th:text="${game}" />
 
 
 
@@ -66,7 +66,7 @@
                     <label class="custom-control-label" for="checkbox-3"><strong>Repeat?</strong></label>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Add Another Time</button>
+            <button type="submit" class="btn btn-primary add-time-btn">Add Another Time</button>
         </div>
     </form>
 
@@ -79,37 +79,6 @@
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 </body>
-<style>
-    p{
-        margin-top: .5em;
-    }
-    #timeSheet{
-        margin: auto;
-        width: 50%;
-        /*border: 3px solid green; debug only*/
-        padding: 10px;
-    }
-    .btn{
-        width: 100em;
-    }
-    #checkbox{
-        top:-15px;
-    }
-    .page-header{
-        margin-bottom: 2em
-    }
-    .checkbox-xl .custom-control-label::before,
-    .checkbox-xl .custom-control-label::after {
-        top: 1.2rem;
-        width: 1.85rem;
-        height: 1.85rem;
-    }
-
-    .checkbox-xl .custom-control-label {
-        padding-top: 23px;
-        padding-left: 10px;
-    }
-</style>
 </html>
