@@ -37,14 +37,16 @@ public class RoomServiceStub implements IRoomService {
 
 
     @Override
-    @CacheEvict(value="room", key="#id")
     public void delete(Integer id) throws Exception {
         roomDAO.delete(id);
     }
 
     @Override
     public Room fetchById(Integer id) {
-        return null;
+        Room room = new Room();
+        room.setId(101);
+        room.setAddress("2 West st");
+        return room;
     }
 
     @Override

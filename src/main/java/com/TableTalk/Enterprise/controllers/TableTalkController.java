@@ -92,7 +92,7 @@ public class TableTalkController {
 
     }
 
-    @RequestMapping("/room")
+    @RequestMapping("/displayRoom")
     public String room(Model model) {
         Room room = new Room();
         room.setGameId(1);
@@ -103,11 +103,52 @@ public class TableTalkController {
         return "room";
     }
 
+    @GetMapping("/room")
+    @ResponseBody
+    public List<Room> fetchAllRooms(){
+       return roomService.fetchAll();
+    }
+
+    @GetMapping("/room/{id}/")
+    public ResponseEntity fetchRoomById(@PathVariable("id") Integer id) {
+        Room foundRoom = roomService.fetchById(id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity(foundRoom, headers, HttpStatus.OK);
+    }
+
+    @PostMapping(value="/room", consumes="application/json", produces="application/json")
+    public Room createRoom(Room room) throws Exception {
+        Room newRoom = null;
+        roomService.save(room);
+        return room;
+    }
+
+    @DeleteMapping("/delete/{id}/")
+    public ResponseEntity deleteRoom(@PathVariable("id") Integer id) {
+        log.debug("Entering delete room endpoint");
+        try {
+            roomService.delete(id);
+            log.info("Room with ID " + id + " was deleted.");
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            log.error("Unable to delete room with ID: " + id + ", message: " + e.getMessage(), e);
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+
+    /**
+     * Populates room from HTML with Thymelead.
+     * Send DTO to service
+     * @param room
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/saveRoom")
     public String saveRoom(Room room) throws Exception {
         Room newRoom = null;
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
         try {
             newRoom = roomService.save(room);
         }catch (Exception e) {
@@ -119,22 +160,8 @@ public class TableTalkController {
 
     @GetMapping("/allRooms")
     @ResponseBody
-    public List<Room> fetchAllRooms(){
+    public List<Room> displayAllRooms(){
         return roomService.fetchAll();
-    }
-
-    @DeleteMapping("/delete/id/")
-    public ResponseEntity deleteRoom(@PathVariable("id") int id) {
-        log.debug("Entering delete room endpoint");
-        try {
-            roomService.delete(id);
-            log.info("Room with ID " + id + " was deleted.");
-            return new ResponseEntity(HttpStatus.OK);
-        } catch (Exception e) {
-            log.error("Unable to delete room with ID: " + id + ", message: " + e.getMessage(), e);
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
     }
 
 

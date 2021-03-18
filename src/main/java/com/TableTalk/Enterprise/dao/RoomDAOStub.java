@@ -27,7 +27,7 @@ public class RoomDAOStub  implements IRoomDAO {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
         allRoomEntries.remove(id);
 
     }
