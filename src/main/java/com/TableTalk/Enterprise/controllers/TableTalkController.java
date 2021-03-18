@@ -4,9 +4,9 @@ import com.TableTalk.Enterprise.dto.Game;
 import com.TableTalk.Enterprise.dto.ProfilePicture;
 import com.TableTalk.Enterprise.dto.Room;
 import com.TableTalk.Enterprise.dto.User;
+import com.TableTalk.Enterprise.services.IGameService;
 import com.TableTalk.Enterprise.services.IRoomService;
 import com.TableTalk.Enterprise.dto.GameCollection;
-import com.TableTalk.Enterprise.services.ITableTalkService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ import java.util.List;
 public class TableTalkController {
 
     @Autowired
-    ITableTalkService TableTalkService;
+    IGameService gameService;
 
     @Autowired
     IRoomService roomService;
@@ -44,11 +44,8 @@ public class TableTalkController {
     }
 
     @GetMapping("/Game")
-
     public ResponseEntity fetchGames() {
-
         return new ResponseEntity(HttpStatus.OK);
-
     }
 
     @PostMapping(value="/Game", consumes="application/json", produces="application/json")
@@ -192,7 +189,7 @@ public class TableTalkController {
     @GetMapping("/games")
     public ResponseEntity searchGames(@RequestParam(value="searchTerm", required = true, defaultValue = "None") String searchTerm){
         try{
-            GameCollection games = TableTalkService.fetchGamesByName(searchTerm);
+            GameCollection games = gameService.fetchGamesByName(searchTerm);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             return new ResponseEntity(games, headers, HttpStatus.OK);
@@ -208,13 +205,11 @@ public class TableTalkController {
         // testing proof of concept
         Game game = new Game();
         game.setName("UNO");
-        game.setId(1);
+        game.setId("1");
         model.addAttribute(game);
 
 
         return "availability";
     }
 }
-
-
 

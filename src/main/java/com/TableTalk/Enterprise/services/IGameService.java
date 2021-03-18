@@ -1,7 +1,9 @@
 package com.TableTalk.Enterprise.services;
 
 import com.TableTalk.Enterprise.dto.Game;
+import com.TableTalk.Enterprise.dto.GameCollection;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -23,4 +25,5 @@ public interface IGameService {
      * @return a collection of all game entries.
      */
     List<Game> fetchAll();
+    GameCollection fetchGamesByName(String name) throws IOException;
 }
