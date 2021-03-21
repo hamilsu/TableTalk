@@ -43,13 +43,21 @@ public class TableTalkController {
         return "start";
     }
 
-    @GetMapping("/Game")
-    public ResponseEntity fetchGames() {
-        return new ResponseEntity(HttpStatus.OK);
+    @GetMapping("/games")
+    public ResponseEntity searchGames(@RequestParam(value="searchTerm", required = true, defaultValue = "None") String searchTerm){
+        try{
+            GameCollection games = gameService.fetchGamesByName(searchTerm);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity(games, headers, HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @PostMapping(value="/Game", consumes="application/json", produces="application/json")
-
     public Game createGame(@RequestBody Game game) {
 
         return game;
@@ -121,7 +129,7 @@ public class TableTalkController {
         return room;
     }
 
-    @DeleteMapping("/delete/{id}/")
+    @DeleteMapping("/deleteRoom/{id}/")
     public ResponseEntity deleteRoom(@PathVariable("id") Integer id) {
         log.debug("Entering delete room endpoint");
         try {
@@ -137,7 +145,7 @@ public class TableTalkController {
 
 
     /**
-     * Populates room from HTML with Thymelead.
+     * Populates room from HTML with Thymeleaf.
      * Send DTO to service
      * @param room
      * @return
@@ -153,12 +161,6 @@ public class TableTalkController {
             return "room";
         }
        return "room";
-    }
-
-    @GetMapping("/allRooms")
-    @ResponseBody
-    public List<Room> displayAllRooms(){
-        return roomService.fetchAll();
     }
 
 
@@ -186,19 +188,6 @@ public class TableTalkController {
 
     }
 
-    @GetMapping("/games")
-    public ResponseEntity searchGames(@RequestParam(value="searchTerm", required = true, defaultValue = "None") String searchTerm){
-        try{
-            GameCollection games = gameService.fetchGamesByName(searchTerm);
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            return new ResponseEntity(games, headers, HttpStatus.OK);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-    }
 
     @RequestMapping("/availability")
     public String availability(Model model) {
