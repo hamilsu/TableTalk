@@ -4,11 +4,19 @@ package com.TableTalk.Enterprise.dto;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.List;
 import java.util.Map;
 
+@Entity
 public @Data
 class Game {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
     @SerializedName("id")
     private String id;
     @SerializedName("url")
