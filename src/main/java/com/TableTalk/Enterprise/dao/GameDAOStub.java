@@ -8,23 +8,38 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
 @Repository
-public class GameDAO implements IGameDAO{
+public class GameDAOStub implements IGameDAO {
 
-    private static String CLIENT_ID = "ASOEAibUZS";
+    final private static String CLIENT_ID = "ASOEAibUZS";
+
+    Map<String, Game> allGameEntries = new HashMap<String, Game>();
+
+    @Override
+    public Game save(Game game) throws Exception {
+        allGameEntries.put(game.getId(), game);
+        return game;
+    }
+
+    @Override
+    public List<Game> fetchAll() {
+        List<Game> returnGameEntries = new ArrayList(allGameEntries.values());
+        return returnGameEntries;
+    }
 
     @Override
     public GameCollection fetchGamesByName(String inputtedName) throws IOException {
         Retrofit retrofitInstance = RetrofitClientInstance.getRetrofitInstance();
         IGameRetrofitDAO gameRetrofitDAO = retrofitInstance.create(IGameRetrofitDAO.class);
-        Map<String,String> filter = new HashMap<>();
-        filter.put("name",inputtedName);
-        filter.put("client_id",CLIENT_ID);
+        Map<String, String> filter = new HashMap<>();
+        filter.put("name", inputtedName);
+        filter.put("client_id", CLIENT_ID);
         System.out.println(filter);
         Call<GameCollection> games =  gameRetrofitDAO.getGamesByName(filter);
         Response<GameCollection> execute = games.execute();

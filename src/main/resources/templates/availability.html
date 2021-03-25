@@ -5,75 +5,76 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <link rel="stylesheet" href="/availability.css" type="text/css"/>
     <link rel="stylesheet" href="/main.css" type="text/css"/>
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <title>TableTalk</title>
 </head>
 <body>
+<!-- testing proof of concept -->
 <div th:replace="fragments/navbar :: navbar">
 </div>
 <!-- testing proof of concept -->
 <p th:text="${game}" />
 
 
-
-<div id="timeSheet" >
+<div id="timeSheet">
     <div>
-    <form >
-        <div class="page-header">
-            <h2>Pick the days and times you'd be available to play</h2>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-2">
-                <select id="day" class=" form-control">
-                    <option selected>Sunday</option>
-                    <option>Monday</option>
-                    <option>Tuesday</option>
-                    <option>Wednesday</option>
-                    <option>Thursday</option>
-                    <option>Friday</option>
-                    <option>Saturday</option>
-                </select>
+        <form>
+            <div class="page-header">
+                <h2>Pick the days and times you'd be available to play</h2>
             </div>
-            <div class="form-group col-md-2">
-                <select id="period1" class="form-control">
-                    <option selected>After</option>
-                    <option>Before</option>
-                </select>
-            </div>
-            <div class="form-group col-md-2">
-                <select id="time1" class="form-control">
-                    <option selected>12:00pm</option>
-                    <option>1:00pm</option>
-                </select>
-            </div>
-            <div class="form-group col-md-2">
-                <p class="align-middle text-center">AND</p>
-            </div>
-            <div class="form-group col-md-2">
-                <select id="time2" class="form-control">
-                    <option selected>10:00pm</option>
-                    <option>1:00pm</option>
-                </select>
-            </div>
-
-            <div id="checkbox" class="form-group col-md-2">
-                <div class=" text-center custom-control custom-checkbox checkbox-xl">
-                    <input type="checkbox" class="custom-control-input" id="checkbox-3" checked="">
-                    <label class="custom-control-label" for="checkbox-3"><strong>Repeat?</strong></label>
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <select id="day" class=" form-control">
+                        <option selected>Sunday</option>
+                        <option>Monday</option>
+                        <option>Tuesday</option>
+                        <option>Wednesday</option>
+                        <option>Thursday</option>
+                        <option>Friday</option>
+                        <option>Saturday</option>
+                    </select>
                 </div>
+                <div class="form-group col-md-2">
+                    <select id="period1" class="form-control">
+                        <option selected>After</option>
+                        <option>Before</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <select id="time1" class="form-control">
+                        <option selected>12:00pm</option>
+                        <option>1:00pm</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <p class="align-middle text-center">AND</p>
+                </div>
+                <div class="form-group col-md-2">
+                    <select id="time2" class="form-control">
+                        <option selected>10:00pm</option>
+                        <option>1:00pm</option>
+                    </select>
+                </div>
+
+                <div id="checkbox" class="form-group col-md-2">
+                    <div class=" text-center custom-control custom-checkbox checkbox-xl">
+                        <input type="checkbox" class="custom-control-input" id="checkbox-3" checked="">
+                        <label class="custom-control-label" for="checkbox-3"><strong>Repeat?</strong></label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary add-time-btn">Add Another Time</button>
             </div>
-            <button type="submit" class="btn btn-primary add-time-btn">Add Another Time</button>
-        </div>
-    </form>
+        </form>
 
 
+    </div>
 </div>
-</div>
-
 
 
 <!-- Bootstrap JS -->

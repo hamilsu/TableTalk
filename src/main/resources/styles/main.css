@@ -27,6 +27,13 @@
     position: absolute !important;
 }
 
+.btn-secondary {
+    color: #007bff !important;
+    background-color: transparent !important;
+    border-color: #007bff !important;
+    border: 2px solid !important;
+}
+
 /* Availability Page */
 
 p{
@@ -59,3 +66,10 @@ p{
     padding-left: 10px;
 }
 
+.padding-top {
+    padding-top: 16px;
+}
+
+.full-width {
+    width: 100%;
+}

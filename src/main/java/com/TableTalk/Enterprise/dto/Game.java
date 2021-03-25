@@ -1,14 +1,14 @@
 package com.TableTalk.Enterprise.dto;
 
 
-
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 import java.util.List;
 import java.util.Map;
 
-public @Data class Game {
+public @Data
+class Game {
     @SerializedName("id")
     private String id;
     @SerializedName("url")
@@ -34,9 +34,9 @@ public @Data class Game {
     @SerializedName("image_url")
     private String imageUrl;
     @SerializedName("primary_publisher")
-    private Map<String,String> primaryPublisher;
+    private Map<String, String> primaryPublisher;
     @SerializedName("primary_designer")
-    private Map<String,String> primaryDesigner;
+    private Map<String, String> primaryDesigner;
     @SerializedName("rules_url")
     private String rulesUrl;
     @SerializedName("official_url")
