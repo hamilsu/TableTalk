@@ -7,6 +7,7 @@ import com.TableTalk.Enterprise.dto.User;
 import com.TableTalk.Enterprise.services.IGameService;
 import com.TableTalk.Enterprise.services.IRoomService;
 import com.TableTalk.Enterprise.dto.GameCollection;
+import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -33,6 +37,7 @@ public class TableTalkController {
     IRoomService roomService;
 
     Logger log = LoggerFactory.getLogger(this.getClass());
+
     /**
      * Handle the root (/) endpoint and return a start page.
      *
@@ -62,7 +67,7 @@ public class TableTalkController {
         return "game";
     }
 
-    @PostMapping(value="/Game", consumes="application/json", produces="application/json")
+    @PostMapping(value = "/Game", consumes = "application/json", produces = "application/json")
 
     public Game createGame(@RequestBody Game game) {
         return game;
@@ -86,7 +91,7 @@ public class TableTalkController {
 
     }
 
-    @PostMapping(value="/ProfilePicture", consumes="application/json", produces="application/json")
+    @PostMapping(value = "/ProfilePicture", consumes = "application/json", produces = "application/json")
 
     public ProfilePicture createProfilePicture(@RequestBody com.TableTalk.Enterprise.dto.ProfilePicture profilePicture) {
 
@@ -104,19 +109,63 @@ public class TableTalkController {
 
     @RequestMapping("/displayRoom")
     public String room(Model model) {
+        List<User> list = new ArrayList<User>();
+        User luke = new User();
+        ProfilePicture photo = new ProfilePicture();
+        photo.setPath("/icons/person-circle.svg");
+        luke.setDisplayedName("Luke Greeley");
+        luke.setPhoto(photo);
+
+        User storm = new User();
+        storm.setDisplayedName("Storm Hamilton");
+        storm.setPhoto(photo);
+
+        User anne = new User();
+        anne.setDisplayedName("Anne Catherwood");
+        anne.setPhoto(photo);
+
+        User momadu = new User();
+        momadu.setDisplayedName("Momadu Kone");
+        momadu.setPhoto(photo);
+
+        list.add(luke);
+        list.add(storm);
+        list.add(anne);
+        list.add(momadu);
+
+        Room room = new Room();
+        room.setId(1);
+        room.setListOfPlayers(list);
+        room.setFinalizedDate(LocalDateTime.now());
+        room.setAddress("101 Main St. Cincinnati, OH 45219");
+        room.setGameId(1);
+
+        Game game = new Game();
+        if (room.getGameId() == 1) {
+            game.setImageUrl("/uno.jpeg");
+        }
+
+        model.addAttribute(room);
+        model.addAttribute(game);
+
+        return "room";
+    }
+
+    @RequestMapping("/createRoom")
+    public String createRoom(Model model) {
         Room room = new Room();
         room.setGameId(1);
         room.setAddress("101 Main St");
         room.setId(1);
 
         model.addAttribute(room);
-        return "room";
+        return "createRoom";
     }
 
     @GetMapping("/room")
     @ResponseBody
-    public List<Room> fetchAllRooms(){
-       return roomService.fetchAll();
+    public List<Room> fetchAllRooms() {
+        return roomService.fetchAll();
     }
 
     @GetMapping("/room/{id}/")
@@ -127,7 +176,7 @@ public class TableTalkController {
         return new ResponseEntity(foundRoom, headers, HttpStatus.OK);
     }
 
-    @PostMapping(value="/room", consumes="application/json", produces="application/json")
+    @PostMapping(value = "/room", consumes = "application/json", produces = "application/json")
     public Room createRoom(Room room) throws Exception {
         Room newRoom = null;
         roomService.save(room);
@@ -152,6 +201,7 @@ public class TableTalkController {
     /**
      * Populates room from HTML with Thymelead.
      * Send DTO to service
+     *
      * @param room
      * @return
      * @throws Exception
@@ -161,16 +211,16 @@ public class TableTalkController {
         Room newRoom = null;
         try {
             newRoom = roomService.save(room);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return "room";
+            return "createRoom";
         }
-       return "room";
+        return "createRoom";
     }
 
     @GetMapping("/allRooms")
     @ResponseBody
-    public List<Room> displayAllRooms(){
+    public List<Room> displayAllRooms() {
         return roomService.fetchAll();
     }
 
@@ -183,7 +233,7 @@ public class TableTalkController {
 
     }
 
-    @PostMapping(value="/User", consumes="application/json", produces="application/json")
+    @PostMapping(value = "/User", consumes = "application/json", produces = "application/json")
 
     public User createUser(@RequestBody com.TableTalk.Enterprise.dto.User user) {
 
@@ -200,8 +250,8 @@ public class TableTalkController {
     }
 
     @GetMapping("/games")
-    public ResponseEntity searchGames(@RequestParam(value="searchTerm", required = true, defaultValue = "None") String searchTerm){
-        try{
+    public ResponseEntity searchGames(@RequestParam(value = "searchTerm", required = true, defaultValue = "None") String searchTerm) {
+        try {
             GameCollection games = gameService.fetchGamesByName(searchTerm);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
