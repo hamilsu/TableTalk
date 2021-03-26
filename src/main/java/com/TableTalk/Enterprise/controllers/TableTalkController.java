@@ -115,7 +115,7 @@ public class TableTalkController {
     }
 
     @GetMapping("/room/{id}/")
-    public ResponseEntity fetchRoomById(@PathVariable("id") Integer id) {
+    public ResponseEntity fetchRoomById(@PathVariable("id") int id) {
         Room foundRoom = roomService.fetchById(id);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -130,7 +130,7 @@ public class TableTalkController {
     }
 
     @DeleteMapping("/deleteRoom/{id}/")
-    public ResponseEntity deleteRoom(@PathVariable("id") Integer id) {
+    public ResponseEntity deleteRoom(@PathVariable("id") int id) {
         log.debug("Entering delete room endpoint");
         try {
             roomService.delete(id);
@@ -153,9 +153,8 @@ public class TableTalkController {
      */
     @RequestMapping("/saveRoom")
     public String saveRoom(Room room) throws Exception {
-        Room newRoom = null;
         try {
-            newRoom = roomService.save(room);
+            roomService.save(room);
         }catch (Exception e) {
             e.printStackTrace();
             return "room";
