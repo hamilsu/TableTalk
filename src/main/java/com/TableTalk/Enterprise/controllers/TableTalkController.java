@@ -1,6 +1,7 @@
 package com.TableTalk.Enterprise.controllers;
 
 import com.TableTalk.Enterprise.dto.GameCollection;
+import com.TableTalk.Enterprise.dto.LabelValue;
 import com.TableTalk.Enterprise.services.ITableTalkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -165,6 +167,25 @@ import org.springframework.web.bind.annotation.*;
 
 
         return "availability";
+    }
+
+    @GetMapping("/gameNamesAutocomplete")
+    @ResponseBody
+    public List<LabelValue> gameNamesAutocomplete(@RequestParam(value="term", required = false, defaultValue="default") String searchTerm) {
+        List<LabelValue> allGameNames = new ArrayList<LabelValue>();
+        try {
+            GameCollection games = TableTalkService.fetchGamesByName(searchTerm);
+            for (Game game: games.getGames()) {
+                LabelValue labelValue = new LabelValue();
+                labelValue.setLabel(game.getName());
+                labelValue.setValue(game.getId());
+                allGameNames.add(labelValue);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<LabelValue>();
+        }
+        return allGameNames;
     }
 }
 
