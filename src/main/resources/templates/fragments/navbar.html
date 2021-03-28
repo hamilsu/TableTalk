@@ -1,4 +1,5 @@
-<div th:fragment="navbar" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<div th:fragment="navbar">
     <div class="navbar navbar-dark bg-primary">
         <a class="centered" href="/">
         <img class="centered" src="/logo.png">
@@ -29,9 +30,10 @@
                 </ul>
             </div>
             <div>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search Games" aria-label="Search">
+                <form class="d-flex" action="#" th:action="@{/games}" method="GET">
+                    <input class="form-control me-2" id="Search_Term" type="search" placeholder="Search Games" aria-label="Search" name="searchTerm">
                     <button style="margin-left: 6px" class="btn btn-outline-light" type="submit">Search</button>
+                    <input id="Game_Id" type="hidden" name="gameId">
                 </form>
             </div>
         </div>

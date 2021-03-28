@@ -7,6 +7,7 @@ import com.TableTalk.Enterprise.dto.User;
 import com.TableTalk.Enterprise.services.IGameService;
 import com.TableTalk.Enterprise.services.IRoomService;
 import com.TableTalk.Enterprise.dto.GameCollection;
+import com.TableTalk.Enterprise.dto.LabelValue;
 import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -199,7 +201,7 @@ public class TableTalkController {
 
 
     /**
-     * Populates room from HTML with Thymelead.
+     * Populates room from HTML with Thymeleaf.
      * Send DTO to service
      *
      * @param room
@@ -273,6 +275,25 @@ public class TableTalkController {
 
 
         return "availability";
+    }
+
+    @GetMapping("/gameNamesAutocomplete")
+    @ResponseBody
+    public List<LabelValue> gameNamesAutocomplete(@RequestParam(value="term", required = false, defaultValue="default") String searchTerm) {
+        List<LabelValue> allGameNames = new ArrayList<LabelValue>();
+        try {
+            GameCollection games = gameService.fetchGamesByName(searchTerm);
+            for (Game game: games.getGames()) {
+                LabelValue labelValue = new LabelValue();
+                labelValue.setLabel(game.getName());
+                labelValue.setValue(game.getId());
+                allGameNames.add(labelValue);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<LabelValue>();
+        }
+        return allGameNames;
     }
 }
 
