@@ -1,0 +1,23 @@
+.left-col {
+    width: 25%;
+}
+
+.spacer {
+    height: 64px;
+}
+
+.spacer-sm {
+    height: 24px;
+}
+
+.auto-left-margin {
+    margin-left: auto !important;
+}
+
+.btn {
+    width: 100%;
+}
+
+.btn-primary {
+    color: #fff !important;
+}
