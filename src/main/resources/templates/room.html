@@ -1,0 +1,73 @@
+<!doctype html>
+<html xmlns:th="https://www.thymeleaf.org/%22%3E">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="/main.css" type="text/css"/>
+    <link rel="stylesheet" href="/room.css" type="text/css"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>TableTalk</title>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar">
+</div>
+<div class="container" style="margin-top: 32px">
+    <div class="row">
+        <div class="col-8">
+            <div class="row">
+                <img th:src="${game.imageUrl}" width="100%">
+                <h1 class="inline-flex">Room: &nbsp
+                    <p th:text="${room.id}"></p>
+                </h1>
+            </div>
+
+            <div class="row subhead" style="margin-top: -16px;">
+                <div class="inline-flex">
+                    <img src="/icons/location.svg" class="svg subhead-img" style="margin-right: 8px;">
+                    <p th:text="${room.address}" style="margin-top: auto; margin-bottom: auto;"></p>
+                </div>
+            </div>
+            <div class="row subhead" style="padding-top: 12px;">
+                <div class="inline-flex">
+                    <img src="/icons/calendar-clear.svg" class="svg subhead-img" style="margin-right: 8px;">
+                    <p th:text="${room.finalizedDate}" style="margin-top: auto; margin-bottom: auto;"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <h3>Room Members:</h3>
+            <div class="list-group">
+                <tr th:each="user: ${room.listOfPlayers}">
+                    <button type="button" class="list-group-item list-group-item-action">
+                        <img th:src="${user.photo.path}" class="svg" style="margin-right: 8px;vertical-align: middle;">
+                        <td th:text="${user.displayedName}"/>
+                    </button>
+                </tr>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+<script>
+
+</script>
+</body>
+</html>

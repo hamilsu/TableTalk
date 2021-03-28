@@ -9,7 +9,8 @@ import lombok.Data;
 
 import java.util.List;
 
-public @Data class User {
+public @Data
+class User {
     private String displayedName;
     private List<String> gameLibrary; //A list of [game.id]s. Might opt to do a List<Game> instead once we can estimate the load times of each implementation.
     private List<String> availableRooms;
