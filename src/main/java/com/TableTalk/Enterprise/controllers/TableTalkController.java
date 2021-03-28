@@ -8,7 +8,6 @@ import com.TableTalk.Enterprise.services.IGameService;
 import com.TableTalk.Enterprise.services.IRoomService;
 import com.TableTalk.Enterprise.dto.GameCollection;
 import com.TableTalk.Enterprise.dto.LabelValue;
-import com.TableTalk.Enterprise.services.ITableTalkService;
 import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -202,7 +201,7 @@ public class TableTalkController {
 
 
     /**
-     * Populates room from HTML with Thymelead.
+     * Populates room from HTML with Thymeleaf.
      * Send DTO to service
      *
      * @param room
@@ -283,7 +282,7 @@ public class TableTalkController {
     public List<LabelValue> gameNamesAutocomplete(@RequestParam(value="term", required = false, defaultValue="default") String searchTerm) {
         List<LabelValue> allGameNames = new ArrayList<LabelValue>();
         try {
-            GameCollection games = TableTalkService.fetchGamesByName(searchTerm);
+            GameCollection games = gameService.fetchGamesByName(searchTerm);
             for (Game game: games.getGames()) {
                 LabelValue labelValue = new LabelValue();
                 labelValue.setLabel(game.getName());
