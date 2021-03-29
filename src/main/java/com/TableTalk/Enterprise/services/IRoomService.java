@@ -25,10 +25,12 @@ public interface IRoomService {
      */
     List<Room> fetchAll();
 
-    void delete(Integer id) throws Exception;
+    void delete(int id) throws Exception;
 
 
-    Room fetchById(Integer id);
+    Room fetchById(int id);
 
     List<Room> fetchUserRooms(User user);
 }
+
+

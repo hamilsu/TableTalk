@@ -126,7 +126,7 @@ public class TableTalkController {
 
         Room room = new Room();
         room.setId(1);
-        room.setListOfPlayers(list);
+//        room.setListOfPlayers(list);
         room.setFinalizedDate(LocalDateTime.now());
         room.setAddress("101 Main St. Cincinnati, OH 45219");
         room.setGameId(1);
@@ -160,7 +160,7 @@ public class TableTalkController {
     }
 
     @GetMapping("/room/{id}/")
-    public ResponseEntity fetchRoomById(@PathVariable("id") Integer id) {
+    public ResponseEntity fetchRoomById(@PathVariable("id") int id) {
         Room foundRoom = roomService.fetchById(id);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -174,8 +174,8 @@ public class TableTalkController {
         return room;
     }
 
-    @DeleteMapping("/delete/{id}/")
-    public ResponseEntity deleteRoom(@PathVariable("id") Integer id) {
+    @DeleteMapping("/deleteRoom/{id}/")
+    public ResponseEntity deleteRoom(@PathVariable("id") int id) {
         log.debug("Entering delete room endpoint");
         try {
             roomService.delete(id);
@@ -199,22 +199,14 @@ public class TableTalkController {
      */
     @RequestMapping("/saveRoom")
     public String saveRoom(Room room) throws Exception {
-        Room newRoom = null;
         try {
-            newRoom = roomService.save(room);
-        } catch (Exception e) {
+            roomService.save(room);
+        }catch (Exception e) {
             e.printStackTrace();
             return "createRoom";
         }
         return "createRoom";
     }
-
-    @GetMapping("/allRooms")
-    @ResponseBody
-    public List<Room> displayAllRooms() {
-        return roomService.fetchAll();
-    }
-
 
     @GetMapping("/User")
 
@@ -298,4 +290,3 @@ public class TableTalkController {
         return allGameNames;
     }
 }
-

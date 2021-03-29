@@ -11,16 +11,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class RoomServiceStub implements IRoomService {
+public class RoomService implements IRoomService {
 
     @Autowired
     private IRoomDAO roomDAO;
 
-    public RoomServiceStub(){
+    public RoomService(){
 
     }
 
-    public RoomServiceStub(IRoomDAO roomDAO){
+    public RoomService(IRoomDAO roomDAO){
         this.roomDAO = roomDAO;
     }
 
@@ -37,16 +37,14 @@ public class RoomServiceStub implements IRoomService {
 
 
     @Override
-    public void delete(Integer id) throws Exception {
+    public void delete(int id) throws Exception {
         roomDAO.delete(id);
     }
 
     @Override
-    public Room fetchById(Integer id) {
-        Room room = new Room();
-        room.setId(101);
-        room.setAddress("2 West st");
-        return room;
+    public Room fetchById(int id) {
+        Room foundRoom = roomDAO.fetch(id);
+        return foundRoom;
     }
 
     @Override
