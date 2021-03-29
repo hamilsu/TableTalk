@@ -157,9 +157,9 @@ public class TableTalkController {
             roomService.save(room);
         }catch (Exception e) {
             e.printStackTrace();
-            return "room";
+            return "createRoom";
         }
-       return "room";
+        return "createRoom";
     }
 
 
