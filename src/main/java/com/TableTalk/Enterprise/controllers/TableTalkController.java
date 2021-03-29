@@ -290,4 +290,3 @@ public class TableTalkController {
         return allGameNames;
     }
 }
-
