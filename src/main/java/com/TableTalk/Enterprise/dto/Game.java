@@ -27,7 +27,7 @@ class Game {
     private Integer maxPlaytime;
     @SerializedName("min_age")
     private Integer minAge;
-    @SerializedName("description")
+    @SerializedName("description_preview")
     private String description;
     @SerializedName("thumb_url")
     private String thumbUrl;
@@ -47,7 +47,4 @@ class Game {
     private Double averageUserRating;
     @SerializedName("tags")
     private List<String> tags = null;
-    @SerializedName("description_preview")
-    private String descriptionPreview;
-
 }

@@ -51,20 +51,9 @@ public class TableTalkController {
         return "start";
     }
 
-    @GetMapping("/Game")
-    public String fetchGames(Model model) {
-        Game game = new Game();
-        game.setName("UNO!");
-        game.setId("1");
-        game.setUrl("https://www.letsplayuno.com/");
-        game.setMinPlayers(2);
-        game.setMaxPlayers(10);
-        game.setYearPublished(1971);
-        game.setMinAge(3);
-        game.setDescription("UNO is the classic card game that’s easy to pick up and impossible to put down! Players take turns matching a card in their hand with the current card shown on top of the deck either by color or number. Special action cards deliver game-changing moments as they help you defeat your opponents. These include Skips, Reverses, Draw Twos, Wild and Draw Four Wild cards. You’ll find 25 of each color (red, green, blue, and yellow), eight Wild cards, three Customizable cards and one Special Rule card inside the 112-card deck. If you can’t make a match, you must draw from the central pile! And when you’re down to one card, don’t forget to shout “UNO!” The first player to rid themselves of all the cards in their hand before their opponents wins. It’s Fast Fun for Everyone! ");
-        game.setImageUrl("/uno.jpeg");
-        game.setNumUserRatings(564);
-        game.setAverageUserRating(4.3);
+    @GetMapping("/Game/{id}/")
+    public String fetchGameById(@PathVariable("id") String id, Model model) throws IOException {
+        Game game = gameService.fetchGameById(id);
         model.addAttribute(game);
         return "game";
     }
@@ -251,7 +240,7 @@ public class TableTalkController {
 
     }
 
-    @GetMapping("/games")
+    @GetMapping(value="/games", consumes="application/json", produces="application/json")
     public ResponseEntity searchGames(@RequestParam(value = "searchTerm", required = true, defaultValue = "None") String searchTerm) {
         try {
             GameCollection games = gameService.fetchGamesByName(searchTerm);
@@ -261,6 +250,19 @@ public class TableTalkController {
         } catch (IOException e) {
             e.printStackTrace();
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+    @GetMapping("/games")
+    public String searchGamesForm(@RequestParam(value = "searchTerm", required = true, defaultValue = "None") String searchTerm, Model model) {
+        try {
+            GameCollection gameList = gameService.fetchGamesByName(searchTerm);
+            List<Game> games = gameList.getGames();
+            model.addAttribute("games", games);
+            return "games";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "error"; //TODO: Actual error handling
         }
 
     }

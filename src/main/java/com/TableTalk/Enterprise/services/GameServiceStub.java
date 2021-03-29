@@ -39,4 +39,9 @@ public class GameServiceStub implements IGameService {
     public GameCollection fetchGamesByName(String name) throws IOException {
         return gameDAO.fetchGamesByName(name);
     }
+
+    @Override
+    public Game fetchGameById(String id) throws IOException {
+        return gameDAO.fetchGameByID(id);
+    }
 }
