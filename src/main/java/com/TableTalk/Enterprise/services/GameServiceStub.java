@@ -13,13 +13,13 @@ import java.util.List;
 public class GameServiceStub implements IGameService {
 
     @Autowired
-    private IGameDAO  gameDAO;
+    private IGameDAO gameDAO;
 
-    public GameServiceStub(){
+    public GameServiceStub() {
 
     }
 
-    public GameServiceStub(IGameDAO gameDAO){
+    public GameServiceStub(IGameDAO gameDAO) {
         this.gameDAO = gameDAO;
     }
 

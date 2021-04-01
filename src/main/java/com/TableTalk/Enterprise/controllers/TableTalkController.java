@@ -1,14 +1,8 @@
 package com.TableTalk.Enterprise.controllers;
 
-import com.TableTalk.Enterprise.dto.Game;
-import com.TableTalk.Enterprise.dto.ProfilePicture;
-import com.TableTalk.Enterprise.dto.Room;
-import com.TableTalk.Enterprise.dto.User;
+import com.TableTalk.Enterprise.dto.*;
 import com.TableTalk.Enterprise.services.IGameService;
 import com.TableTalk.Enterprise.services.IRoomService;
-import com.TableTalk.Enterprise.dto.GameCollection;
-import com.TableTalk.Enterprise.dto.LabelValue;
-import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,63 +33,22 @@ public class TableTalkController {
     Logger log = LoggerFactory.getLogger(this.getClass());
 
     /**
-     * Handle the root (/) endpoint and return a start page.
+     * Handle the root/index (/) endpoint and return a start page.
      *
-     * @return
+     * @return start page from res folder.
      */
-
     @RequestMapping("/")
     public String index() {
         return "start";
     }
 
-    @GetMapping("/Game/{id}/")
-    public String fetchGameById(@PathVariable("id") String id, Model model) throws IOException {
-        Game game = gameService.fetchGameById(id);
-        model.addAttribute(game);
-        return "game";
-    }
 
-    @PostMapping(value = "/Game", consumes = "application/json", produces = "application/json")
-
-    public Game createGame(@RequestBody Game game) {
-        return game;
-
-    }
-
-    @DeleteMapping("/Game")
-
-    public ResponseEntity deleteGames() {
-
-        return new ResponseEntity(HttpStatus.OK);
-
-    }
-
-
-    @GetMapping("/ProfilePicture")
-
-    public ResponseEntity fetchProfilePicture() {
-
-        return new ResponseEntity(HttpStatus.OK);
-
-    }
-
-    @PostMapping(value = "/ProfilePicture", consumes = "application/json", produces = "application/json")
-
-    public ProfilePicture createProfilePicture(@RequestBody com.TableTalk.Enterprise.dto.ProfilePicture profilePicture) {
-
-        return profilePicture;
-
-    }
-
-    @DeleteMapping("/ProfilePicture")
-
-    public ResponseEntity deleteProfilePicture() {
-
-        return new ResponseEntity(HttpStatus.OK);
-
-    }
-
+    /**
+     * Handle the displayRoom endpoint.
+     *
+     * @param model room layout
+     * @return room webpage, populated with hard-coded users.
+     */
     @RequestMapping("/displayRoom")
     public String room(Model model) {
         List<User> list = new ArrayList<User>();
@@ -126,7 +77,6 @@ public class TableTalkController {
 
         Room room = new Room();
         room.setId(1);
-//        room.setListOfPlayers(list);
         room.setFinalizedDate(LocalDateTime.now());
         room.setAddress("101 Main St. Cincinnati, OH 45219");
         room.setGameId(1);
@@ -142,6 +92,13 @@ public class TableTalkController {
         return "room";
     }
 
+    /**
+     * Handles the createRoom endpoint.
+     * Currently sets hard-coded data for testing.
+     *
+     * @param model room layout
+     * @return createRoom webpage.
+     */
     @RequestMapping("/createRoom")
     public String createRoom(Model model) {
         Room room = new Room();
@@ -151,6 +108,139 @@ public class TableTalkController {
 
         model.addAttribute(room);
         return "createRoom";
+    }
+
+    /**
+     * Populates room from HTML with Thymeleaf.
+     * Send DTO to service
+     *
+     * @param room
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/saveRoom")
+    public String saveRoom(Room room) throws Exception {
+        try {
+            roomService.save(room);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "createRoom";
+        }
+        return "createRoom";
+    }
+
+    /**
+     * Handles the availability endpoint.
+     * Currently fills with hard-coded data for proof-of-concept
+     *
+     * @param model, room layout
+     * @return availability template.
+     */
+    @RequestMapping("/availability")
+    public String availability(Model model) {
+        Game game = new Game();
+        game.setName("UNO");
+        game.setId("1");
+        model.addAttribute(game);
+
+
+        return "availability";
+    }
+
+    /**
+     * Handles the Game/ID endpoint.
+     *
+     * @param id,    game id
+     * @param model, page layout.
+     * @return "game", webpage template.
+     * @throws IOException, bad game ID.
+     */
+    @GetMapping("/Game/{id}/")
+    public Object fetchGameById(@PathVariable("id") String id, Model model) {
+        try {
+            Game game = gameService.fetchGameById(id);
+            model.addAttribute(game);
+            return "game";
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Aye, here be an IOException, invalid game ID.");
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    @GetMapping("/ProfilePicture")
+    public ResponseEntity fetchProfilePicture() {
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping("/User")
+    public ResponseEntity fetchUsers() {
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    /**
+     * Handles the logical searching of games.
+     *
+     * @param searchTerm, string of what the user is looking for.
+     * @return list of games available in auto complete.
+     */
+    @GetMapping(value = "/games", consumes = "application/json", produces = "application/json")
+    public ResponseEntity searchGames(@RequestParam(value = "searchTerm", required = true, defaultValue = "None") String searchTerm) {
+        try {
+            GameCollection games = gameService.fetchGamesByName(searchTerm);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity(games, headers, HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Handles the graphical searching of games.
+     *
+     * @param searchTerm
+     * @param model, layout
+     * @return games template or error template.
+     */
+    @GetMapping("/games")
+    public String searchGamesForm(@RequestParam(value = "searchTerm", required = true, defaultValue = "None") String searchTerm, Model model) {
+        try {
+            GameCollection gameList = gameService.fetchGamesByName(searchTerm);
+            List<Game> games = gameList.getGames();
+            model.addAttribute("games", games);
+            return "games";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "error"; //TODO: Actual error handling
+        }
+    }
+
+    /**
+     * Handles autocomplete of searching games.
+     *
+     * @param searchTerm
+     * @return a list of all the game names.
+     */
+    @GetMapping("/gameNamesAutocomplete")
+    @ResponseBody
+    public List<LabelValue> gameNamesAutocomplete(@RequestParam(value = "term", required = false, defaultValue = "default") String searchTerm) {
+        List<LabelValue> allGameNames = new ArrayList<LabelValue>();
+        try {
+            GameCollection games = gameService.fetchGamesByName(searchTerm);
+            for (Game game : games.getGames()) {
+                LabelValue labelValue = new LabelValue();
+                labelValue.setLabel(game.getName());
+                labelValue.setValue(game.getId());
+                allGameNames.add(labelValue);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<LabelValue>();
+        }
+        return allGameNames;
     }
 
     @GetMapping("/room")
@@ -167,11 +257,38 @@ public class TableTalkController {
         return new ResponseEntity(foundRoom, headers, HttpStatus.OK);
     }
 
+    @PostMapping(value = "/Game", consumes = "application/json", produces = "application/json")
+    public Game createGame(@RequestBody Game game) {
+        return game;
+
+    }
+
+    @PostMapping(value = "/ProfilePicture", consumes = "application/json", produces = "application/json")
+    public ProfilePicture createProfilePicture(@RequestBody com.TableTalk.Enterprise.dto.ProfilePicture profilePicture) {
+        return profilePicture;
+    }
+
+
+    @PostMapping(value = "/User", consumes = "application/json", produces = "application/json")
+    public User createUser(@RequestBody com.TableTalk.Enterprise.dto.User user) {
+        return user;
+    }
+
     @PostMapping(value = "/room", consumes = "application/json", produces = "application/json")
     public Room createRoom(Room room) throws Exception {
         Room newRoom = null;
         roomService.save(room);
         return room;
+    }
+
+    @DeleteMapping("/Game")
+    public ResponseEntity deleteGames() {
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/ProfilePicture")
+    public ResponseEntity deleteProfilePicture() {
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteRoom/{id}/")
@@ -188,105 +305,10 @@ public class TableTalkController {
 
     }
 
-
-    /**
-     * Populates room from HTML with Thymeleaf.
-     * Send DTO to service
-     *
-     * @param room
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping("/saveRoom")
-    public String saveRoom(Room room) throws Exception {
-        try {
-            roomService.save(room);
-        }catch (Exception e) {
-            e.printStackTrace();
-            return "createRoom";
-        }
-        return "createRoom";
-    }
-
-    @GetMapping("/User")
-
-    public ResponseEntity fetchUsers() {
-
-        return new ResponseEntity(HttpStatus.OK);
-
-    }
-
-    @PostMapping(value = "/User", consumes = "application/json", produces = "application/json")
-
-    public User createUser(@RequestBody com.TableTalk.Enterprise.dto.User user) {
-
-        return user;
-
-    }
-
     @DeleteMapping("/User")
-
     public ResponseEntity deleteUser() {
-
         return new ResponseEntity(HttpStatus.OK);
-
     }
 
-    @GetMapping(value="/games", consumes="application/json", produces="application/json")
-    public ResponseEntity searchGames(@RequestParam(value = "searchTerm", required = true, defaultValue = "None") String searchTerm) {
-        try {
-            GameCollection games = gameService.fetchGamesByName(searchTerm);
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            return new ResponseEntity(games, headers, HttpStatus.OK);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
 
-    }
-    @GetMapping("/games")
-    public String searchGamesForm(@RequestParam(value = "searchTerm", required = true, defaultValue = "None") String searchTerm, Model model) {
-        try {
-            GameCollection gameList = gameService.fetchGamesByName(searchTerm);
-            List<Game> games = gameList.getGames();
-            model.addAttribute("games", games);
-            return "games";
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "error"; //TODO: Actual error handling
-        }
-
-    }
-
-    @RequestMapping("/availability")
-    public String availability(Model model) {
-        // testing proof of concept
-        Game game = new Game();
-        game.setName("UNO");
-        game.setId("1");
-        model.addAttribute(game);
-
-
-        return "availability";
-    }
-
-    @GetMapping("/gameNamesAutocomplete")
-    @ResponseBody
-    public List<LabelValue> gameNamesAutocomplete(@RequestParam(value="term", required = false, defaultValue="default") String searchTerm) {
-        List<LabelValue> allGameNames = new ArrayList<LabelValue>();
-        try {
-            GameCollection games = gameService.fetchGamesByName(searchTerm);
-            for (Game game: games.getGames()) {
-                LabelValue labelValue = new LabelValue();
-                labelValue.setLabel(game.getName());
-                labelValue.setValue(game.getId());
-                allGameNames.add(labelValue);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ArrayList<LabelValue>();
-        }
-        return allGameNames;
-    }
 }
