@@ -8,7 +8,6 @@ public class RetrofitClientInstance {
     private static Retrofit retrofit;
     private static String BASE_URL = "https://api.boardgameatlas.com";
 
-
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
             retrofit = new retrofit2.Retrofit.Builder()
