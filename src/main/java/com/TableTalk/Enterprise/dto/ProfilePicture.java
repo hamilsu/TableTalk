@@ -8,16 +8,9 @@ import lombok.Data;
 // @Table(name="photos")
 public @Data
 class ProfilePicture {
-
-    // @Id
-    //  @GeneratedValue
     private int photoId;
     private String path;
     private String fileName;
-
-    //   @ToString.Exclude
-    //  @ManyToOne
-    //  @JoinColumn(name="username")
     private User user;
 }
 

@@ -19,8 +19,6 @@ class User {
     private String username;
     private String password;
 
-
-    //@OneToMany (mappedBy = "username")
     private ProfilePicture photo; //Might be part of firebase
 
 }
