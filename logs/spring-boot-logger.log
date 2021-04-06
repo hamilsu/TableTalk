@@ -1,0 +1,6 @@
+2021-04-06 19:44:42,096 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting EnterpriseApplication on HaydenPC with PID 1704 (C:\Users\hayde\OneDrive\Documents\GitHub\TableTalk\target\classes started by hayden in C:\Users\hayde\OneDrive\Documents\GitHub\TableTalk)
+2021-04-06 19:44:42,098 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.3.4.RELEASE, Spring v5.2.9.RELEASE
+2021-04-06 19:44:42,098 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2021-04-06 19:46:27,465 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting EnterpriseApplication on HaydenPC with PID 9876 (C:\Users\hayde\OneDrive\Documents\GitHub\TableTalk\target\classes started by hayden in C:\Users\hayde\OneDrive\Documents\GitHub\TableTalk)
+2021-04-06 19:46:27,466 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.3.4.RELEASE, Spring v5.2.9.RELEASE
+2021-04-06 19:46:27,466 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
