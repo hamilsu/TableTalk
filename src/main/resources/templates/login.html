@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <title>Sample FirebaseUI App</title>
+    <!-- Import for the core Firebase JS SDK, must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+    <!-- Import for Firebase Analytics SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-analytics.js"></script>
+    <!-- Import for Firebase Authorization SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-auth.js"></script>
+
+    <!-- Firebase Configuration and Initialization -->
+    <script>
+    const firebaseConfig = {
+    apiKey: "AIzaSyDD2ArsrdAQ2Rm5RhKoeF-5s6Lb5ngfMLk",
+    authDomain: "tabletalk-613ad.firebaseapp.com",
+    projectId: "tabletalk-613ad",
+    storageBucket: "tabletalk-613ad.appspot.com",
+    messagingSenderId: "398449356658",
+    appId: "1:398449356658:web:a3ad255e95d82b71bb37eb",
+    measurementId: "G-1K8T8F3E6V"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <!-- Import for Firebase UI -->
+    <script src="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.css" />
+
+    <!-- Initializing Firebase UI and Sign-in Functionality -->
+    <script type="text/javascript">
+      // FirebaseUI config.
+      var uiConfig = {
+        signInSuccessUrl: '<url-to-redirect-to-on-success>',
+        signInOptions: [
+          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+          firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        ],
+        // tosUrl and privacyPolicyUrl accept either url string or a callback
+        // function.
+        // Terms of service url/callback.
+        tosUrl: '<your-tos-url>',
+        // Privacy policy url/callback.
+        privacyPolicyUrl: function() {
+          window.location.assign('<your-privacy-policy-url>');
+        }
+      };
+
+      // Initialize the FirebaseUI Widget using Firebase.
+      var ui = new firebaseui.auth.AuthUI(firebase.auth());
+      // The start method will wait until the DOM is loaded.
+      ui.start('#firebaseui-auth-container', uiConfig);
+    </script>
+</head>
+<body>
+<h1>Login</h1>
+<div id="firebaseui-auth-container"></div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

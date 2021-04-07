@@ -277,6 +277,12 @@ public class TableTalkController {
         return "availability";
     }
 
+
+    @RequestMapping
+
+
+
+
     @GetMapping("/gameNamesAutocomplete")
     @ResponseBody
     public List<LabelValue> gameNamesAutocomplete(@RequestParam(value="term", required = false, defaultValue="default") String searchTerm) {
@@ -295,5 +301,9 @@ public class TableTalkController {
         }
         return allGameNames;
     }
+
+
+
+
 }
 
