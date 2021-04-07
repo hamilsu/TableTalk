@@ -7,7 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Service
@@ -50,5 +55,16 @@ public class RoomService implements IRoomService {
     @Override
     public List<Room> fetchUserRooms(User user) {
         return null;
+    }
+
+    @Override
+    public void saveImage(MultipartFile imageFile) throws IOException {
+
+        String folder = "/photos/";
+        byte[] bytes = imageFile.getBytes();
+        Path path = Paths.get(folder + imageFile.getOriginalFilename());
+        System.out.println(path);
+        Files.write(path, bytes);
+
     }
 }

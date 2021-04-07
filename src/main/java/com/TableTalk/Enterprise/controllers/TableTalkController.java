@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -137,10 +138,10 @@ public class TableTalkController {
 //        room.setListOfPlayers(list);
         room.setFinalizedDate(LocalDateTime.now());
         room.setAddress("101 Main St. Cincinnati, OH 45219");
-        room.setGameId(1);
+        room.setGameId("1");
 
         Game game = new Game();
-        if (room.getGameId() == 1) {
+        if (room.getGameId() == "1") {
             game.setImageUrl("/uno.jpeg");
         }
 
@@ -160,7 +161,7 @@ public class TableTalkController {
     @RequestMapping("/createRoom")
     public String createRoom(Model model) {
         Room room = new Room();
-        room.setGameId(1);
+        room.setGameId("1");
         room.setAddress("101 Main St");
         room.setId(1);
 
@@ -330,5 +331,21 @@ public class TableTalkController {
             return new ArrayList<LabelValue>();
         }
         return allGameNames;
+    }
+
+    @PostMapping(value="/uploadImage")
+    public String uploadImage(@RequestParam("imageFile")MultipartFile imageFile, Model model){
+        String returnValue = "start";
+        try {
+            roomService.saveImage(imageFile);
+            Room room = new Room ();
+            model.addAttribute("room", room);
+            returnValue = "start";
+        } catch (IOException e){
+            //TODO: change this to logging
+            e.printStackTrace();
+            returnValue = "error";
+        }
+        return returnValue;
     }
 }
