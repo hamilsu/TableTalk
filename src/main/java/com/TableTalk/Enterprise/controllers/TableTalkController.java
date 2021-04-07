@@ -51,6 +51,14 @@ public class TableTalkController {
         return "start";
     }
 
+    /**
+     * Handles the Game/ID endpoint.
+     *
+     * @param id,    game id
+     * @param model, page layout.
+     * @return "game", webpage template.
+     * @throws IOException, bad game ID.
+     */
     @GetMapping("/Game/{id}/")
     public String fetchGameById(@PathVariable("id") String id, Model model) throws IOException {
         Game game = gameService.fetchGameById(id);
@@ -142,6 +150,13 @@ public class TableTalkController {
         return "room";
     }
 
+    /**
+     * Handles the createRoom endpoint.
+     * Currently sets hard-coded data for testing.
+     *
+     * @param model room layout
+     * @return createRoom webpage.
+     */
     @RequestMapping("/createRoom")
     public String createRoom(Model model) {
         Room room = new Room();
@@ -232,6 +247,12 @@ public class TableTalkController {
 
     }
 
+    /**
+     * Handles the logical searching of games.
+     *
+     * @param searchTerm, string of what the user is looking for.
+     * @return list of games available in auto complete.
+     */
     @GetMapping(value="/games", consumes="application/json", produces="application/json")
     public ResponseEntity searchGames(@RequestParam(value = "searchTerm", required = true, defaultValue = "None") String searchTerm) {
         try {
@@ -245,6 +266,14 @@ public class TableTalkController {
         }
 
     }
+
+    /**
+     * Handles the graphical searching of games.
+     *
+     * @param searchTerm
+     * @param model, layout
+     * @return games template or error template.
+     */
     @GetMapping("/games")
     public String searchGamesForm(@RequestParam(value = "searchTerm", required = true, defaultValue = "None") String searchTerm, Model model) {
         try {
@@ -259,6 +288,13 @@ public class TableTalkController {
 
     }
 
+    /**
+     * Handles the availability endpoint.
+     * Currently fills with hard-coded data for proof-of-concept
+     *
+     * @param model, room layout
+     * @return availability template.
+     */
     @RequestMapping("/availability")
     public String availability(Model model) {
         // testing proof of concept
@@ -271,6 +307,12 @@ public class TableTalkController {
         return "availability";
     }
 
+    /**
+     * Handles autocomplete of searching games.
+     *
+     * @param searchTerm
+     * @return a list of all the game names.
+     */
     @GetMapping("/gameNamesAutocomplete")
     @ResponseBody
     public List<LabelValue> gameNamesAutocomplete(@RequestParam(value="term", required = false, defaultValue="default") String searchTerm) {
