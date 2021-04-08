@@ -278,7 +278,10 @@ public class TableTalkController {
     }
 
 
-    @RequestMapping
+    @RequestMapping ("/login")
+    public String login(Model model){
+        return "login";
+    }
 
 
 
