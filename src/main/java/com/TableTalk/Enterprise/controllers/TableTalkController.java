@@ -308,6 +308,11 @@ public class TableTalkController {
         return "availability";
     }
 
+    @RequestMapping ("/login")
+    public String login(Model model){
+        return "login";
+    }
+
     /**
      * Handles autocomplete of searching games.
      *
