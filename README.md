@@ -1,3 +1,5 @@
+## Spring 2 Code Reviewers: You must have Wampserver installed and running on your machine in order to build the project
+
 ## 1.	Introduction:
 TableTalk a collaboration tool for organizing board game nights with other people. It could be for personal or business use, as many game stores love to host tournaments or other get-togethers. The website would link with the BoardgameAtlas Api (Links to an external site.) which is a REST API which would allows for the integration of search features for boardgame rules and pictures so that users could make lobbies based on the game(s) they have and/or want to play.
 

@@ -10,5 +10,7 @@ public interface IRoomDAO {
 
     List<Room> fetchAll();
 
-    void delete(Integer id);
+    Room fetch(int id);
+
+    void delete(int id);
 }

@@ -26,4 +26,6 @@ public interface IGameService {
      */
     List<Game> fetchAll();
     GameCollection fetchGamesByName(String name) throws IOException;
+
+    Game fetchGameById(String id) throws IOException;
 }

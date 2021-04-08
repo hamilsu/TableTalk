@@ -41,20 +41,25 @@
             </div>
         </div>
 
-        <div class="col">
-            <h3>Room Members:</h3>
-            <div class="list-group">
-                <tr th:each="user: ${room.listOfPlayers}">
-                    <button type="button" class="list-group-item list-group-item-action">
-                        <img th:src="${user.photo.path}" class="svg" style="margin-right: 8px;vertical-align: middle;">
-                        <td th:text="${user.displayedName}"/>
-                    </button>
-                </tr>
-            </div>
-        </div>
+<div>
+<!--        <div class="col">-->
+<!--            <h3>Room Members:</h3>-->
+<!--            <div class="list-group">-->
+<!--                <tr th:each="user: ${room.listOfPlayers}">-->
+<!--                    <button type="button" class="list-group-item list-group-item-action">-->
+<!--                        <img th:src="${user.photo.path}" class="svg" style="margin-right: 8px;vertical-align: middle;">-->
+<!--                        <td th:text="${user.displayedName}"/>-->
+<!--                    </button>-->
+<!--                </tr>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 </div>
 
+    <form method="post" enctype="multipart/form-data" action="/uploadImage">
+        <input type="file" name="imageFile"/>
+        <input type="submit" value="Upload" >
+    </form>
 
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
