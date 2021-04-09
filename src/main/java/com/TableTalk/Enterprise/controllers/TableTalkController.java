@@ -1,13 +1,8 @@
 package com.TableTalk.Enterprise.controllers;
 
-import com.TableTalk.Enterprise.dto.Game;
-import com.TableTalk.Enterprise.dto.ProfilePicture;
-import com.TableTalk.Enterprise.dto.Room;
-import com.TableTalk.Enterprise.dto.User;
+import com.TableTalk.Enterprise.dto.*;
 import com.TableTalk.Enterprise.services.IGameService;
 import com.TableTalk.Enterprise.services.IRoomService;
-import com.TableTalk.Enterprise.dto.GameCollection;
-import com.TableTalk.Enterprise.dto.LabelValue;
 import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -205,25 +200,6 @@ public class TableTalkController {
     }
 
 
-    /**
-     * Populates room from HTML with Thymeleaf.
-     * Send DTO to service
-     *
-     * @param room
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping("/saveRoom")
-    public String saveRoom(Room room) throws Exception {
-        try {
-            roomService.save(room);
-        }catch (Exception e) {
-            e.printStackTrace();
-            return "createRoom";
-        }
-        return "createRoom";
-    }
-
     @GetMapping("/User")
 
     public ResponseEntity fetchUsers() {
@@ -338,12 +314,33 @@ public class TableTalkController {
         return allGameNames;
     }
 
-    @PostMapping(value="/uploadImage")
-    public String uploadImage(@RequestParam("imageFile")MultipartFile imageFile, Model model){
-        String returnValue = "start";
+    /**
+     * Populates room from HTML with Thymeleaf.
+     * Send DTO to service
+     *
+     * @param room
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/saveRoom")
+    public String saveRoom(Room room, @RequestParam("imageFile")MultipartFile imageFile, Model model) throws Exception {
+        //todo we shouldn't have to try catch blocks. save everything or save nothing.
+        String returnValue = "createRoom";
+
         try {
-            roomService.saveImage(imageFile);
-            Room room = new Room ();
+            roomService.save(room);
+        }catch (Exception e) {
+            e.printStackTrace();
+            //todo fix this to return an error page
+            return "start";
+        }
+
+        try {
+            Photo photo = new Photo();
+            photo.setFilename(imageFile.getOriginalFilename());
+            photo.setPath("/photo/");
+            photo.setRoom(room);
+            roomService.saveImage(imageFile, photo);
             model.addAttribute("room", room);
             returnValue = "start";
         } catch (IOException e){
