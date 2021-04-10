@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -323,31 +324,32 @@ public class TableTalkController {
      * @throws Exception
      */
     @RequestMapping("/saveRoom")
-    public String saveRoom(Room room, @RequestParam("imageFile")MultipartFile imageFile, Model model) throws Exception {
-        //todo we shouldn't have to try catch blocks. save everything or save nothing.
+    public ModelAndView saveRoom(Room room, @RequestParam("imageFile")MultipartFile imageFile, Model model) throws Exception {
+        //todo we shouldn't have to try catch blocks. save everything or save nothing. To do that we have to account for
+        // the photo being null
         String returnValue = "createRoom";
-
+        ModelAndView modelAndView = new ModelAndView();
         try {
             roomService.save(room);
         }catch (Exception e) {
             e.printStackTrace();
-            //todo fix this to return an error page
-            return "start";
+            modelAndView.setViewName("error");
+            return  modelAndView;
         }
 
+        Photo photo = new Photo();
         try {
-            Photo photo = new Photo();
             photo.setFilename(imageFile.getOriginalFilename());
-            photo.setPath("/photo/");
             photo.setRoom(room);
             roomService.saveImage(imageFile, photo);
             model.addAttribute("room", room);
-            returnValue = "start";
+            modelAndView.setViewName("success");
         } catch (IOException e){
-            //TODO: change this to logging
-            e.printStackTrace();
-            returnValue = "error";
+            modelAndView.setViewName("error");
+            return  modelAndView;
         }
-        return returnValue;
+        modelAndView.addObject("photo", photo);
+        modelAndView.addObject("room", room);
+        return modelAndView;
     }
 }

@@ -1,5 +1,6 @@
 package com.TableTalk.Enterprise.dto;
 
+import com.sun.istack.Nullable;
 import lombok.Data;
 
 import javax.persistence.*;
