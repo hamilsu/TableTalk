@@ -40,7 +40,6 @@ public class GameDAOStub implements IGameDAO {
         Map<String, String> filter = new HashMap<>();
         filter.put("name", inputtedName);
         filter.put("client_id", CLIENT_ID);
-        System.out.println(filter);
         Call<GameCollection> games =  gameRetrofitDAO.getGamesByName(filter);
         Response<GameCollection> execute = games.execute();
         GameCollection gameList = execute.body();
@@ -54,7 +53,6 @@ public class GameDAOStub implements IGameDAO {
         Map<String, String> filter = new HashMap<>();
         filter.put("ids", id);
         filter.put("client_id", CLIENT_ID);
-        System.out.println(filter);
         Call<GameCollection> games =  gameRetrofitDAO.getGamesByName(filter);
         Response<GameCollection> execute = games.execute();
         GameCollection gameList = execute.body();

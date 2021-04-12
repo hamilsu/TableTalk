@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -135,7 +134,6 @@ public class TableTalkController {
 
         Room room = new Room();
         room.setId(1);
-//        room.setListOfPlayers(list);
         room.setFinalizedDate(LocalDateTime.now());
         room.setAddress("101 Main St. Cincinnati, OH 45219");
         room.setGameId("1");
