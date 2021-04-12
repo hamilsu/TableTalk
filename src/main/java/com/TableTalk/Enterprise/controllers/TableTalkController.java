@@ -47,7 +47,32 @@ public class TableTalkController {
      */
 
     @RequestMapping("/")
-    public String index() {
+    public String index(Model model) {
+        List<User> listOfPlayers = new ArrayList<User>();
+        User user = new User();
+        ProfilePicture photo = new ProfilePicture();
+        photo.setPath("/icons/person-circle.svg");
+        user.setDisplayedName("Luke");
+        user.setPhoto(photo);
+
+        List<String> listOfRooms = new ArrayList<>();
+        listOfRooms.add("Langsam 102");
+        listOfRooms.add("Main Street");
+        listOfRooms.add("Donahue Street");
+
+        user.setAvailableRooms(listOfRooms);
+
+        List<String> listOfGames = new ArrayList<>();
+        listOfGames.add("UNO!");
+        listOfGames.add("Monopoly");
+        listOfGames.add("Sorry!");
+        listOfGames.add("The Game of Life");
+
+        user.setGameLibrary(listOfGames);
+
+
+        model.addAttribute(user);
+
         return "start";
     }
 
@@ -126,14 +151,9 @@ public class TableTalkController {
         anne.setDisplayedName("Anne Catherwood");
         anne.setPhoto(photo);
 
-        User momadu = new User();
-        momadu.setDisplayedName("Momadu Kone");
-        momadu.setPhoto(photo);
-
         list.add(luke);
         list.add(storm);
         list.add(anne);
-        list.add(momadu);
 
         Room room = new Room();
         room.setId(1);
