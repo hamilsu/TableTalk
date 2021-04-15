@@ -25,7 +25,7 @@ public class PhotoDAO implements IPhotoDAO {
     public void saveImage(MultipartFile imageFile, Photo photo) throws IOException {
         Path currentPath = Paths.get("");
         Path absolutePath = currentPath.toAbsolutePath();
-        photo.setPath(absolutePath + "/src/main/resources/assets/userPhotos/" + imageFile.getOriginalFilename());
+        photo.setPath(absolutePath + "/src/main/upload/" + imageFile.getOriginalFilename());
         byte[] bytes = imageFile.getBytes();
         Path path = Paths.get(photo.getPath());
         System.out.println(path);
