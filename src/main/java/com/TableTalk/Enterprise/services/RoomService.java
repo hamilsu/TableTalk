@@ -7,20 +7,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Service
-public class RoomServiceStub implements IRoomService {
+public class RoomService implements IRoomService {
 
     @Autowired
     private IRoomDAO roomDAO;
 
-    public RoomServiceStub(){
+    public RoomService(){
 
     }
 
-    public RoomServiceStub(IRoomDAO roomDAO){
+    public RoomService(IRoomDAO roomDAO){
         this.roomDAO = roomDAO;
     }
 
@@ -37,20 +42,29 @@ public class RoomServiceStub implements IRoomService {
 
 
     @Override
-    public void delete(Integer id) throws Exception {
+    public void delete(int id) throws Exception {
         roomDAO.delete(id);
     }
 
     @Override
-    public Room fetchById(Integer id) {
-        Room room = new Room();
-        room.setId(101);
-        room.setAddress("2 West st");
-        return room;
+    public Room fetchById(int id) {
+        Room foundRoom = roomDAO.fetch(id);
+        return foundRoom;
     }
 
     @Override
     public List<Room> fetchUserRooms(User user) {
         return null;
+    }
+
+    @Override
+    public void saveImage(MultipartFile imageFile) throws IOException {
+
+        String folder = "/photos/";
+        byte[] bytes = imageFile.getBytes();
+        Path path = Paths.get(folder + imageFile.getOriginalFilename());
+        System.out.println(path);
+        Files.write(path, bytes);
+
     }
 }

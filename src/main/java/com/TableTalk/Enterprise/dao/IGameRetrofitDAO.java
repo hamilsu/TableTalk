@@ -12,4 +12,6 @@ public interface IGameRetrofitDAO {
     @GET("/api/search")
     Call<GameCollection> getGamesByName(@QueryMap Map<String,String> filter);
 
+    @GET("/api/search")
+    Call<GameCollection> getGameById(@QueryMap Map<String,String> filter);
 }
