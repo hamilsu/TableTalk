@@ -31,12 +31,12 @@
 
         $(function () {
             document.getElementById("navSearch").style.display = "none";
-            $("#Search_Term").autocomplete({
+            $("#Search_Term1").autocomplete({
                 source: "gameNamesAutocomplete",
                 minLength: 3,
                 select: function (event, ui) {
                     this.value = ui.item.label;
-                    $("#Game_Id").val(ui.item.value);
+                    $("#Game_Id1").val(ui.item.value);
                     return false;
                 }
             });
@@ -56,11 +56,11 @@
     <div class="row">
         <div class="col-sm" style="margin-right: 24px;">
             <form class="d-flex" action="#" th:action="@{/games}" method="GET" style="margin-top: 56px;">
-                <input class="form-control me-2" id="Search_Term" type="search" placeholder="Search Games"
+                <input class="form-control me-2" id="Search_Term1" type="search" placeholder="Search Games"
                        aria-label="Search"
                        name="searchTerm">
                 <button style="margin-left: 6px" class="btn btn-primary" type="submit">Search</button>
-                <input id="Game_Id" type="hidden" name="gameId">
+                <input id="Game_Id1" type="hidden" name="gameId">
             </form>
             <a href="/games">
                 <button class="btn btn-secondary btn-sm" style="width: 100%; margin-top: 8px;">See All Games</button>
