@@ -12,4 +12,5 @@ public interface IGameDAO {
     GameCollection fetchGamesByName(String name) throws IOException;
 
     Game fetchGameByID(String id) throws IOException;
+
 }
