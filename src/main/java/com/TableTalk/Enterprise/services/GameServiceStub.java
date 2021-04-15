@@ -44,4 +44,5 @@ public class GameServiceStub implements IGameService {
     public Game fetchGameById(String id) throws IOException {
         return gameDAO.fetchGameByID(id);
     }
+
 }

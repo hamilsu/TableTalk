@@ -99,6 +99,7 @@ public class TableTalkController {
                 .replace("&quot;", "\"")
                 .replace("<br />", "");
         game.setDescription(newDecription);
+
         model.addAttribute(game);
         return "game";
     }
@@ -173,10 +174,10 @@ public class TableTalkController {
 //        room.setListOfPlayers(list);
         room.setFinalizedDate(LocalDateTime.now());
         room.setAddress("101 Main St. Cincinnati, OH 45219");
-        room.setGameId(1);
+        room.setGameId("1");
 
         Game game = new Game();
-        if (room.getGameId() == 1) {
+        if (room.getGameId() == "1") {
             game.setImageUrl("/uno.jpeg");
         }
 
@@ -196,7 +197,7 @@ public class TableTalkController {
     @RequestMapping("/createRoom")
     public String createRoom(Model model) {
         Room room = new Room();
-        room.setGameId(1);
+        room.setGameId("1");
         room.setAddress("101 Main St");
         room.setId(1);
 
@@ -252,7 +253,7 @@ public class TableTalkController {
     public String saveRoom(Room room) throws Exception {
         try {
             roomService.save(room);
-        } catch (Exception e) {
+        }catch (Exception e) {
             e.printStackTrace();
             return "createRoom";
         }
@@ -289,7 +290,8 @@ public class TableTalkController {
      * @param searchTerm, string of what the user is looking for.
      * @return list of games available in auto complete.
      */
-    @GetMapping(value = "/games", consumes = "application/json", produces = "application/json")
+
+    @GetMapping(value="/games", consumes="application/json", produces="application/json")
     public ResponseEntity searchGames(@RequestParam(value = "searchTerm", required = true, defaultValue = "None") String searchTerm) {
         try {
             GameCollection games = gameService.fetchGamesByName(searchTerm);
@@ -307,7 +309,7 @@ public class TableTalkController {
      * Handles the graphical searching of games.
      *
      * @param searchTerm
-     * @param model,     layout
+     * @param model, layout
      * @return games template or error template.
      */
     @GetMapping("/games")
@@ -343,8 +345,8 @@ public class TableTalkController {
         return "availability";
     }
 
-    @RequestMapping("/login")
-    public String login(Model model) {
+    @RequestMapping ("/login")
+    public String login(Model model){
         return "login";
     }
 
@@ -373,19 +375,20 @@ public class TableTalkController {
         return allGameNames;
     }
 
-//    @PostMapping(value="/uploadImage")
-//    public String uploadImage(@RequestParam("imageFile")MultipartFile imageFile, Model model){
-//        String returnValue = "start";
-//        try {
-//            roomService.saveImage(imageFile);
-//            Room room = new Room ();
-//            model.addAttribute("room", room);
-//            returnValue = "start";
-//        } catch (IOException e){
-//            //TODO: change this to logging
-//            e.printStackTrace();
-//            returnValue = "error";
-//        }
-//        return returnValue;
-//    }
+
+    @PostMapping(value="/uploadImage")
+    public String uploadImage(@RequestParam("imageFile")MultipartFile imageFile, Model model){
+        String returnValue = "start";
+        try {
+            roomService.saveImage(imageFile);
+            Room room = new Room ();
+            model.addAttribute("room", room);
+            returnValue = "start";
+        } catch (IOException e){
+            //TODO: change this to logging
+            e.printStackTrace();
+            returnValue = "error";
+        }
+        return returnValue;
+    }
 }

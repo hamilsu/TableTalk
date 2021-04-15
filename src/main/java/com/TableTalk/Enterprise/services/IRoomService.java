@@ -2,7 +2,9 @@ package com.TableTalk.Enterprise.services;
 
 import com.TableTalk.Enterprise.dto.Room;
 import com.TableTalk.Enterprise.dto.User;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -25,10 +27,14 @@ public interface IRoomService {
      */
     List<Room> fetchAll();
 
-    void delete(Integer id) throws Exception;
+    void delete(int id) throws Exception;
 
 
-    Room fetchById(Integer id);
+    Room fetchById(int id);
 
     List<Room> fetchUserRooms(User user);
+
+    void saveImage(MultipartFile imageFile) throws IOException;
 }
+
+
