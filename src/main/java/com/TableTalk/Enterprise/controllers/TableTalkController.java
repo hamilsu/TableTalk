@@ -323,7 +323,7 @@ public class TableTalkController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/saveRoom")
+    @PostMapping("/saveRoom")
     public ModelAndView saveRoom(Room room, @RequestParam("imageFile")MultipartFile imageFile, Model model) throws Exception {
         //todo we shouldn't have to try catch blocks. save everything or save nothing. To do that we have to account for
         // the photo being null
@@ -339,7 +339,7 @@ public class TableTalkController {
 
         Photo photo = new Photo();
         try {
-            photo.setFilename(imageFile.getOriginalFilename());
+            photo.setFileName(imageFile.getOriginalFilename());
             photo.setRoom(room);
             roomService.saveImage(imageFile, photo);
             model.addAttribute("room", room);

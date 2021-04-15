@@ -14,7 +14,7 @@ class Photo {
     @GeneratedValue
     private int id;
     private String path;
-    private String filename;
+    private String fileName;
     private String comments;
 
     @ManyToOne
