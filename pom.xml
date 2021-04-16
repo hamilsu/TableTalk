@@ -89,7 +89,6 @@
   <artifactId>mysql-connector-java</artifactId>
   <version>8.0.21</version>
 </dependency>
-    
 	</dependencies>
 
 	<build>
@@ -97,6 +96,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<addResources>true</addResources>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

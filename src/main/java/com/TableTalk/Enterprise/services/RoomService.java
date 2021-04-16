@@ -1,6 +1,8 @@
 package com.TableTalk.Enterprise.services;
 
+import com.TableTalk.Enterprise.dao.IPhotoDAO;
 import com.TableTalk.Enterprise.dao.IRoomDAO;
+import com.TableTalk.Enterprise.dto.Photo;
 import com.TableTalk.Enterprise.dto.Room;
 import com.TableTalk.Enterprise.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class RoomService implements IRoomService {
 
     @Autowired
     private IRoomDAO roomDAO;
+
+    @Autowired
+    private IPhotoDAO photoDAO;
 
     public RoomService(){
 
@@ -58,13 +63,9 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public void saveImage(MultipartFile imageFile) throws IOException {
-
-        String folder = "/photos/";
-        byte[] bytes = imageFile.getBytes();
-        Path path = Paths.get(folder + imageFile.getOriginalFilename());
-        System.out.println(path);
-        Files.write(path, bytes);
-
+    public void saveImage(MultipartFile imageFile, Photo photo) throws IOException {
+        photoDAO.save(photo);
+        photoDAO.saveImage(imageFile, photo);
     }
+
 }

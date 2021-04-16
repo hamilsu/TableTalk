@@ -1,11 +1,9 @@
 package com.TableTalk.Enterprise.dto;
 
+import com.sun.istack.Nullable;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="photos")
@@ -16,7 +14,10 @@ class Photo {
     @GeneratedValue
     private int id;
     private String path;
-    private String filename;
+    private String fileName;
     private String comments;
 
+    @ManyToOne
+    @JoinColumn(name="roomId")
+    private Room room;
 }
