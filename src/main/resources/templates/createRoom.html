@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="/availability.css" type="text/css"/>
+    <link rel="stylesheet" href="/main.css" type="text/css"/>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -48,9 +48,8 @@
 <div th:replace="fragments/navbar :: navbar">
 </div>
 
-<div>
-    <p>Create a room</p>
-    <p th:text="${room}" />
+<div class="container">
+    <h1>Create a room</h1>
 
     <form action="#" th:action="@{/saveRoom}" th:object="${room}" enctype="multipart/form-data" method="POST">
         <label>Address</label><input type="text" name="address" th:field="*{address}">
@@ -64,6 +63,8 @@
         <input type="file" id="userImage" name="imageFile"/>
         <button name="submit" type="submit" value="0">Submit</button>
     </form>
+
+    <p th:text="${room}" />
 
 </div>
 

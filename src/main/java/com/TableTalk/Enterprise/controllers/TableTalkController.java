@@ -44,7 +44,32 @@ public class TableTalkController {
      */
 
     @RequestMapping("/")
-    public String index() {
+    public String index(Model model) {
+        List<User> listOfPlayers = new ArrayList<User>();
+        User user = new User();
+        ProfilePicture photo = new ProfilePicture();
+        photo.setPath("/icons/person-circle.svg");
+        user.setDisplayedName("Luke");
+        user.setPhoto(photo);
+
+        List<String> listOfRooms = new ArrayList<>();
+        listOfRooms.add("Langsam 102");
+        listOfRooms.add("Main Street");
+        listOfRooms.add("Donahue Street");
+
+        user.setAvailableRooms(listOfRooms);
+
+        List<String> listOfGames = new ArrayList<>();
+        listOfGames.add("UNO!");
+        listOfGames.add("Monopoly");
+        listOfGames.add("Sorry!");
+        listOfGames.add("The Game of Life");
+
+        user.setGameLibrary(listOfGames);
+
+
+        model.addAttribute(user);
+
         return "start";
     }
 
@@ -59,12 +84,23 @@ public class TableTalkController {
     @GetMapping("/Game/{id}/")
     public String fetchGameById(@PathVariable("id") String id, Model model) throws IOException {
         Game game = gameService.fetchGameById(id);
+
+        StringBuilder strUserRating = new StringBuilder(game.getAverageUserRating().toString());
+        strUserRating.setLength(3);
+        String averageUserRating = strUserRating.toString();
+        game.setAverageUserRating(Double.parseDouble(averageUserRating));
+
+        String newDecription = game.getDescription().replace("<p>","")
+                .replace("</p>", "")
+                .replace("&quot;", "\"")
+                .replace("<br />", "");
+        game.setDescription(newDecription);
+
         model.addAttribute(game);
         return "game";
     }
 
     @PostMapping(value = "/Game", consumes = "application/json", produces = "application/json")
-
     public Game createGame(@RequestBody Game game) {
         return game;
 
@@ -298,11 +334,11 @@ public class TableTalkController {
      */
     @GetMapping("/gameNamesAutocomplete")
     @ResponseBody
-    public List<LabelValue> gameNamesAutocomplete(@RequestParam(value="term", required = false, defaultValue="default") String searchTerm) {
+    public List<LabelValue> gameNamesAutocomplete(@RequestParam(value = "term", required = false, defaultValue = "default") String searchTerm) {
         List<LabelValue> allGameNames = new ArrayList<LabelValue>();
         try {
             GameCollection games = gameService.fetchGamesByName(searchTerm);
-            for (Game game: games.getGames()) {
+            for (Game game : games.getGames()) {
                 LabelValue labelValue = new LabelValue();
                 labelValue.setLabel(game.getName());
                 labelValue.setValue(game.getId());

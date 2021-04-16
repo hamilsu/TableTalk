@@ -12,65 +12,81 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
 
-    <div th:replace = "fragments/autocomplete :: autocomplete">
-    </div>
+    <!-- JQuery for Autocomplete -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script type="text/javascript">
+
+        $(function () {
+            document.getElementById("navSearch").style.display = "none";
+            $("#Search_Term1").autocomplete({
+                source: "gameNamesAutocomplete",
+                minLength: 3,
+                select: function (event, ui) {
+                    this.value = ui.item.label;
+                    $("#Game_Id1").val(ui.item.value);
+                    return false;
+                }
+            });
+        });
+    </script>
+
     <title>TableTalk</title>
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar">
 </div>
-<p th:text="${games}" />
 <div class="container" style="margin-top: 32px">
-    <div class="row align-items-start">
-        <div class="card">
-            <img src="/monopoly.jpg" class="card-img-top" alt="monopoly image">
-            <div class="card-body">
-                <h5 class="card-title">Monopoly</h5>
-                <p class="card-text">Real-estate board game, in which the player's goal is to remain financially solvent
-                    while forcing opponents into bankruptcy by buying and developing pieces of property.</p>
-                <p>
-                    <img src="/icons/people-outline.svg" class="svg">
-                    2 - 8
-                </p>
-                <a href="Game" class="btn btn-primary">Read More</a>
-            </div>
+    <div class="row">
+        <h1>Welcome back, &nbsp</h1>
+        <h1 th:text="${user.displayedName}"></h1>
+        <h1>!</h1>
+    </div>
+    <div class="row">
+        <div class="col-sm" style="margin-right: 24px;">
+            <form class="d-flex" action="#" th:action="@{/games}" method="GET" style="margin-top: 56px;">
+                <input class="form-control me-2" id="Search_Term1" type="search" placeholder="Search Games"
+                       aria-label="Search"
+                       name="searchTerm">
+                <button style="margin-left: 6px" class="btn btn-primary" type="submit">Search</button>
+                <input id="Game_Id1" type="hidden" name="gameId">
+            </form>
+            <a href="/games">
+                <button class="btn btn-secondary btn-sm" style="width: 100%; margin-top: 8px;">See All Games</button>
+            </a>
+            <!--            <h1 style="margin-top: 14px;">My Games:</h1>-->
+            <!--            <tr th:each="game: ${user.gameLibrary}">-->
+            <!--                <a href="/Game">-->
+            <!--                    <button type="button" class="list-group-item list-group-item-action">-->
+            <!--                        <td th:text="${game}"/>-->
+            <!--                    </button>-->
+            <!--                </a>-->
+            <!--            </tr>-->
         </div>
-        <div class="card">
-            <img src="/life.jpg" class="card-img-top" alt="life game image">
-            <div class="card-body">
-                <h5 class="card-title">The Game of Life</h5>
-                <p class="card-text">Also known simply as Life, the game simulates a person's travels through his or her
-                    life, from college to retirement, with jobs, marriage, and possible children along the way.</p>
-                <p>
-                    <img src="/icons/people-outline.svg" class="svg">
-                    2 - 6
-                </p>
-                <a href="Game" class="btn btn-primary">Read More</a>
-            </div>
-        </div>
-        <div class="card">
-            <img src="/sorry.jpg" class="card-img-top" alt="sorry game image">
-            <div class="card-body">
-                <h5 class="card-title">Sorry!</h5>
-                <p class="card-text">Based on the ancient Indian cross and circle game Pachisi. Players move their three
-                    or four pieces around the board, attempting to get all of their pieces "home" before any other
-                    player.</p>
-                <p>
-                    <img src="/icons/people-outline.svg" class="svg">
-                    2 - 4
-                </p>
-                <a href="Game" class="btn btn-primary">Read More</a>
-            </div>
+        <div class="col-sm" style="margin-left: 24px;">
+            <h1>My Rooms:</h1>
+            <tr th:each="room: ${user.availableRooms}">
+                <a href="/displayRoom">
+                    <button type="button" class="list-group-item list-group-item-action">
+                        <td th:text="${room}"/>
+                    </button>
+                </a>
+            </tr>
         </div>
     </div>
 </div>
-
-
-
 
 </body>
 </html>

@@ -1,5 +1,5 @@
 .left-col {
-    width: 25%;
+    width: 30%;
 }
 
 .spacer {
@@ -20,4 +20,14 @@
 
 .btn-primary {
     color: #fff !important;
+}
+
+.img-wrapper {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.back-btn {
+    width: 124px;
 }

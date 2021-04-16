@@ -250,5 +250,5 @@ Scrum Master: Anne Catherwood
 [Project Board](https://github.com/discospiff/SpringBootMicroservicesWithIntelliJIDEA/milestone/1)
 
 ## 9) Standup Time and Link:  
-[Wednesdays @ 8:30 on Teams](https://teams.microsoft.com/l/meetup-join/19%3ameeting_OThiNzkzYTgtYzAzMi00YzBkLTk2ZWUtYzMyYjFjYmRkNDM2%40thread.v2/0?context=%7b%22Tid%22%3a%22f5222e6c-5fc6-48eb-8f03-73db18203b63%22%2c%22Oid%22%3a%220a98679a-f018-43b0-b7ad-e6cb6d74f56d%22%7d) 
+[Wednesdays and Sundays @ 9:00 on Teams](https://teams.microsoft.com/l/meetup-join/19%3ameeting_OThiNzkzYTgtYzAzMi00YzBkLTk2ZWUtYzMyYjFjYmRkNDM2%40thread.v2/0?context=%7b%22Tid%22%3a%22f5222e6c-5fc6-48eb-8f03-73db18203b63%22%2c%22Oid%22%3a%220a98679a-f018-43b0-b7ad-e6cb6d74f56d%22%7d) 
 
