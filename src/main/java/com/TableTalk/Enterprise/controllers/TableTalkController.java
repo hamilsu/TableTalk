@@ -204,8 +204,6 @@ public class TableTalkController {
     @GetMapping("/room/{id}/")
     public ResponseEntity fetchRoomById(@PathVariable("id") int id) {
         Room foundRoom = roomService.fetchById(id);
-////        List<Photo> foundPhoto = roomService.fetchByRoomId(id);
-//        System.out.println(foundPhoto.toString());
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity(foundRoom, headers, HttpStatus.OK);
