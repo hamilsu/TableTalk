@@ -9,12 +9,19 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class PhotoDAO implements IPhotoDAO {
 
     @Autowired
     private PhotoRepository photoRepository;
+
+    @Override
+    public List<Photo> fetchPhotoByRoom(int roomId){
+        return new ArrayList<Photo>();
+    }
 
     @Override
     public void save(Photo photo){

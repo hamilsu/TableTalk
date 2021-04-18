@@ -2,10 +2,7 @@ package com.TableTalk.Enterprise.dto;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,4 +16,8 @@ class Room {
     private LocalDateTime finalizedDate; //Might opt to change this to a nullable class since initially dates would be tbd
     private String address;
     private String gameId;
+
+
+    @OneToMany(mappedBy = "room")
+    private List<Photo> photos;
 }

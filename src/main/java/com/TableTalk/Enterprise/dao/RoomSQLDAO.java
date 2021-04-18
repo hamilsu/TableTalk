@@ -1,5 +1,6 @@
 package com.TableTalk.Enterprise.dao;
 
+import com.TableTalk.Enterprise.dto.Photo;
 import com.TableTalk.Enterprise.dto.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -30,8 +31,10 @@ public class RoomSQLDAO implements IRoomDAO {
 
     @Override
     public Room fetch(int id) {
+        System.out.println(id);
         return  roomRepository.findById(id).get();
     }
+
 
     @Override
     public void delete(int id) {

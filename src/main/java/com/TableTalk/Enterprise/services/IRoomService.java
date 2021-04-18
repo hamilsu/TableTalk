@@ -36,6 +36,9 @@ public interface IRoomService {
     List<Room> fetchUserRooms(User user);
 
     void saveImage(MultipartFile imageFile, Photo photo) throws IOException;
+
+//    List<Photo> fetchByRoomId(int roomId);
+
 }
 
 

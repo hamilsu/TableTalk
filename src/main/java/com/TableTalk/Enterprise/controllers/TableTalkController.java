@@ -50,13 +50,12 @@ public class TableTalkController {
         user.setDisplayedName("Luke");
         user.setPhoto(photo);
 
-
         List<String> listOfRooms = new ArrayList<>();
         List<Room> rooms = roomService.fetchAll();
         for(Room room: rooms){
-            listOfRooms.add(room.getAddress());
+            System.out.println(room);
         }
-        user.setAvailableRooms(listOfRooms);
+//        user.setAvailableRooms(listOfRooms);
 
         List<String> listOfGames = new ArrayList<>();
         listOfGames.add("UNO!");
@@ -66,10 +65,49 @@ public class TableTalkController {
 
         user.setGameLibrary(listOfGames);
 
-
+        model.addAttribute("rooms", rooms);
+        model.addAttribute("games", listOfGames);
         model.addAttribute(user);
 
         return "start";
+    }
+
+    @RequestMapping("/displayRoom/{id}/")
+    public String room(Model model, @PathVariable("id") int id) throws IOException {
+        List<User> list = new ArrayList<User>();
+        User luke = new User();
+        ProfilePicture profilePhoto = new ProfilePicture();
+        profilePhoto.setPath("/icons/person-circle.svg");
+        luke.setDisplayedName("Luke Greeley");
+        luke.setPhoto(profilePhoto);
+
+        User storm = new User();
+        storm.setDisplayedName("Storm Hamilton");
+        storm.setPhoto(profilePhoto);
+
+        User anne = new User();
+        anne.setDisplayedName("Anne Catherwood");
+        anne.setPhoto(profilePhoto);
+
+        list.add(luke);
+        list.add(storm);
+        list.add(anne);
+
+        Room room = roomService.fetchById(id);
+
+        Game game = gameService.fetchGameById(room.getGameId());
+        System.out.println(room.getPhotos());
+
+
+
+        model.addAttribute("room", room);
+        System.out.println("im the room" + room);
+        model.addAttribute("game", game);
+        System.out.println("im the game" + game);
+//        model.addAttribute("photo", photo);
+      System.out.println("im the model" + model);
+
+        return "room";
     }
 
     /**
@@ -138,49 +176,6 @@ public class TableTalkController {
 
     }
 
-    @RequestMapping("/displayRoom")
-    public String room(Model model) {
-        List<User> list = new ArrayList<User>();
-        User luke = new User();
-        ProfilePicture photo = new ProfilePicture();
-        photo.setPath("/icons/person-circle.svg");
-        luke.setDisplayedName("Luke Greeley");
-        luke.setPhoto(photo);
-
-        User storm = new User();
-        storm.setDisplayedName("Storm Hamilton");
-        storm.setPhoto(photo);
-
-        User anne = new User();
-        anne.setDisplayedName("Anne Catherwood");
-        anne.setPhoto(photo);
-
-        User momadu = new User();
-        momadu.setDisplayedName("Momadu Kone");
-        momadu.setPhoto(photo);
-
-        list.add(luke);
-        list.add(storm);
-        list.add(anne);
-        list.add(momadu);
-
-        Room room = new Room();
-        room.setId(1);
-//        room.setListOfPlayers(list);
-        room.setFinalizedDate(LocalDateTime.now());
-        room.setAddress("101 Main St. Cincinnati, OH 45219");
-        room.setGameId("1");
-
-        Game game = new Game();
-        if (room.getGameId() == "1") {
-            game.setImageUrl("/uno.jpeg");
-        }
-
-        model.addAttribute(room);
-        model.addAttribute(game);
-
-        return "room";
-    }
 
     /**
      * Handles the createRoom endpoint.
@@ -209,8 +204,8 @@ public class TableTalkController {
     @GetMapping("/room/{id}/")
     public ResponseEntity fetchRoomById(@PathVariable("id") int id) {
         Room foundRoom = roomService.fetchById(id);
-        List<Photo> foundPhoto = roomService.fetchByRoomId(id);
-        System.out.println(foundPhoto.toString());
+////        List<Photo> foundPhoto = roomService.fetchByRoomId(id);
+//        System.out.println(foundPhoto.toString());
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity(foundRoom, headers, HttpStatus.OK);
@@ -387,6 +382,7 @@ public class TableTalkController {
         }
         modelAndView.addObject("photo", photo);
         modelAndView.addObject("room", room);
+        System.out.println("i';m the mv " + modelAndView);
         return modelAndView;
     }
 }
