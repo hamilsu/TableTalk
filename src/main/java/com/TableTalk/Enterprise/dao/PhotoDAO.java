@@ -18,10 +18,6 @@ public class PhotoDAO implements IPhotoDAO {
     @Autowired
     private PhotoRepository photoRepository;
 
-    @Override
-    public List<Photo> fetchPhotoByRoom(int roomId){
-        return new ArrayList<Photo>();
-    }
 
     @Override
     public void save(Photo photo){

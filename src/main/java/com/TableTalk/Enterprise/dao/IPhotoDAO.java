@@ -11,5 +11,4 @@ public interface IPhotoDAO {
 
     void saveImage(MultipartFile imageFile, Photo photo) throws IOException;
 
-    List<Photo> fetchPhotoByRoom(int roomId);
 }
