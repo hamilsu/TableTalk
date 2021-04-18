@@ -3,7 +3,6 @@ package com.TableTalk.Enterprise.controllers;
 import com.TableTalk.Enterprise.dto.*;
 import com.TableTalk.Enterprise.services.IGameService;
 import com.TableTalk.Enterprise.services.IRoomService;
-import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -34,6 +31,7 @@ public class TableTalkController {
 
     @Autowired
     IRoomService roomService;
+
 
     Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -52,11 +50,12 @@ public class TableTalkController {
         user.setDisplayedName("Luke");
         user.setPhoto(photo);
 
-        List<String> listOfRooms = new ArrayList<>();
-        listOfRooms.add("Langsam 102");
-        listOfRooms.add("Main Street");
-        listOfRooms.add("Donahue Street");
 
+        List<String> listOfRooms = new ArrayList<>();
+        List<Room> rooms = roomService.fetchAll();
+        for(Room room: rooms){
+            listOfRooms.add(room.getAddress());
+        }
         user.setAvailableRooms(listOfRooms);
 
         List<String> listOfGames = new ArrayList<>();
@@ -210,6 +209,8 @@ public class TableTalkController {
     @GetMapping("/room/{id}/")
     public ResponseEntity fetchRoomById(@PathVariable("id") int id) {
         Room foundRoom = roomService.fetchById(id);
+        List<Photo> foundPhoto = roomService.fetchByRoomId(id);
+        System.out.println(foundPhoto.toString());
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity(foundRoom, headers, HttpStatus.OK);
