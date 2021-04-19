@@ -190,10 +190,11 @@ public class TableTalkController {
      * @param model room layout
      * @return createRoom webpage.
      */
-    @RequestMapping("/createRoom")
-    public String createRoom(Model model) {
+    @RequestMapping("/createRoom/{gameId}")
+    public String createRoom(@PathVariable("gameId") String gameId, Model model)throws IOException {
+        Game game = gameService.fetchGameById(gameId);
         Room room = new Room();
-        room.setGameId("1");
+        room.setGameId(gameId);
         room.setAddress("101 Main St");
         room.setId(1);
 
