@@ -151,32 +151,6 @@ public class TableTalkController {
 
     }
 
-
-    @GetMapping("/ProfilePicture")
-
-    public ResponseEntity fetchProfilePicture() {
-
-        return new ResponseEntity(HttpStatus.OK);
-
-    }
-
-    @PostMapping(value = "/ProfilePicture", consumes = "application/json", produces = "application/json")
-
-    public ProfilePicture createProfilePicture(@RequestBody com.TableTalk.Enterprise.dto.ProfilePicture profilePicture) {
-
-        return profilePicture;
-
-    }
-
-    @DeleteMapping("/ProfilePicture")
-
-    public ResponseEntity deleteProfilePicture() {
-
-        return new ResponseEntity(HttpStatus.OK);
-
-    }
-
-
     /**
      * Handles the createRoom endpoint.
      * Currently sets hard-coded data for testing.

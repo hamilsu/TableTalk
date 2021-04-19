@@ -1,5 +1,6 @@
 package com.TableTalk.Enterprise.dto;
 
+import com.sun.istack.Nullable;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,7 +18,7 @@ class Room {
     private String address;
     private String gameId;
 
-
+    @Nullable
     @OneToMany(mappedBy = "room")
     private List<Photo> photos;
 }
