@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-@Profile("dev")
+@Profile({"dev", "default"})
 public class RoomSQLDAO implements IRoomDAO {
     @Autowired
     RoomRepository roomRepository;
