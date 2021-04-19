@@ -15,12 +15,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class EnterpriseApplicationTests {
-
-    @Autowired
-    IGameService gameService;
-    
-    @Autowired
-    IRoomService roomService;
+//
+//    @Autowired
+//    IGameService gameService;
+//
+//    @Autowired
+//    IRoomService roomService;
 
     @Test
     void contextLoads(){
