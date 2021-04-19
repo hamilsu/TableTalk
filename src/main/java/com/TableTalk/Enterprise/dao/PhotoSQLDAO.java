@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Repository
-public class PhotoDAO implements IPhotoDAO {
+public class PhotoSQLDAO implements IPhotoDAO {
 
     @Autowired
     private PhotoRepository photoRepository;
