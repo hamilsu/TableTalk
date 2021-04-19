@@ -2,6 +2,7 @@ package com.TableTalk.Enterprise.dao;
 
 import com.TableTalk.Enterprise.dto.Photo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,7 +11,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+
 @Repository
+@Profile({"dev", "default"})
 public class PhotoSQLDAO implements IPhotoDAO {
 
     @Autowired
