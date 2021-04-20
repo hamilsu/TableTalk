@@ -173,8 +173,6 @@ public class TableTalkController {
             roomService.update(room);
             List<Photo> photos = new ArrayList<Photo>();
             photos = room.getPhotos();
-//            System.out.println("I am the image file " + imageFile);
-//            roomService.saveImage(imageFile, photos);
             model.addAttribute("room", room);
             model.addAttribute("photos", photos);
 
@@ -186,18 +184,18 @@ public class TableTalkController {
             return  modelAndView;
         }
 
-//        Photo photo = new Photo();
-//        try {
-//            photo.setFileName(imageFile.getOriginalFilename());
-//            photo.setRoom(room);
-//            roomService.saveImage(imageFile, photo);
+        Photo photo = new Photo();
+        try {
+            photo.setFileName(imageFile.getOriginalFilename());
+            photo.setRoom(room);
+            roomService.saveImage(imageFile, photo);
 //            model.addAttribute("room", room);
-//
+
 //            modelAndView.setViewName("room");
-//        } catch (IOException e){
-//            modelAndView.setViewName("error");
-//            return  modelAndView;
-//        }
+        } catch (IOException e){
+            modelAndView.setViewName("error");
+            return  modelAndView;
+        }
 
         modelAndView.addObject("game", game);
         modelAndView.addObject("room", room);
@@ -247,12 +245,14 @@ public class TableTalkController {
             return  modelAndView;
         }
 
-        Photo photos = new Photo();
+        Photo photo = new Photo();
         try {
-            photos.setFileName(imageFile.getOriginalFilename());
-            photos.setRoom(room);
-            roomService.saveImage(imageFile, photos);
+            photo.setFileName(imageFile.getOriginalFilename());
+            photo.setRoom(room);
+            roomService.saveImage(imageFile, photo);
+            List<Photo> photos = room.getPhotos();
             model.addAttribute("room", room);
+            model.addAttribute("photo", photos);
 
             modelAndView.setViewName("room");
         } catch (IOException e){
@@ -261,7 +261,7 @@ public class TableTalkController {
         }
 
         modelAndView.addObject("game", game);
-        modelAndView.addObject("photo", photos);
+        modelAndView.addObject("photo", photo);
         modelAndView.addObject("room", room);
         return modelAndView;
     }
