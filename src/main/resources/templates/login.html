@@ -41,9 +41,12 @@
             // or whether we leave that to developer to handle.
 
             var user = firebase.auth().currentUser
+            redirectUrl = '/loginSuccessful/'+user.displayName+'/'+user.uid+'/'
+
+            window.location.href = (redirectUrl)
 
 
-            return true;
+            return false;
             },
 
             // The widget is rendered.
@@ -74,6 +77,8 @@
 </div>
 <div id="firebaseui-auth-container"></div>
 <div id="loader">Loading...</div>
+<input id="User_Id" type="hidden" name="userId" value=""/>
+<input id="User_Name" type="hidden" name="userName" value=""/>
 
 </body>
 </html>

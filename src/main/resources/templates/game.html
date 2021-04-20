@@ -97,14 +97,6 @@
             window.history.back();
         }
 
-        $("#alertbtn").on("click", toggleAlert);
-        $('#alert').on('close.bs.alert', toggleAlert)
-        let game = document.getElementById("gameName").innerText;
-
-        function toggleAlert() {
-            window.alert(game + " has been added to your games!");
-        }
-
         $("#Search_Term").autocomplete({
             source: "gameNamesAutocomplete",
             minLength: 3,

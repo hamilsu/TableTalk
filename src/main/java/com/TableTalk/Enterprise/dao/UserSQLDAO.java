@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 @Repository
 @Profile({"dev", "default"})
@@ -38,7 +39,7 @@ public class UserSQLDAO implements IUserDAO {
         User newUser = new User();
         newUser.setId(id);
         newUser.setDisplayedName(displayName);
-        newUser.setAvailableRooms(new ArrayList<String>());
+        newUser.setAvailableRooms(new HashSet<String>());
         return userRepository.save(newUser);
 
     }

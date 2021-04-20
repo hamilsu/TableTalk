@@ -3,7 +3,9 @@ package com.TableTalk.Enterprise.services;
 import com.TableTalk.Enterprise.dao.IUserDAO;
 import com.TableTalk.Enterprise.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserService implements IUserService {
 
     @Autowired

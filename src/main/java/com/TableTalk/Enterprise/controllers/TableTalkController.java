@@ -19,11 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 
 
 @Controller
@@ -53,7 +52,7 @@ public class TableTalkController {
         User user = new User();
         user.setDisplayedName("Luke");
 
-        List<String> listOfRooms = new ArrayList<>();
+        Set<String> listOfRooms = new HashSet<String>();
         listOfRooms.add("Langsam 102");
         listOfRooms.add("Main Street");
         listOfRooms.add("Donahue Street");
@@ -84,11 +83,11 @@ public class TableTalkController {
         String averageUserRating = strUserRating.toString();
         game.setAverageUserRating(Double.parseDouble(averageUserRating));
 
-        String newDecription = game.getDescription().replace("<p>","")
+        String newDescription = game.getDescription().replace("<p>","")
                 .replace("</p>", "")
                 .replace("&quot;", "\"")
                 .replace("<br />", "");
-        game.setDescription(newDecription);
+        game.setDescription(newDescription);
 
         model.addAttribute(game);
         return "game";
@@ -230,14 +229,6 @@ public class TableTalkController {
     }
 
 
-    @GetMapping("/loginSuccessful/{id}/")
-    public String fetchUser(@PathVariable("id") String id, Model model) {
-        User currentUser = userService.fetchUser(id);
-        model.addAttribute(currentUser);
-        return "/";
-
-    }
-
     @PostMapping(value = "/User", consumes = "application/json", produces = "application/json")
 
     public User createUser(@RequestBody com.TableTalk.Enterprise.dto.User user) {
@@ -317,6 +308,18 @@ public class TableTalkController {
     @RequestMapping ("/login")
     public String login(Model model){
         return "login";
+    }
+
+    @RequestMapping ("/loginSuccessful/{displayName}/{uid}")
+    public String processLogin(@PathVariable("displayName") String displayName, @PathVariable("uid") String uid, Model model){
+        User user = new User();
+        if(userService.userExistsWithID(uid)){
+            user = userService.fetchUser(uid);
+        }else{
+            user = userService.createUser(uid, displayName);
+        }
+        model.addAttribute(user);
+        return "start";
     }
 
     /**

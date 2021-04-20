@@ -1,6 +1,5 @@
 package com.TableTalk.Enterprise.dao;
 
-import com.TableTalk.Enterprise.dto.Room;
 import com.TableTalk.Enterprise.dto.User;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.repository.CrudRepository;

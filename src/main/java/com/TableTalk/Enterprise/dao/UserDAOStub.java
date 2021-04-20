@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 @Repository
@@ -36,7 +37,7 @@ public class UserDAOStub implements IUserDAO{
         User newUser = new User();
         newUser.setId(id);
         newUser.setDisplayedName(displayName);
-        newUser.setAvailableRooms(new ArrayList<String>());
+        newUser.setAvailableRooms(new HashSet<String>());
         userMap.put(newUser.getId(), newUser);
         return newUser;
     }
