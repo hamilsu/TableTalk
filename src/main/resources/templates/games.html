@@ -20,11 +20,11 @@
 <div th:replace="fragments/navbar :: navbar">
 </div>
 <div class="container" style="margin-top: 32px; margin-bottom: 32px;">
-    <h1>My Rooms:</h1>
-    <tr th:each="room: ${rooms}">
-        <a th:href="@{'/room/' + ${room.id} + '/'}">
+    <h1>Search Results:</h1>
+    <tr th:each="game: ${games}">
+        <a th:href="@{'/Game/' + ${game.id} + '/'}">
             <button type="button" class="list-group-item list-group-item-action">
-                <td th:text="${room.name}"/>
+                <td th:text="${game.name}"/>
             </button>
         </a>
     </tr>

@@ -1,38 +1,27 @@
 <div th:fragment="navbar" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="navbar navbar-dark bg-primary">
         <a class="centered" href="/">
-        <img class="centered" src="/logo.png">
+            <img class="centered" src="/logo.png">
         </a>
     </div>
     <nav class="navbar navbar-dark bg-primary">
         <div class="container-fluid">
             <div id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-layout">
-                    <li class="nav-item nav-li">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
-                    </li>
-                    <li class="nav-item nav-li">
-                        <a class="nav-link" href="availability">Availability</a>
-                    </li>
-                    <li class="nav-item dropdown nav-li">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Profile
-                        </a>
-                        <ul class="dropdown-menu absolute-dropdown" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="profile">My Profile</a></li>
-                            <li><a class="dropdown-item" href="friends">My Friends</a></li>
-                            <li><a class="dropdown-item" href="displayRoom">My Rooms</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="settings">Settings</a></li>
-                        </ul>
-                    </li>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-layout" id="navMenu">
+
                 </ul>
             </div>
-            <div>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search Games" aria-label="Search">
+            <div id="navSearch">
+                <form class="d-flex" action="#" th:action="@{/games}" method="GET">
+                    <input class="form-control me-2 nav-width" id="Search_Term" type="search" placeholder="Search Games" aria-label="Search" name="searchTerm">
                     <button style="margin-left: 6px" class="btn btn-outline-light" type="submit">Search</button>
+
                 </form>
+            </div>
+            <div id="loginBtn" style="display: none">
+                <a href="/login">
+                    <button style="margin-left: 6px" class="btn btn-outline-light">Log In</button>
+                </a>
             </div>
         </div>
     </nav>
