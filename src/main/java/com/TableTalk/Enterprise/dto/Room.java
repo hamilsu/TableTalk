@@ -20,5 +20,5 @@ class Room {
 
     @Nullable
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Photo> photos;
+    public List<Photo> photos;
 }

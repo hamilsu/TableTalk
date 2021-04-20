@@ -149,7 +149,7 @@ public class TableTalkController {
 //            roomService.update(room);
             model.addAttribute("room", room);
             model.addAttribute("game", game);
-            model.addAttribute("photo", photos);
+//            model.addAttribute("photo", photos);
             System.out.println("I am the room in update id " + room);
 //            log.info("Room with ID " + id + " was updated.");
             return "updateRoom";
@@ -162,10 +162,9 @@ public class TableTalkController {
     @PostMapping("/editRoom/{id}")
     public ModelAndView updateRoom(Room room, @RequestParam("imageFile")MultipartFile imageFile, Model model, @PathVariable("id") int id) throws Exception {
 //        Room room = roomService.fetchById(room.id);
-        List<Photo> photos = new ArrayList<Photo>();
-        photos = room
-        photos = room.getPhotos();
-        System.out.println("I am the PHOTOS in updateRoom " + photos);
+//        List<Photo> photos = new ArrayList<Photo>();
+//        photos = room.getPhotos();
+        System.out.println("I am the PHOTOS in updateRoom " + room.photos);
         System.out.println("I am the room in updateRoom " + room);
         Game game = gameService.fetchGameById(room.getGameId());
         System.out.println("I am the game in updateRoom " + game);
