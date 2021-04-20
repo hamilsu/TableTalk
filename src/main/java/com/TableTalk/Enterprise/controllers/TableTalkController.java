@@ -3,6 +3,7 @@ package com.TableTalk.Enterprise.controllers;
 import com.TableTalk.Enterprise.dto.*;
 import com.TableTalk.Enterprise.services.IGameService;
 import com.TableTalk.Enterprise.services.IRoomService;
+import com.TableTalk.Enterprise.services.IUserService;
 import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +35,9 @@ public class TableTalkController {
 
     @Autowired
     IRoomService roomService;
+
+    @Autowired
+    IUserService userService;
 
     Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -146,19 +150,18 @@ public class TableTalkController {
         ProfilePicture photo = new ProfilePicture();
         photo.setPath("/icons/person-circle.svg");
         luke.setDisplayedName("Luke Greeley");
-        luke.setPhoto(photo);
 
         User storm = new User();
         storm.setDisplayedName("Storm Hamilton");
-        storm.setPhoto(photo);
+
 
         User anne = new User();
         anne.setDisplayedName("Anne Catherwood");
-        anne.setPhoto(photo);
+
 
         User momadu = new User();
         momadu.setDisplayedName("Momadu Kone");
-        momadu.setPhoto(photo);
+
 
         list.add(luke);
         list.add(storm);
@@ -237,11 +240,11 @@ public class TableTalkController {
     }
 
 
-    @GetMapping("/User")
-
-    public ResponseEntity fetchUsers() {
-
-        return new ResponseEntity(HttpStatus.OK);
+    @GetMapping("/loginSuccessful/{id}/")
+    public String fetchUser(@PathVariable("id") String id, Model model) {
+        User currentUser = userService.fetchUser(id);
+        model.addAttribute(currentUser);
+        return "/";
 
     }
 
