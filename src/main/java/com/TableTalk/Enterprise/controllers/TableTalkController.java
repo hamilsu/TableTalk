@@ -51,10 +51,7 @@ public class TableTalkController {
     public String index(Model model) {
         List<User> listOfPlayers = new ArrayList<User>();
         User user = new User();
-        ProfilePicture photo = new ProfilePicture();
-        photo.setPath("/icons/person-circle.svg");
         user.setDisplayedName("Luke");
-        user.setPhoto(photo);
 
         List<String> listOfRooms = new ArrayList<>();
         listOfRooms.add("Langsam 102");
@@ -63,13 +60,6 @@ public class TableTalkController {
 
         user.setAvailableRooms(listOfRooms);
 
-        List<String> listOfGames = new ArrayList<>();
-        listOfGames.add("UNO!");
-        listOfGames.add("Monopoly");
-        listOfGames.add("Sorry!");
-        listOfGames.add("The Game of Life");
-
-        user.setGameLibrary(listOfGames);
 
 
         model.addAttribute(user);
