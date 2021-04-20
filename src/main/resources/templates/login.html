@@ -55,6 +55,7 @@
     <!-- Defining FirebaseUI Configuration and Initializing UI-->
     <script type="text/javascript">
 
+<<<<<<< HEAD
         // FirebaseUI config.
         var uiConfig = {
             callbacks:{
@@ -89,15 +90,69 @@
 
         // The start method will wait until the DOM is loaded.
         ui.start('#firebaseui-auth-container', uiConfig);
+=======
+      // FirebaseUI config.
+      var uiConfig = {
+         callbacks:{
+            signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+
+            // User successfully signed in.
+            // Return type determines whether we continue the redirect automatically
+            // or whether we leave that to developer to handle.
+
+
+            return true;
+            },
+
+            // The widget is rendered.
+            // Hide the loader.
+            uiShown: function() {
+                document.getElementById('loader').style.display = 'none';
+            }
+         },
+
+        signInFlow: 'popup',
+        signInSuccessUrl: '/',
+
+        signInOptions: [
+          firebase.auth.GoogleAuthProvider.PROVIDER_ID
+        ]
+
+    };
+
+      // Initialize the FirebaseUI Widget using Firebase.
+      var ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+      // The start method will wait until the DOM is loaded.
+      ui.start('#firebaseui-auth-container', uiConfig);
+>>>>>>> 88dc27c00618adf570e2c2312d315336b0eb6a65
     </script>
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar">
 </div>
+<<<<<<< HEAD
 <div style="margin-top: 24px">
     <div id="firebaseui-auth-container"></div>
 </div>
+=======
+<div id="firebaseui-auth-container"></div>
+>>>>>>> 88dc27c00618adf570e2c2312d315336b0eb6a65
 <div id="loader">Loading...</div>
 
 </body>
 </html>
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+>>>>>>> 88dc27c00618adf570e2c2312d315336b0eb6a65

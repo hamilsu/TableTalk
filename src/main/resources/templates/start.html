@@ -51,11 +51,11 @@
 <div th:replace="fragments/navbar :: navbar">
 </div>
 <div class="container" style="margin-top: 32px">
-<!--    <div class="row">-->
-<!--        <h1>Welcome back, &nbsp</h1>-->
-<!--        <h1 th:text="${user.displayedName}"></h1>-->
-<!--        <h1>!</h1>-->
-<!--    </div>-->
+    <div class="row">
+        <h1>Welcome back, &nbsp</h1>
+        <h1 th:text="${user.displayedName}"></h1>
+        <h1>!</h1>
+    </div>
     <div class="row">
         <div class="col-sm" style="margin-right: 24px;">
             <form class="d-flex" action="#" th:action="@{/games}" method="GET" style="margin-top: 56px;">
@@ -68,6 +68,24 @@
             <a href="/games">
                 <button class="btn btn-secondary btn-sm" style="width: 100%; margin-top: 8px;">See All Games</button>
             </a>
+            <!--            <h1 style="margin-top: 14px;">My Games:</h1>-->
+            <!--            <tr th:each="game: ${user.gameLibrary}">-->
+            <!--                <a href="/Game">-->
+            <!--                    <button type="button" class="list-group-item list-group-item-action">-->
+            <!--                        <td th:text="${game}"/>-->
+            <!--                    </button>-->
+            <!--                </a>-->
+            <!--            </tr>-->
+        </div>
+        <div class="col-sm" style="margin-left: 24px;">
+            <h1>My Rooms:</h1>
+            <tr th:each="room: ${user.availableRooms}">
+                <a href="/displayRoom">
+                    <button type="button" class="list-group-item list-group-item-action">
+                        <td th:text="${room}"/>
+                    </button>
+                </a>
+            </tr>
         </div>
 <!--        <div class="col-sm" style="margin-left: 24px;">-->
 <!--            <h1>My Rooms:</h1>-->

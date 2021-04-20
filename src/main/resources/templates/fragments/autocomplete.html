@@ -8,12 +8,12 @@
 
         $(function() {
             $("#Search_Term").autocomplete({
-                source: "gameNamesAutocomplete",
+               source: "gameNamesAutocomplete",
                 minLength: 3,
                 select: function(event, ui) {
-                    this.value = ui.item.label;
-                    $("#Game_Id").val(ui.item.value);
-                    return false;
+                   this.value = ui.item.label;
+                   $("#Game_Id").val(ui.item.value);
+                   return false;
                 }
             });
         });
