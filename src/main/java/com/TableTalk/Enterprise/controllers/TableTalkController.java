@@ -198,6 +198,7 @@ public class TableTalkController {
         room.setAddress("101 Main St");
         room.setId(1);
 
+        model.addAttribute(game);
         model.addAttribute(room);
         return "createRoom";
     }
