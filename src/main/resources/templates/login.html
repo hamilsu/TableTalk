@@ -20,28 +20,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Login to TableTalk</title>
-    <!-- Import for the core Firebase JS SDK, must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
-    <!-- Import for Firebase Analytics SDK -->
-    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-analytics.js"></script>
-    <!-- Import for Firebase Authorization SDK -->
-    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-auth.js"></script>
 
-    <!-- Firebase Configuration and Initialization -->
-    <script>
-    const firebaseConfig = {
-    apiKey: "AIzaSyDD2ArsrdAQ2Rm5RhKoeF-5s6Lb5ngfMLk",
-    authDomain: "tabletalk-613ad.firebaseapp.com",
-    projectId: "tabletalk-613ad",
-    storageBucket: "tabletalk-613ad.appspot.com",
-    messagingSenderId: "398449356658",
-    appId: "1:398449356658:web:a3ad255e95d82b71bb37eb",
-    measurementId: "G-1K8T8F3E6V"
-    };
-
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    </script>
+    <div th:replace="fragments/initializeFirebase :: initializeFirebase"> </div>
 
     <!-- Import for Firebase UI -->
     <script src="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.js"></script>
