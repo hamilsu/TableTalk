@@ -69,7 +69,7 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public void saveImage(MultipartFile imageFile, Photo photo) throws IOException {
+    public void saveImage(MultipartFile imageFile, List<Photo> photo) throws IOException {
         photoDAO.save(photo);
         photoDAO.saveImage(imageFile, photo);
     }
