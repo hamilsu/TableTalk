@@ -167,20 +167,22 @@ public class TableTalkController {
         System.out.println("I am the game in updateRoom " + game);
         ModelAndView modelAndView = new ModelAndView();
 
-        if (!imageFile.isEmpty()) {
+
             Photo photo = new Photo();
             try {
                 photo.setFileName(imageFile.getOriginalFilename());
                 photo.setRoom(room);
                 roomService.saveImage(imageFile, photo);
-
+                photo.setPath("/src/main/upload/" + photo.getFileName());
+                room.photos.add(photo);
             } catch (IOException e) {
                 modelAndView.setViewName("error");
                 return modelAndView;
             }
-        }
+
         try {
-            room = roomService.update(room);
+            roomService.update(room);
+
             List<Photo> photos = new ArrayList<Photo>();
             photos = room.getPhotos();
             model.addAttribute("room", room);
@@ -251,7 +253,7 @@ public class TableTalkController {
             roomService.saveImage(imageFile, photo);
             List<Photo> photos = room.getPhotos();
             model.addAttribute("room", room);
-            model.addAttribute("photo", photos);
+            model.addAttribute("photos", photos);
 
             modelAndView.setViewName("room");
         } catch (IOException e){
@@ -260,7 +262,7 @@ public class TableTalkController {
         }
 
         modelAndView.addObject("game", game);
-        modelAndView.addObject("photo", photo);
+        modelAndView.addObject("photos", photo);
         modelAndView.addObject("room", room);
         return modelAndView;
     }
