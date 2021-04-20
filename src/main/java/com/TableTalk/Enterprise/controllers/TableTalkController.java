@@ -347,14 +347,11 @@ public class TableTalkController {
             photo.setRoom(room);
             roomService.saveImage(imageFile, photo);
             model.addAttribute("room", room);
-            modelAndView.setViewName("success");
+            modelAndView.setViewName("room");
         } catch (IOException e){
             modelAndView.setViewName("error");
             return  modelAndView;
         }
-        modelAndView.addObject("photo", photo);
-        modelAndView.addObject("room", room);
-        System.out.println("i';m the mv " + modelAndView);
         return modelAndView;
     }
 }

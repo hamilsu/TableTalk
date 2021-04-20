@@ -15,81 +15,86 @@
     <title>TableTalk</title>
 </head>
 <body>
-<div th:replace="fragments/navbar :: navbar">
-</div>
-<div class="container" style="margin-top: 32px">
-    <div class="row">
-        <div class="col-8">
+    <div th:replace="fragments/navbar :: navbar">
+    </div>
+        <div class="container" style="margin-top: 32px">
             <div class="row">
-                <img th:src="${game.imageUrl}" width="100%">
-                <h1 class="inline-flex">Room: &nbsp
-                    <p th:text="${room.id}"></p>
-                </h1>
-            </div>
+                <div class="col-8">
+                    <div class="row">
+                        <img th:src="${game.imageUrl}" width="100%">
+                        <h1 class="inline-flex">Room: &nbsp
+                            <p th:text="${room.id}"></p>
+                        </h1>
+                    </div>
 
-            <div class="row subhead" style="margin-top: -16px;">
-                <div class="inline-flex">
-                    <img src="/icons/location.svg" class="svg subhead-img" style="margin-right: 8px;">
-                    <p th:text="${room.address}" style="margin-top: auto; margin-bottom: auto;"></p>
-                </div>
-            </div>
-            <div class="row subhead" style="padding-top: 12px;">
-                <div class="inline-flex">
-                    <img src="/icons/calendar-clear.svg" class="svg subhead-img" style="margin-right: 8px;">
-                    <p th:text="${room.finalizedDate}" style="margin-top: auto; margin-bottom: auto;"></p>
-                </div>
-            </div>
+                    <div class="row subhead" style="margin-top: -16px;">
+                        <div class="inline-flex">
+                            <img src="/icons/location.svg" class="svg subhead-img" style="margin-right: 8px;">
+                            <p th:text="${room.address}" style="margin-top: auto; margin-bottom: auto;"></p>
+                        </div>
+                    </div>
+                    <div class="row subhead" style="padding-top: 12px;">
+                        <div class="inline-flex">
+                            <img src="/icons/calendar-clear.svg" class="svg subhead-img" style="margin-right: 8px;">
+                            <p th:text="${room.finalizedDate}" style="margin-top: auto; margin-bottom: auto;"></p>
+                        </div>
+                    </div>
 
-            <div class="row subhead" style="padding-top: 12px;">
-                <div class="inline-flex">
-                    <img src="/icons/calendar-clear.svg" class="svg subhead-img" style="margin-right: 8px;">
-                    <p th:text="${game.ImageUrl}" style="margin-top: auto; margin-bottom: auto;"></p>
-                </div>
-            </div>
+                    <div class="row subhead" style="padding-top: 12px;">
+                        <div class="inline-flex">
+                            <img src="/icons/calendar-clear.svg" class="svg subhead-img" style="margin-right: 8px;">
+                            <p th:text="${game.ImageUrl}" style="margin-top: auto; margin-bottom: auto;"></p>
+                        </div>
+                    </div>
 
 
-            <div class="row subhead" style="padding-top: 12px;">
-                <div class="inline-flex">
-                    <img src="/icons/calendar-clear.svg" class="svg subhead-img" style="margin-right: 8px;">
-                    <p th:text="${game.id}" style="margin-top: auto; margin-bottom: auto;"></p>
-                </div>
-            </div>
+                    <div class="row subhead" style="padding-top: 12px;">
+                        <div class="inline-flex">
+                            <img src="/icons/calendar-clear.svg" class="svg subhead-img" style="margin-right: 8px;">
+                            <p th:text="${game.id}" style="margin-top: auto; margin-bottom: auto;"></p>
+                        </div>
+                    </div>
 
-            <div class="row subhead" style="padding-top: 12px;">
-                <div class="inline-flex">
-                    <img src="/icons/calendar-clear.svg" class="svg subhead-img" style="margin-right: 8px;">
-                    <p th:text="${room}" style="margin-top: auto; margin-bottom: auto;"></p>
-                </div>
-            </div>
-            <p th:text="${room.photos}" style="margin-top: auto; margin-bottom: auto;"></p>
-            <div class="row subhead" style="padding-top: 12px;">
-                <div class="inline-flex">
-                    <p th:text="${room.photos}"></p>
-                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img class="d-block w-100" th:src="@{${'/upload/StartSlideshow.jpg'}}" alt="FirstSlide">
-                            </div>
-                            <div class="carousel-item" th:each="photo : ${room.photos}">
-                                <img class="d-block w-100" th:src="@{${'/upload/' + photo.fileName}}" alt="SecondSlide">
+                    <div class="row subhead" style="padding-top: 12px;">
+                        <div class="inline-flex">
+                            <img src="/icons/calendar-clear.svg" class="svg subhead-img" style="margin-right: 8px;">
+                            <p th:text="${room}" style="margin-top: auto; margin-bottom: auto;"></p>
+                        </div>
+                    </div>
+                    <p th:text="${room.photos}" style="margin-top: auto; margin-bottom: auto;"></p>
+                    <div class="row subhead" style="padding-top: 12px;">
+                        <div class="inline-flex">
+                            <p th:text="${room.photos}"></p>
+                            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img class="d-block w-100" th:src="@{${'/upload/StartSlideshow.jpg'}}" alt="FirstSlide">
+                                    </div>
+                                    <div class="carousel-item" th:each="photo : ${room.photos}">
+                                        <img class="d-block w-100" th:src="@{${'/upload/' + photo.fileName}}" alt="SecondSlide">
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
                             </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
                     </div>
                 </div>
-            </div>
-        </div>
+             </div>
 
-<div>
-    </div>
-</div>
+            <form th:action="@{/deleteRoom/{id}/(id=${room.Id})}" th:object="${room}" th:method="DELETE">
+                <input type="hidden" th:field="${room}">Delete</input>
+                <button type="submit" onClick="return confirm('sure?')"/>
+            </form>
+
+
+        </div>
 
 
 
