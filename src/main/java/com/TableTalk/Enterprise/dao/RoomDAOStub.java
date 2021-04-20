@@ -38,7 +38,6 @@ public class RoomDAOStub  implements IRoomDAO {
     @Override
     public void delete(int id) {
         allRooms.remove(id);
-
     }
 
 }

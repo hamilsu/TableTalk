@@ -99,10 +99,14 @@ public class TableTalkController {
         Game game = gameService.fetchGameById(room.getGameId());
         System.out.println(room.getPhotos());
 
+        List<Photo> photos = new ArrayList<Photo>();
+        photos = room.getPhotos();
+
 
 
         model.addAttribute("room", room);
         model.addAttribute("game", game);
+        model.addAttribute("photo", photos);
 
         return "room";
     }
@@ -184,12 +188,56 @@ public class TableTalkController {
 
         modelAndView.addObject("game", game);
         modelAndView.addObject("photo", photo);
-        System.out.println("I'm the photo "  + photo);
         modelAndView.addObject("room", room);
-        System.out.println(modelAndView);
         return modelAndView;
     }
 
+    /**
+     * Handles the updateRoom/ID endpoint.
+     *
+     * @param id,    room id
+     * @return "RedirectView", redirects to display room page on success.
+     * @throws IOException, bad room ID.
+     */
+    @PostMapping("/updateRoom")
+    public ModelAndView updateRoom(Room room, @RequestParam("imageFile")MultipartFile imageFile, Model model) throws Exception {
+        Game game = gameService.fetchGameById(room.getGameId());
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            room.setAddress("202 west st");
+            roomService.save(room);
+        }catch (Exception e) {
+            e.printStackTrace();
+            modelAndView.setViewName("error");
+            return  modelAndView;
+        }
+
+        Photo photo = new Photo();
+        try {
+            photo.setFileName(imageFile.getOriginalFilename());
+            photo.setRoom(room);
+            roomService.saveImage(imageFile, photo);
+            model.addAttribute("room", room);
+
+            modelAndView.setViewName("room");
+        } catch (IOException e){
+            modelAndView.setViewName("error");
+            return  modelAndView;
+        }
+
+        modelAndView.addObject("game", game);
+        modelAndView.addObject("photo", photo);
+        modelAndView.addObject("room", room);
+        return modelAndView;
+    }
+
+    /**
+     * Handles the deleteRoom/ID endpoint.
+     *
+     * @param id,    room id
+     * @return "RedirectView", redirects to display room page on success.
+     * @throws IOException, bad room ID.
+     */
     @GetMapping("/deleteRoom/{id}/")
     public RedirectView deleteRoom(@PathVariable("id") int id) {
         log.debug("Entering delete room endpoint");
@@ -203,6 +251,7 @@ public class TableTalkController {
         }
 
     }
+
     /**
      * Handles the Game/ID endpoint.
      *
@@ -312,30 +361,6 @@ public class TableTalkController {
     }
 
     /**
-     * Handles the availability endpoint.
-     * Currently fills with hard-coded data for proof-of-concept
-     *
-     * @param model, room layout
-     * @return availability template.
-     */
-    @RequestMapping("/availability")
-    public String availability(Model model) {
-        // testing proof of concept
-        Game game = new Game();
-        game.setName("UNO");
-        game.setId("1");
-        model.addAttribute(game);
-
-
-        return "availability";
-    }
-
-    @RequestMapping ("/login")
-    public String login(Model model){
-        return "login";
-    }
-
-    /**
      * Handles autocomplete of searching games.
      *
      * @param searchTerm
@@ -361,4 +386,8 @@ public class TableTalkController {
     }
 
 
+    @RequestMapping ("/login")
+    public String login(Model model){
+        return "login";
+    }
 }

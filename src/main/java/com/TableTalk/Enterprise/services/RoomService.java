@@ -68,11 +68,4 @@ public class RoomService implements IRoomService {
         photoDAO.saveImage(imageFile, photo);
     }
 
-//    @Override
-//    public List<Photo> fetchByRoomId(int roomId) {
-//        List<Photo> photos = photoDAO.fetchPhotoByRoom(roomId);
-//        System.out.println(photos);
-//        return photos;
-//    }
-
 }
