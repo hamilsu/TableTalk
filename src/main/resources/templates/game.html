@@ -18,13 +18,22 @@
 <div th:replace="fragments/navbar :: navbar">
 </div>
 <div class="container" style="margin-top: 32px">
-    <div class="row">
-        <img th:src="${game.imageUrl}" width="100%">
+    <div class="row" style="margin-bottom: 32px;">
+        <a type="button" class="btn btn-secondary back-btn" id="backBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-chevron-left" viewBox="0 0 16 16" style="vertical-align: text-bottom">
+                <path fill-rule="evenodd"
+                      d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+            </svg>
+            Back</a>
     </div>
     <div class="row">
+        <img th:src="${game.imageUrl}" class="img-wrapper">
+    </div>
+    <div class="row" style="margin-top: 16px;">
         <div class="col-xs left-col">
             <div class="row auto-left-margin">
-            <h1 th:text="${game.name}" id="gameName"></h1>
+                <h1 th:text="${game.name}" id="gameName"></h1>
             </div>
             <div class="row auto-left-margin">
                 <p>
@@ -41,9 +50,9 @@
                 <p>+</p>
             </div>
             <div class="row auto-left-margin">
-                <p th:text="${game.averageUserRating}"></p>
+                <p th:text="${game.averageUserRating}" style="margin-right: 4px;"></p>
                 <p>
-                    <img src="/icons/star.svg" class="svg">
+                    <img src="/icons/star.svg" class="svg" style="vertical-align: baseline;">
                 </p>
                 <p>
                 <p>&nbsp (</p>
@@ -61,7 +70,7 @@
             <a type="button" class="btn btn-secondary" th:href="${game.url}" target="_blank">Read More</a>
         </div>
         <div class="col-sm">
-            <button type="button" class="btn btn-primary" id="alertbtn">Add Game</button>
+            <button type="button" class="btn btn-primary" id="alertbtn">Create room with this game!</button>
         </div>
     </div>
     <div class="row spacer">
@@ -82,14 +91,29 @@
         crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
+        $("#backBtn").on("click", goBack);
+
+        function goBack() {
+            window.history.back();
+        }
 
         $("#alertbtn").on("click", toggleAlert);
         $('#alert').on('close.bs.alert', toggleAlert)
         let game = document.getElementById("gameName").innerText;
 
-        function toggleAlert(){
-            window.alert(game + " has been added to your games!" );
+        function toggleAlert() {
+            window.alert(game + " has been added to your games!");
         }
+
+        $("#Search_Term").autocomplete({
+            source: "gameNamesAutocomplete",
+            minLength: 3,
+            select: function (event, ui) {
+                this.value = ui.item.label;
+                $("#Game_Id").val(ui.item.value);
+                return false;
+            }
+        });
     });
 
 </script>

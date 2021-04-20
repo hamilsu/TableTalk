@@ -1,12 +1,8 @@
 package com.TableTalk.Enterprise.controllers;
 
-import com.TableTalk.Enterprise.dto.Game;
-import com.TableTalk.Enterprise.dto.ProfilePicture;
-import com.TableTalk.Enterprise.dto.Room;
-import com.TableTalk.Enterprise.dto.User;
+import com.TableTalk.Enterprise.dto.*;
 import com.TableTalk.Enterprise.services.IGameService;
 import com.TableTalk.Enterprise.services.IRoomService;
-import com.TableTalk.Enterprise.dto.GameCollection;
 import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -45,30 +44,63 @@ public class TableTalkController {
      */
 
     @RequestMapping("/")
-    public String index() {
+    public String index(Model model) {
+        List<User> listOfPlayers = new ArrayList<User>();
+        User user = new User();
+        ProfilePicture photo = new ProfilePicture();
+        photo.setPath("/icons/person-circle.svg");
+        user.setDisplayedName("Luke");
+        user.setPhoto(photo);
+
+        List<String> listOfRooms = new ArrayList<>();
+        listOfRooms.add("Langsam 102");
+        listOfRooms.add("Main Street");
+        listOfRooms.add("Donahue Street");
+
+        user.setAvailableRooms(listOfRooms);
+
+        List<String> listOfGames = new ArrayList<>();
+        listOfGames.add("UNO!");
+        listOfGames.add("Monopoly");
+        listOfGames.add("Sorry!");
+        listOfGames.add("The Game of Life");
+
+        user.setGameLibrary(listOfGames);
+
+
+        model.addAttribute(user);
+
         return "start";
     }
 
-    @GetMapping("/Game")
-    public String fetchGames(Model model) {
-        Game game = new Game();
-        game.setName("UNO!");
-        game.setId("1");
-        game.setUrl("https://www.letsplayuno.com/");
-        game.setMinPlayers(2);
-        game.setMaxPlayers(10);
-        game.setYearPublished(1971);
-        game.setMinAge(3);
-        game.setDescription("UNO is the classic card game that’s easy to pick up and impossible to put down! Players take turns matching a card in their hand with the current card shown on top of the deck either by color or number. Special action cards deliver game-changing moments as they help you defeat your opponents. These include Skips, Reverses, Draw Twos, Wild and Draw Four Wild cards. You’ll find 25 of each color (red, green, blue, and yellow), eight Wild cards, three Customizable cards and one Special Rule card inside the 112-card deck. If you can’t make a match, you must draw from the central pile! And when you’re down to one card, don’t forget to shout “UNO!” The first player to rid themselves of all the cards in their hand before their opponents wins. It’s Fast Fun for Everyone! ");
-        game.setImageUrl("/uno.jpeg");
-        game.setNumUserRatings(564);
-        game.setAverageUserRating(4.3);
+    /**
+     * Handles the Game/ID endpoint.
+     *
+     * @param id,    game id
+     * @param model, page layout.
+     * @return "game", webpage template.
+     * @throws IOException, bad game ID.
+     */
+    @GetMapping("/Game/{id}/")
+    public String fetchGameById(@PathVariable("id") String id, Model model) throws IOException {
+        Game game = gameService.fetchGameById(id);
+
+        StringBuilder strUserRating = new StringBuilder(game.getAverageUserRating().toString());
+        strUserRating.setLength(3);
+        String averageUserRating = strUserRating.toString();
+        game.setAverageUserRating(Double.parseDouble(averageUserRating));
+
+        String newDecription = game.getDescription().replace("<p>","")
+                .replace("</p>", "")
+                .replace("&quot;", "\"")
+                .replace("<br />", "");
+        game.setDescription(newDecription);
+
         model.addAttribute(game);
         return "game";
     }
 
     @PostMapping(value = "/Game", consumes = "application/json", produces = "application/json")
-
     public Game createGame(@RequestBody Game game) {
         return game;
 
@@ -135,13 +167,13 @@ public class TableTalkController {
 
         Room room = new Room();
         room.setId(1);
-        room.setListOfPlayers(list);
+//        room.setListOfPlayers(list);
         room.setFinalizedDate(LocalDateTime.now());
         room.setAddress("101 Main St. Cincinnati, OH 45219");
-        room.setGameId(1);
+        room.setGameId("1");
 
         Game game = new Game();
-        if (room.getGameId() == 1) {
+        if (room.getGameId() == "1") {
             game.setImageUrl("/uno.jpeg");
         }
 
@@ -151,10 +183,17 @@ public class TableTalkController {
         return "room";
     }
 
+    /**
+     * Handles the createRoom endpoint.
+     * Currently sets hard-coded data for testing.
+     *
+     * @param model room layout
+     * @return createRoom webpage.
+     */
     @RequestMapping("/createRoom")
     public String createRoom(Model model) {
         Room room = new Room();
-        room.setGameId(1);
+        room.setGameId("1");
         room.setAddress("101 Main St");
         room.setId(1);
 
@@ -169,7 +208,7 @@ public class TableTalkController {
     }
 
     @GetMapping("/room/{id}/")
-    public ResponseEntity fetchRoomById(@PathVariable("id") Integer id) {
+    public ResponseEntity fetchRoomById(@PathVariable("id") int id) {
         Room foundRoom = roomService.fetchById(id);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -183,8 +222,8 @@ public class TableTalkController {
         return room;
     }
 
-    @DeleteMapping("/delete/{id}/")
-    public ResponseEntity deleteRoom(@PathVariable("id") Integer id) {
+    @DeleteMapping("/deleteRoom/{id}/")
+    public ResponseEntity deleteRoom(@PathVariable("id") int id) {
         log.debug("Entering delete room endpoint");
         try {
             roomService.delete(id);
@@ -195,33 +234,6 @@ public class TableTalkController {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-    }
-
-
-    /**
-     * Populates room from HTML with Thymelead.
-     * Send DTO to service
-     *
-     * @param room
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping("/saveRoom")
-    public String saveRoom(Room room) throws Exception {
-        Room newRoom = null;
-        try {
-            newRoom = roomService.save(room);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "createRoom";
-        }
-        return "createRoom";
-    }
-
-    @GetMapping("/allRooms")
-    @ResponseBody
-    public List<Room> displayAllRooms() {
-        return roomService.fetchAll();
     }
 
 
@@ -249,7 +261,13 @@ public class TableTalkController {
 
     }
 
-    @GetMapping("/games")
+    /**
+     * Handles the logical searching of games.
+     *
+     * @param searchTerm, string of what the user is looking for.
+     * @return list of games available in auto complete.
+     */
+    @GetMapping(value="/games", consumes="application/json", produces="application/json")
     public ResponseEntity searchGames(@RequestParam(value = "searchTerm", required = true, defaultValue = "None") String searchTerm) {
         try {
             GameCollection games = gameService.fetchGamesByName(searchTerm);
@@ -263,6 +281,34 @@ public class TableTalkController {
 
     }
 
+    /**
+     * Handles the graphical searching of games.
+     *
+     * @param searchTerm
+     * @param model, layout
+     * @return games template or error template.
+     */
+    @GetMapping("/games")
+    public String searchGamesForm(@RequestParam(value = "searchTerm", required = true, defaultValue = "None") String searchTerm, Model model) {
+        try {
+            GameCollection gameList = gameService.fetchGamesByName(searchTerm);
+            List<Game> games = gameList.getGames();
+            model.addAttribute("games", games);
+            return "games";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "error"; //TODO: Actual error handling
+        }
+
+    }
+
+    /**
+     * Handles the availability endpoint.
+     * Currently fills with hard-coded data for proof-of-concept
+     *
+     * @param model, room layout
+     * @return availability template.
+     */
     @RequestMapping("/availability")
     public String availability(Model model) {
         // testing proof of concept
@@ -274,5 +320,72 @@ public class TableTalkController {
 
         return "availability";
     }
-}
 
+    @RequestMapping ("/login")
+    public String login(Model model){
+        return "login";
+    }
+
+    /**
+     * Handles autocomplete of searching games.
+     *
+     * @param searchTerm
+     * @return a list of all the game names.
+     */
+    @GetMapping("/gameNamesAutocomplete")
+    @ResponseBody
+    public List<LabelValue> gameNamesAutocomplete(@RequestParam(value = "term", required = false, defaultValue = "default") String searchTerm) {
+        List<LabelValue> allGameNames = new ArrayList<LabelValue>();
+        try {
+            GameCollection games = gameService.fetchGamesByName(searchTerm);
+            for (Game game : games.getGames()) {
+                LabelValue labelValue = new LabelValue();
+                labelValue.setLabel(game.getName());
+                labelValue.setValue(game.getId());
+                allGameNames.add(labelValue);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<LabelValue>();
+        }
+        return allGameNames;
+    }
+
+    /**
+     * Populates room from HTML with Thymeleaf.
+     * Send DTO to service
+     *
+     * @param room
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/saveRoom")
+    public ModelAndView saveRoom(Room room, @RequestParam("imageFile")MultipartFile imageFile, Model model) throws Exception {
+        //todo we shouldn't have to try catch blocks. save everything or save nothing. To do that we have to account for
+        // the photo being null
+        String returnValue = "createRoom";
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            roomService.save(room);
+        }catch (Exception e) {
+            e.printStackTrace();
+            modelAndView.setViewName("error");
+            return  modelAndView;
+        }
+
+        Photo photo = new Photo();
+        try {
+            photo.setFileName(imageFile.getOriginalFilename());
+            photo.setRoom(room);
+            roomService.saveImage(imageFile, photo);
+            model.addAttribute("room", room);
+            modelAndView.setViewName("success");
+        } catch (IOException e){
+            modelAndView.setViewName("error");
+            return  modelAndView;
+        }
+        modelAndView.addObject("photo", photo);
+        modelAndView.addObject("room", room);
+        return modelAndView;
+    }
+}

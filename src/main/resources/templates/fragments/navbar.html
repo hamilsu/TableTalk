@@ -28,10 +28,11 @@
                     </li>
                 </ul>
             </div>
-            <div>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search Games" aria-label="Search">
+            <div id="navSearch">
+                <form class="d-flex" action="#" th:action="@{/games}" method="GET">
+                    <input class="form-control me-2 nav-width" id="Search_Term" type="search" placeholder="Search Games" aria-label="Search" name="searchTerm">
                     <button style="margin-left: 6px" class="btn btn-outline-light" type="submit">Search</button>
+
                 </form>
             </div>
         </div>

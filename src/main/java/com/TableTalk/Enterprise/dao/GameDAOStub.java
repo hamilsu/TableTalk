@@ -46,4 +46,20 @@ public class GameDAOStub implements IGameDAO {
         GameCollection gameList = execute.body();
         return gameList;
     }
+
+    @Override
+    public Game fetchGameByID(String id) throws IOException {
+        Retrofit retrofitInstance = RetrofitClientInstance.getRetrofitInstance();
+        IGameRetrofitDAO gameRetrofitDAO = retrofitInstance.create(IGameRetrofitDAO.class);
+        Map<String, String> filter = new HashMap<>();
+        filter.put("ids", id);
+        filter.put("client_id", CLIENT_ID);
+        System.out.println(filter);
+        Call<GameCollection> games =  gameRetrofitDAO.getGamesByName(filter);
+        Response<GameCollection> execute = games.execute();
+        GameCollection gameList = execute.body();
+        Game game = gameList.getGames().remove(0);
+        return game;
+    }
+
 }
