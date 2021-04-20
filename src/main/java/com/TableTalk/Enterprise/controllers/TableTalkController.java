@@ -110,6 +110,59 @@ public class TableTalkController {
         return "room";
     }
 
+
+    /**
+     * Handles the createRoom endpoint.
+     * Currently sets hard-coded data for testing.
+     *
+     * @param model room layout
+     * @return createRoom webpage.
+     */
+    @RequestMapping("/createRoom")
+    public String createRoom(Model model) {
+        Room room = new Room();
+        room.setGameId("1");
+        room.setAddress("101 Main St");
+        room.setId(1);
+
+        model.addAttribute(room);
+        return "createRoom";
+    }
+
+    @GetMapping("/room")
+    @ResponseBody
+    public List<Room> fetchAllRooms() {
+        return roomService.fetchAll();
+    }
+
+    @GetMapping("/room/{id}/")
+    public ResponseEntity fetchRoomById(@PathVariable("id") int id) {
+        Room foundRoom = roomService.fetchById(id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity(foundRoom, headers, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/room", consumes = "application/json", produces = "application/json")
+    public Room createRoom(Room room) throws Exception {
+        Room newRoom = null;
+        roomService.save(room);
+        return room;
+    }
+
+    @GetMapping("/deleteRoom/{id}/")
+    public ResponseEntity deleteRoom(@PathVariable("id") int id) {
+        log.debug("Entering delete room endpoint");
+        try {
+            roomService.delete(id);
+            log.info("Room with ID " + id + " was deleted.");
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            log.error("Unable to delete room with ID: " + id + ", message: " + e.getMessage(), e);
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
     /**
      * Handles the Game/ID endpoint.
      *
@@ -151,58 +204,6 @@ public class TableTalkController {
 
     }
 
-    /**
-     * Handles the createRoom endpoint.
-     * Currently sets hard-coded data for testing.
-     *
-     * @param model room layout
-     * @return createRoom webpage.
-     */
-    @RequestMapping("/createRoom")
-    public String createRoom(Model model) {
-        Room room = new Room();
-        room.setGameId("1");
-        room.setAddress("101 Main St");
-        room.setId(1);
-
-        model.addAttribute(room);
-        return "createRoom";
-    }
-
-    @GetMapping("/room")
-    @ResponseBody
-    public List<Room> fetchAllRooms() {
-        return roomService.fetchAll();
-    }
-
-    @GetMapping("/room/{id}/")
-    public ResponseEntity fetchRoomById(@PathVariable("id") int id) {
-        Room foundRoom = roomService.fetchById(id);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        return new ResponseEntity(foundRoom, headers, HttpStatus.OK);
-    }
-
-    @PostMapping(value = "/room", consumes = "application/json", produces = "application/json")
-    public Room createRoom(Room room) throws Exception {
-        Room newRoom = null;
-        roomService.save(room);
-        return room;
-    }
-
-    @DeleteMapping("/deleteRoom/{id}/")
-    public ResponseEntity deleteRoom(@PathVariable("id") int id) {
-        log.debug("Entering delete room endpoint");
-        try {
-            roomService.delete(id);
-            log.info("Room with ID " + id + " was deleted.");
-            return new ResponseEntity(HttpStatus.OK);
-        } catch (Exception e) {
-            log.error("Unable to delete room with ID: " + id + ", message: " + e.getMessage(), e);
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-    }
 
 
     @GetMapping("/User")
