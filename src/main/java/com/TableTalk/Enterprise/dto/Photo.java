@@ -21,6 +21,6 @@ class Photo {
 
     @ToString.Exclude
     @ManyToOne
-    @JoinColumn(name="roomId")
+    @JoinColumn(name="room_id")
     private Room room;
 }

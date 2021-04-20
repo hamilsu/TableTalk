@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -101,11 +102,7 @@ public class TableTalkController {
 
 
         model.addAttribute("room", room);
-        System.out.println("im the room" + room);
         model.addAttribute("game", game);
-        System.out.println("im the game" + game);
-//        model.addAttribute("photo", photo);
-      System.out.println("im the model" + model);
 
         return "room";
     }
@@ -150,16 +147,59 @@ public class TableTalkController {
         return room;
     }
 
+    /**
+     * Populates room from HTML with Thymeleaf.
+     * Send DTO to service
+     *
+     * @param room
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/saveRoom")
+    public ModelAndView saveRoom(Room room, @RequestParam("imageFile")MultipartFile imageFile, Model model) throws Exception {
+        //todo we shouldn't have to try catch blocks. save everything or save nothing. To do that we have to account for
+        // the photo being null
+        Game game = gameService.fetchGameById(room.getGameId());
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            roomService.save(room);
+        }catch (Exception e) {
+            e.printStackTrace();
+            modelAndView.setViewName("error");
+            return  modelAndView;
+        }
+
+        Photo photo = new Photo();
+        try {
+            photo.setFileName(imageFile.getOriginalFilename());
+            photo.setRoom(room);
+            roomService.saveImage(imageFile, photo);
+            model.addAttribute("room", room);
+
+            modelAndView.setViewName("room");
+        } catch (IOException e){
+            modelAndView.setViewName("error");
+            return  modelAndView;
+        }
+
+        modelAndView.addObject("game", game);
+        modelAndView.addObject("photo", photo);
+        System.out.println("I'm the photo "  + photo);
+        modelAndView.addObject("room", room);
+        System.out.println(modelAndView);
+        return modelAndView;
+    }
+
     @GetMapping("/deleteRoom/{id}/")
-    public ResponseEntity deleteRoom(@PathVariable("id") int id) {
+    public RedirectView deleteRoom(@PathVariable("id") int id) {
         log.debug("Entering delete room endpoint");
         try {
             roomService.delete(id);
             log.info("Room with ID " + id + " was deleted.");
-            return new ResponseEntity(HttpStatus.OK);
+            return new RedirectView("/success");
         } catch (Exception e) {
             log.error("Unable to delete room with ID: " + id + ", message: " + e.getMessage(), e);
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new RedirectView("/");
         }
 
     }
@@ -320,39 +360,5 @@ public class TableTalkController {
         return allGameNames;
     }
 
-    /**
-     * Populates room from HTML with Thymeleaf.
-     * Send DTO to service
-     *
-     * @param room
-     * @return
-     * @throws Exception
-     */
-    @PostMapping("/saveRoom")
-    public ModelAndView saveRoom(Room room, @RequestParam("imageFile")MultipartFile imageFile, Model model) throws Exception {
-        //todo we shouldn't have to try catch blocks. save everything or save nothing. To do that we have to account for
-        // the photo being null
-        String returnValue = "createRoom";
-        ModelAndView modelAndView = new ModelAndView();
-        try {
-            roomService.save(room);
-        }catch (Exception e) {
-            e.printStackTrace();
-            modelAndView.setViewName("error");
-            return  modelAndView;
-        }
 
-        Photo photo = new Photo();
-        try {
-            photo.setFileName(imageFile.getOriginalFilename());
-            photo.setRoom(room);
-            roomService.saveImage(imageFile, photo);
-            model.addAttribute("room", room);
-            modelAndView.setViewName("room");
-        } catch (IOException e){
-            modelAndView.setViewName("error");
-            return  modelAndView;
-        }
-        return modelAndView;
-    }
 }

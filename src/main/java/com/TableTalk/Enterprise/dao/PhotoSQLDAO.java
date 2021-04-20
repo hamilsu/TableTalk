@@ -41,6 +41,8 @@ public class PhotoSQLDAO implements IPhotoDAO {
             System.out.println("Directory already exists");
         }
 
+        photo.setPath("/src/main/upload/" + imageFile.getOriginalFilename());
+        photoRepository.save(photo);
         photo.setPath(absolutePath + "/" + imageFile.getOriginalFilename());
         byte[] bytes = imageFile.getBytes();
         Path path = Paths.get(photo.getPath());

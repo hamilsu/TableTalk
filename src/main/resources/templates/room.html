@@ -61,16 +61,15 @@
                             <p th:text="${room}" style="margin-top: auto; margin-bottom: auto;"></p>
                         </div>
                     </div>
-                    <p th:text="${room.photos}" style="margin-top: auto; margin-bottom: auto;"></p>
+                    <p th:text="${photo}" style="margin-top: auto; margin-bottom: auto;"></p>
                     <div class="row subhead" style="padding-top: 12px;">
                         <div class="inline-flex">
-                            <p th:text="${room.photos}"></p>
                             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
                                         <img class="d-block w-100" th:src="@{${'/upload/StartSlideshow.jpg'}}" alt="FirstSlide">
                                     </div>
-                                    <div class="carousel-item" th:each="photo : ${room.photos}">
+                                    <div class="carousel-item" th:each="photo : ${photo}">
                                         <img class="d-block w-100" th:src="@{${'/upload/' + photo.fileName}}" alt="SecondSlide">
                                     </div>
                                 </div>
