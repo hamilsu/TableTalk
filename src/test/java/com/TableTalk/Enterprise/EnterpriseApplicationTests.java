@@ -15,12 +15,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class EnterpriseApplicationTests {
-//
-//    @Autowired
-//    IGameService gameService;
-//
-//    @Autowired
-//    IRoomService roomService;
+
+    @Autowired
+    IGameService gameService;
+
+    @Autowired
+    IRoomService roomService;
 
     @Test
     void contextLoads(){
@@ -46,42 +46,67 @@ class EnterpriseApplicationTests {
         assertEquals(yearPublished, game.getYearPublished() );
     }
 
+    /**
+     * Validate that the GameService can save and return Game Entries.
+     */
+    @Test
+    void verifyAddAndRemoveGameEntries() throws Exception {
+        String name =  "Monopoly";
+        String url = "www.monopoly.com";
 
-//    /**
-//     * Validate that the Game DTO properties can be set and retrieved.
-//     */
-//    @Test
-//    void verifyRoomProperties(){
-//        String address =  "101 sunshine way";
-//
-//        Room room = new Room();
-//        room.setAddress(address);
-//        assertEquals(address, room.getAddress());
-//    }
-//
-//    /**
-//     * Validate that the RoomService can save and return Room Entries.
-//     */
-//    @Test
-//    void verifyCreateRoomEntries() throws Exception {
-//        String address =  "101 sunshine way";
-//
-//        Room room = new Room();
-//        room.setAddress(address);
-//        room.setGameId("heyo");
-//
-//        System.out.println(room);
-//        roomService.save(room);
-//
-//        List<Room> rooms = roomService.fetchAll();
-//        boolean roomPresent = false;
-//        for (Room r : rooms) {
-//            if (r.getAddress().equals(address)) {
-//                roomPresent = true;
-//                break;
-//            }
-//        }
-//
-//        assertTrue(roomPresent);
-//    }
+        Game game = new Game();
+        game.setName(name);
+        game.setUrl(url);
+
+        System.out.println(game);
+        gameService.save(game);
+
+        List<Game> games = gameService.fetchAll();
+        boolean gamePresent = false;
+        for (Game g : games) {
+            if (g.getName().equals(name) && g.getUrl().equals(url)) {
+                gamePresent = true;
+                break;
+            }
+        }
+
+        assertTrue(gamePresent);
+    }
+
+    /**
+     * Validate that the Game DTO properties can be set and retrieved.
+     */
+    @Test
+    void verifyRoomProperties(){
+        String address =  "101 sunshine way";
+
+        Room room = new Room();
+        room.setAddress(address);
+        assertEquals(address, room.getAddress());
+    }
+
+    /**
+     * Validate that the RoomService can save and return Room Entries.
+     */
+    @Test
+    void verifyCreateRoomEntries() throws Exception {
+        String address =  "101 sunshine way";
+
+        Room room = new Room();
+        room.setAddress(address);
+        room.setGameId("MEEEEP");
+        System.out.println(room);
+        roomService.save(room);
+
+        List<Room> rooms = roomService.fetchAll();
+        boolean roomPresent = false;
+        for (Room r : rooms) {
+            if (r.getAddress().equals(address)) {
+                roomPresent = true;
+                break;
+            }
+        }
+
+        assertTrue(roomPresent);
+    }
 }

@@ -1,13 +1,17 @@
 package com.TableTalk.Enterprise.dao;
 
 import com.TableTalk.Enterprise.dto.Room;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @Repository
+@Profile("test")
 public class RoomDAOStub  implements IRoomDAO {
 
     Map<Integer, Room> allRooms = new HashMap<Integer, Room>();

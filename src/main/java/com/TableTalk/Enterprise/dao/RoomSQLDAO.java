@@ -3,12 +3,14 @@ package com.TableTalk.Enterprise.dao;
 import com.TableTalk.Enterprise.dto.Photo;
 import com.TableTalk.Enterprise.dto.Room;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository("roomDAO")
+@Repository
+@Profile({"dev", "default"})
 public class RoomSQLDAO implements IRoomDAO {
     @Autowired
     RoomRepository roomRepository;
