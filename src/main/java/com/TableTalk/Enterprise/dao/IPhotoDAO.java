@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface IPhotoDAO {
-    void save(Photo photo);
+
 
     void saveImage(MultipartFile imageFile, Photo photo) throws IOException;
 

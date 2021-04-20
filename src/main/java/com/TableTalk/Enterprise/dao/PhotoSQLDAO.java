@@ -22,10 +22,7 @@ public class PhotoSQLDAO implements IPhotoDAO {
     private PhotoRepository photoRepository;
 
 
-    @Override
-    public void save(Photo photo){
-        photoRepository.save(photo);
-    }
+
 
     @Override
     public void saveImage(MultipartFile imageFile, Photo photo) throws IOException {

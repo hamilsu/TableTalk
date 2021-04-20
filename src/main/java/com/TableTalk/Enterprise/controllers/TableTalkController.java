@@ -161,22 +161,32 @@ public class TableTalkController {
 
     @PostMapping("/editRoom/{id}")
     public ModelAndView updateRoom(Room room, @RequestParam("imageFile")MultipartFile imageFile, Model model, @PathVariable("id") int id) throws Exception {
-//        Room room = roomService.fetchById(room.id);
-//        List<Photo> photos = new ArrayList<Photo>();
-//        photos = room.getPhotos();
         System.out.println("I am the PHOTOS in updateRoom " + room.photos);
         System.out.println("I am the room in updateRoom " + room);
         Game game = gameService.fetchGameById(room.getGameId());
         System.out.println("I am the game in updateRoom " + game);
         ModelAndView modelAndView = new ModelAndView();
+
+        if (!imageFile.isEmpty()) {
+            Photo photo = new Photo();
+            try {
+                photo.setFileName(imageFile.getOriginalFilename());
+                photo.setRoom(room);
+                roomService.saveImage(imageFile, photo);
+
+            } catch (IOException e) {
+                modelAndView.setViewName("error");
+                return modelAndView;
+            }
+        }
         try {
-            roomService.update(room);
+            room = roomService.update(room);
             List<Photo> photos = new ArrayList<Photo>();
             photos = room.getPhotos();
             model.addAttribute("room", room);
             model.addAttribute("photos", photos);
 
-
+            modelAndView.addObject("photos", photos);
             modelAndView.setViewName("room");
         }catch (Exception e) {
             e.printStackTrace();
@@ -184,18 +194,7 @@ public class TableTalkController {
             return  modelAndView;
         }
 
-        Photo photo = new Photo();
-        try {
-            photo.setFileName(imageFile.getOriginalFilename());
-            photo.setRoom(room);
-            roomService.saveImage(imageFile, photo);
-//            model.addAttribute("room", room);
 
-//            modelAndView.setViewName("room");
-        } catch (IOException e){
-            modelAndView.setViewName("error");
-            return  modelAndView;
-        }
 
         modelAndView.addObject("game", game);
         modelAndView.addObject("room", room);
