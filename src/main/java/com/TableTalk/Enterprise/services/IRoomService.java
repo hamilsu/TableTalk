@@ -30,6 +30,7 @@ public interface IRoomService {
 
     void delete(int id) throws Exception;
 
+    Room update(Room room) throws Exception;
 
     Room fetchById(int id);
 

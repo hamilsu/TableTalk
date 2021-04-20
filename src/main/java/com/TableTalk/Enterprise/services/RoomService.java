@@ -52,6 +52,12 @@ public class RoomService implements IRoomService {
     }
 
     @Override
+    public Room update(Room room) throws Exception {
+        return roomDAO.update(room);
+    }
+
+
+    @Override
     public Room fetchById(int id) {
         Room foundRoom = roomDAO.fetch(id);
         return foundRoom;

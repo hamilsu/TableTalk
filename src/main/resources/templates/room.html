@@ -29,6 +29,14 @@
 
                     <div class="row subhead" style="margin-top: -16px;">
                         <div class="inline-flex">
+                            <input type="text" class="form-control" id="address" th:field="*{room.address}" placeholder="123 Main Street">
+                            <label for="address">Address</label>
+                        </div>
+                    </div>
+
+
+                    <div class="row subhead" style="margin-top: -16px;">
+                        <div class="inline-flex">
                             <img src="/icons/location.svg" class="svg subhead-img" style="margin-right: 8px;">
                             <p th:text="${room.address}" style="margin-top: auto; margin-bottom: auto;"></p>
                         </div>
@@ -86,8 +94,14 @@
                     </div>
                 </div>
              </div>
+        </div>
 
-            <a th:href="@{'/deleteRoom/' + ${room.id} + '/'}">>Delete</a>
+
+            <a th:href="@{'/deleteRoom/' + ${room.id} + '/'}">Delete</a>
+
+            <a th:href="@{'/updateRoom/' + ${room.id} + '/'}">Edit</a>
+    </form>
+
 
 
         </div>

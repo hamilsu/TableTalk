@@ -19,6 +19,7 @@ public class RoomDAOStub  implements IRoomDAO {
     @Override
     public Room save(Room room) throws Exception {
         Integer roomId = room.getId();
+        System.out.println(allRooms);
         allRooms.put(roomId, room);
         return room;
     }
@@ -38,6 +39,15 @@ public class RoomDAOStub  implements IRoomDAO {
     @Override
     public void delete(int id) {
         allRooms.remove(id);
+    }
+
+    @Override
+    public Room update(Room room) throws Exception {
+        Integer roomId = room.getId();
+        room.setAddress(room.getAddress());
+        System.out.println("WHat uis thius? " + allRooms);
+        allRooms.put(roomId, room);
+        return room;
     }
 
 }

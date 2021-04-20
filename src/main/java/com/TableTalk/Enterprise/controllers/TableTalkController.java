@@ -19,7 +19,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -130,6 +129,77 @@ public class TableTalkController {
         return "createRoom";
     }
 
+    /**
+     * Handles the updateRoom/ID endpoint.
+     *
+     * @param id,    room id
+     * @return "RedirectView", redirects to display room page on success.
+     * @throws IOException, bad room ID.
+     */
+
+    @GetMapping("/updateRoom/{id}/")
+    public String updateRoom(Model model, @PathVariable("id") int id) throws IOException {
+        log.debug("Entering update room endpoint");
+        Room room = roomService.fetchById(id);
+        Game game = gameService.fetchGameById(room.getGameId());
+        List<Photo> photos = new ArrayList<Photo>();
+        photos = room.getPhotos();
+        System.out.println(photos);
+        try {
+//            roomService.update(room);
+            model.addAttribute("room", room);
+            model.addAttribute("game", game);
+            model.addAttribute("photo", photos);
+            System.out.println("I am the room in update id " + room);
+//            log.info("Room with ID " + id + " was updated.");
+            return "updateRoom";
+        } catch (Exception e) {
+            log.error("Unable to update room with ID: " + id + ", message: " + e.getMessage(), e);
+            return "error";
+        }
+    }
+
+    @PostMapping("/editRoom/{id}")
+    public ModelAndView updateRoom(Room room, @RequestParam("imageFile")MultipartFile imageFile, Model model, @PathVariable("id") int id) throws Exception {
+//        Room room = roomService.fetchById(room.id);
+        List<Photo> photos = new ArrayList<Photo>();
+        photos = room
+        photos = room.getPhotos();
+        System.out.println("I am the PHOTOS in updateRoom " + photos);
+        System.out.println("I am the room in updateRoom " + room);
+        Game game = gameService.fetchGameById(room.getGameId());
+        System.out.println("I am the game in updateRoom " + game);
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            roomService.update(room);
+            model.addAttribute("room", room);
+
+            modelAndView.setViewName("room");
+        }catch (Exception e) {
+            e.printStackTrace();
+            modelAndView.setViewName("error");
+            return  modelAndView;
+        }
+
+//        Photo photo = new Photo();
+//        try {
+//            photo.setFileName(imageFile.getOriginalFilename());
+//            photo.setRoom(room);
+//            roomService.saveImage(imageFile, photo);
+//            model.addAttribute("room", room);
+//
+//            modelAndView.setViewName("room");
+//        } catch (IOException e){
+//            modelAndView.setViewName("error");
+//            return  modelAndView;
+//        }
+
+        modelAndView.addObject("game", game);
+//        modelAndView.addObject("photo", photo);
+        modelAndView.addObject("room", room);
+        return modelAndView;
+    }
+
     @GetMapping("/room")
     @ResponseBody
     public List<Room> fetchAllRooms() {
@@ -192,44 +262,6 @@ public class TableTalkController {
         return modelAndView;
     }
 
-    /**
-     * Handles the updateRoom/ID endpoint.
-     *
-     * @param id,    room id
-     * @return "RedirectView", redirects to display room page on success.
-     * @throws IOException, bad room ID.
-     */
-    @PostMapping("/updateRoom")
-    public ModelAndView updateRoom(Room room, @RequestParam("imageFile")MultipartFile imageFile, Model model) throws Exception {
-        Game game = gameService.fetchGameById(room.getGameId());
-        ModelAndView modelAndView = new ModelAndView();
-        try {
-            room.setAddress("202 west st");
-            roomService.save(room);
-        }catch (Exception e) {
-            e.printStackTrace();
-            modelAndView.setViewName("error");
-            return  modelAndView;
-        }
-
-        Photo photo = new Photo();
-        try {
-            photo.setFileName(imageFile.getOriginalFilename());
-            photo.setRoom(room);
-            roomService.saveImage(imageFile, photo);
-            model.addAttribute("room", room);
-
-            modelAndView.setViewName("room");
-        } catch (IOException e){
-            modelAndView.setViewName("error");
-            return  modelAndView;
-        }
-
-        modelAndView.addObject("game", game);
-        modelAndView.addObject("photo", photo);
-        modelAndView.addObject("room", room);
-        return modelAndView;
-    }
 
     /**
      * Handles the deleteRoom/ID endpoint.
