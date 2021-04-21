@@ -57,9 +57,7 @@ public class TableTalkController {
 
         Set<String> listOfRooms = new HashSet<String>();
         List<Room> rooms = roomService.fetchAll();
-        for(Room room: rooms){
-            System.out.println(room);
-        }
+
 
         model.addAttribute("rooms", rooms);
         model.addAttribute(user);
@@ -431,7 +429,7 @@ public class TableTalkController {
         return "login";
     }
   
-    @RequestMapping ("/login/{displayName}/{uid}")
+    @RequestMapping ("/loginSuccessful/{displayName}/{uid}")
     public String processLogin(@PathVariable("displayName") String displayName, @PathVariable("uid") String uid, Model model){
         User user = new User();
         if(userService.userExistsWithID(uid)){
