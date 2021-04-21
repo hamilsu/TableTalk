@@ -1,6 +1,8 @@
 package com.TableTalk.Enterprise.dao;
 
 import com.TableTalk.Enterprise.dto.Photo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
@@ -16,6 +18,8 @@ import java.nio.file.Paths;
 @Profile({"dev", "default"})
 public class PhotoSQLDAO implements IPhotoDAO {
 
+    Logger log = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private PhotoRepository photoRepository;
 
@@ -28,14 +32,12 @@ public class PhotoSQLDAO implements IPhotoDAO {
     public void saveImage(MultipartFile imageFile, Photo photo) throws IOException {
         Path currentPath = Paths.get("");
         Path absolutePath = Paths.get(currentPath.toAbsolutePath() + "/src/main/upload/");
-        System.out.println(absolutePath);
+        log.info("absolutePath: " + absolutePath);
         if (!Files.exists(absolutePath)){
             Files.createDirectory(absolutePath);
-            //TODO: logging
-            System.out.println("Directory created");
+            log.info("Directory (" + absolutePath + ") created");
         }else{
-            //TODO: logging
-            System.out.println("Directory already exists");
+            log.info("Directory (" + absolutePath + ") already exists");
         }
 
         photo.setPath(absolutePath + "/" + imageFile.getOriginalFilename());

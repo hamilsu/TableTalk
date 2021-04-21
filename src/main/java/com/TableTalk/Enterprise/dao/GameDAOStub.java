@@ -2,6 +2,8 @@ package com.TableTalk.Enterprise.dao;
 
 import com.TableTalk.Enterprise.dto.Game;
 import com.TableTalk.Enterprise.dto.GameCollection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -16,6 +18,8 @@ import java.util.Map;
 
 @Repository
 public class GameDAOStub implements IGameDAO {
+
+    Logger log = LoggerFactory.getLogger(this.getClass());
 
     final private static String CLIENT_ID = "ASOEAibUZS";
 
@@ -40,7 +44,7 @@ public class GameDAOStub implements IGameDAO {
         Map<String, String> filter = new HashMap<>();
         filter.put("name", inputtedName);
         filter.put("client_id", CLIENT_ID);
-        System.out.println(filter);
+        log.info("Filter: " + filter);
         Call<GameCollection> games =  gameRetrofitDAO.getGamesByName(filter);
         Response<GameCollection> execute = games.execute();
         GameCollection gameList = execute.body();
@@ -54,7 +58,7 @@ public class GameDAOStub implements IGameDAO {
         Map<String, String> filter = new HashMap<>();
         filter.put("ids", id);
         filter.put("client_id", CLIENT_ID);
-        System.out.println(filter);
+        log.info("Filter: " + filter);
         Call<GameCollection> games =  gameRetrofitDAO.getGamesByName(filter);
         Response<GameCollection> execute = games.execute();
         GameCollection gameList = execute.body();
