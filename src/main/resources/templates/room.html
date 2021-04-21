@@ -42,7 +42,13 @@
                         <p th:text="${room.address}" style="margin-top: auto; margin-bottom: auto;"></p>
                     </div>
                 </div>
-                    <p th:text="${photos}" style="margin-top: auto; margin-bottom: auto;"></p>
+                <div style="margin-top: 12px; display: inline">
+                    <div class="row">
+                        <a type="button" class="btn btn-outline-danger" style="margin-right: 6px" th:href="@{'/deleteRoom/' + ${room.id} + '/'}">Delete</a>
+
+                        <a type="button" class="btn btn-primary" style="margin-left: 6px"  th:href="@{'/updateRoom/' + ${room.id} + '/'}">Update</a>
+                    </div>
+                </div>
                     <div class="row subhead" style="padding-top: 12px;">
                         <div class="inline-flex">
                             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -66,16 +72,10 @@
                 </div>
              </div>
         </div>
-            <div class="row">
-                <a type="button" class="btn btn-primary" th:href="@{'/deleteRoom/' + ${room.id} + '/'}">Delete</a>
-            </div>
-            <div class="row">
-                <a type="button" class="btn btn-primary" th:href="@{'/updateRoom/' + ${room.id} + '/'}">Update</a>
-            </div>
-        </div>
-        </div>
     </div>
     </div>
+</div>
+</div>
 
 
     <!-- Bootstrap JS -->
