@@ -21,7 +21,8 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Login to TableTalk</title>
 
-    <div th:replace="fragments/initializeFirebase :: initializeFirebase"> </div>
+     <div th:replace="fragments/navbar :: navbar">
+    </div>
 
     <!-- Import for Firebase UI -->
     <script src="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.js"></script>
@@ -73,8 +74,7 @@
     </script>
 </head>
 <body>
-<div th:replace="fragments/navbar :: navbar">
-</div>
+
 <div id="firebaseui-auth-container"></div>
 <div id="loader">Loading...</div>
 <input id="User_Id" type="hidden" name="userId" value=""/>

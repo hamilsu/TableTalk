@@ -1,5 +1,6 @@
 package com.TableTalk.Enterprise.dao;
 
+import com.TableTalk.Enterprise.dto.Room;
 import com.TableTalk.Enterprise.dto.User;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
@@ -37,7 +38,7 @@ public class UserDAOStub implements IUserDAO{
         User newUser = new User();
         newUser.setId(id);
         newUser.setDisplayedName(displayName);
-        newUser.setAvailableRooms(new HashSet<String>());
+        newUser.setRooms(new HashSet<Room>());
         userMap.put(newUser.getId(), newUser);
         return newUser;
     }

@@ -51,7 +51,7 @@ public class TableTalkController {
 
     @RequestMapping("/")
     public String index(Model model) {
-        List<User> listOfPlayers = new ArrayList<User>();
+
         User user = new User();
         user.setDisplayedName("Luke");
 
@@ -251,7 +251,7 @@ public class TableTalkController {
         return roomService.fetchAll();
     }
 
-    @GetMapping("/room/{id}/")
+    @GetMapping(value = "/room/{id}/", produces = "application/json")
     public ResponseEntity fetchRoomById(@PathVariable("id") int id) {
         Room foundRoom = roomService.fetchById(id);
         HttpHeaders headers = new HttpHeaders();
@@ -338,6 +338,12 @@ public class TableTalkController {
 
     }
 
+    @GetMapping(value = "/getRoomsByUserId/{userId}/", produces = "application/json")
+    @ResponseBody
+    public Set<Room> fetchRoomsByUserId(@PathVariable("userId") String id){
+        return userService.fetchUser(id).getRooms();
+
+    }
 
 
 
@@ -439,6 +445,11 @@ public class TableTalkController {
         }
         model.addAttribute(user);
         return "start";
+    }
+
+    @RequestMapping ("/logout")
+    public String logout(Model model){
+        return "logout";
     }
 
 }

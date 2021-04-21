@@ -3,6 +3,7 @@ package com.TableTalk.Enterprise.dto;
 
 
 import com.sun.istack.NotNull;
+import com.sun.istack.Nullable;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,9 +21,9 @@ class User {
     @NotNull
     private String displayedName;
 
-    @ElementCollection
-    @CollectionTable(name = "user_rooms", joinColumns = @JoinColumn(name = "id"))
-    private Set<String> availableRooms;
+    @Nullable
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    public Set<Room> rooms;
 
 
 }

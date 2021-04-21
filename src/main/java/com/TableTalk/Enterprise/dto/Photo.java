@@ -1,5 +1,6 @@
 package com.TableTalk.Enterprise.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.Nullable;
 import lombok.Data;
 import lombok.ToString;
@@ -20,6 +21,7 @@ class Photo {
 
 
     @ToString.Exclude
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="room_id")
     private Room room;

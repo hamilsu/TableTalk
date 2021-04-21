@@ -1,5 +1,6 @@
 package com.TableTalk.Enterprise.dao;
 
+import com.TableTalk.Enterprise.dto.Room;
 import com.TableTalk.Enterprise.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -39,7 +40,7 @@ public class UserSQLDAO implements IUserDAO {
         User newUser = new User();
         newUser.setId(id);
         newUser.setDisplayedName(displayName);
-        newUser.setAvailableRooms(new HashSet<String>());
+        newUser.setRooms(new HashSet<Room>());
         return userRepository.save(newUser);
 
     }
