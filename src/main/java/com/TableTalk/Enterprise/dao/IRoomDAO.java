@@ -13,4 +13,7 @@ public interface IRoomDAO {
     Room fetch(int id);
 
     void delete(int id);
+
+    Room update (Room room) throws Exception;
+
 }

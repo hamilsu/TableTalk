@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Repository
@@ -19,10 +21,8 @@ public class PhotoSQLDAO implements IPhotoDAO {
     @Autowired
     private PhotoRepository photoRepository;
 
-    @Override
-    public void save(Photo photo){
-        photoRepository.save(photo);
-    }
+
+
 
     @Override
     public void saveImage(MultipartFile imageFile, Photo photo) throws IOException {
@@ -38,6 +38,8 @@ public class PhotoSQLDAO implements IPhotoDAO {
             System.out.println("Directory already exists");
         }
 
+        photo.setPath("/src/main/upload/" + imageFile.getOriginalFilename());
+        photoRepository.save(photo);
         photo.setPath(absolutePath + "/" + imageFile.getOriginalFilename());
         byte[] bytes = imageFile.getBytes();
         Path path = Paths.get(photo.getPath());

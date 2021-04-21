@@ -16,10 +16,6 @@ public class PhotoDAOStub implements IPhotoDAO{
     Map<String,Photo> allPhotos = new HashMap<String, Photo>();
     Map<String,MultipartFile> allImages = new HashMap<String,MultipartFile>();
 
-    @Override
-    public void save(Photo photo) {
-        allPhotos.put(photo.getFileName(),photo);
-    }
 
     @Override
     public void saveImage(MultipartFile imageFile, Photo photo) throws IOException {

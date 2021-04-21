@@ -69,24 +69,16 @@
             <a href="/games">
                 <button class="btn btn-secondary btn-sm" style="width: 100%; margin-top: 8px;">See All Games</button>
             </a>
-            <!--            <h1 style="margin-top: 14px;">My Games:</h1>-->
-            <!--            <tr th:each="game: ${user.gameLibrary}">-->
-            <!--                <a href="/Game">-->
-            <!--                    <button type="button" class="list-group-item list-group-item-action">-->
-            <!--                        <td th:text="${game}"/>-->
-            <!--                    </button>-->
-            <!--                </a>-->
-            <!--            </tr>-->
         </div>
         <div class="col-sm" style="margin-left: 24px;">
             <h1>My Rooms:</h1>
-            <tr th:each="room: ${user.availableRooms}">
-                <a href="/displayRoom">
-                    <button type="button" class="list-group-item list-group-item-action">
-                        <td th:text="${room}"/>
-                    </button>
+            <div class="list-group" th:each="room : ${rooms}">
+                <a th:href="@{'/displayRoom/' + ${room.id} + '/'}" class="list-group-item list-group-item-action">
+                    <p th:text="${room.address}"/>
                 </a>
+            </div>
             </tr>
+
         </div>
     </div>
 </div>
