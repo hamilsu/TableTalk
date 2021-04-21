@@ -1,15 +1,12 @@
 package com.TableTalk.Enterprise.dto;
 
 
-
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "Users")

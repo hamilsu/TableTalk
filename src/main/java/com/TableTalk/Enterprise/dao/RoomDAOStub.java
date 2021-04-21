@@ -1,7 +1,6 @@
 package com.TableTalk.Enterprise.dao;
 
 import com.TableTalk.Enterprise.dto.Room;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
@@ -19,7 +18,6 @@ public class RoomDAOStub  implements IRoomDAO {
     @Override
     public Room save(Room room) throws Exception {
         Integer roomId = room.getId();
-        System.out.println(allRooms);
         allRooms.put(roomId, room);
         return room;
     }
@@ -45,7 +43,6 @@ public class RoomDAOStub  implements IRoomDAO {
     public Room update(Room room) throws Exception {
         Integer roomId = room.getId();
         room.setAddress(room.getAddress());
-        System.out.println("WHat uis thius? " + allRooms);
         allRooms.put(roomId, room);
         return room;
     }
