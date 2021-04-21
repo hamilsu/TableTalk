@@ -128,19 +128,19 @@ public class TableTalkController {
 
     /**
      * Handles the createRoom endpoint.
-     * Currently sets hard-coded data for testing.
      *
      * @param model room layout
      * @return createRoom webpage.
      */
-    @RequestMapping("/createRoom")
-    public String createRoom(Model model) {
-        log.debug("Entering create room endpoint");
+    @RequestMapping("/createRoom/{gameId}")
+    public String createRoom(@PathVariable("gameId") String gameId, Model model)throws IOException {
+        Game game = gameService.fetchGameById(gameId);
         Room room = new Room();
-        room.setGameId("1");
-        room.setAddress("101 Main St");
+        room.setGameId(gameId);
+        room.setAddress("");
         room.setId(1);
 
+        model.addAttribute(game);
         model.addAttribute(room);
         return "createRoom";
     }
