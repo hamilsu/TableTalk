@@ -62,7 +62,6 @@ public class TableTalkController {
         }
 
         model.addAttribute("rooms", rooms);
-        model.addAttribute("games", listOfGames);
         model.addAttribute(user);
 
         return "start";
@@ -334,46 +333,6 @@ public class TableTalkController {
 
     }
 
-    /**
-     * Handles the Game/ID endpoint.
-     *
-     * @param id,    game id
-     * @param model, page layout.
-     * @return "game", webpage template.
-     * @throws IOException, bad game ID.
-     */
-    @GetMapping("/Game/{id}/")
-    public String fetchGameById(@PathVariable("id") String id, Model model) throws IOException {
-        Game game = gameService.fetchGameById(id);
-
-        StringBuilder strUserRating = new StringBuilder(game.getAverageUserRating().toString());
-        strUserRating.setLength(3);
-        String averageUserRating = strUserRating.toString();
-        game.setAverageUserRating(Double.parseDouble(averageUserRating));
-
-        String newDecription = game.getDescription().replace("<p>","")
-                .replace("</p>", "")
-                .replace("&quot;", "\"")
-                .replace("<br />", "");
-        game.setDescription(newDecription);
-
-        model.addAttribute(game);
-        return "game";
-    }
-
-    @PostMapping(value = "/Game", consumes = "application/json", produces = "application/json")
-    public Game createGame(@RequestBody Game game) {
-        return game;
-
-    }
-
-    @DeleteMapping("/Game")
-
-    public ResponseEntity deleteGames() {
-
-        return new ResponseEntity(HttpStatus.OK);
-
-    }
 
 
 
