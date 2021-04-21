@@ -40,7 +40,7 @@ public class UserSQLDAO implements IUserDAO {
         User newUser = new User();
         newUser.setId(id);
         newUser.setDisplayedName(displayName);
-        newUser.setRooms(new HashSet<Room>());
+        newUser.setRooms(new ArrayList<Room>());
         return userRepository.save(newUser);
 
     }

@@ -23,7 +23,7 @@ class User {
 
     @Nullable
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    public Set<Room> rooms;
+    public List<Room> rooms;
 
 
 }

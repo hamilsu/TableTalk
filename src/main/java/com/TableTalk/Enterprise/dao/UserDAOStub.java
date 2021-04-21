@@ -38,7 +38,7 @@ public class UserDAOStub implements IUserDAO{
         User newUser = new User();
         newUser.setId(id);
         newUser.setDisplayedName(displayName);
-        newUser.setRooms(new HashSet<Room>());
+        newUser.setRooms(new ArrayList<Room>());
         userMap.put(newUser.getId(), newUser);
         return newUser;
     }

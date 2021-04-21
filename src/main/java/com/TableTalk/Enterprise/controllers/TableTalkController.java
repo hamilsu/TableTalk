@@ -51,17 +51,6 @@ public class TableTalkController {
 
     @RequestMapping("/")
     public String index(Model model) {
-
-        User user = new User();
-        user.setDisplayedName("Luke");
-
-        Set<String> listOfRooms = new HashSet<String>();
-        List<Room> rooms = roomService.fetchAll();
-
-
-        model.addAttribute("rooms", rooms);
-        model.addAttribute(user);
-
         return "start";
     }
 
@@ -340,9 +329,9 @@ public class TableTalkController {
 
     }
 
-    @GetMapping(value = "/getRoomsByUserId/{userId}/", produces = "application/json")
+    @GetMapping(value = "/getRoomsByUserId/{userId}", produces = "application/json")
     @ResponseBody
-    public Set<Room> fetchRoomsByUserId(@PathVariable("userId") String id){
+    public List<Room> fetchRoomsByUserId(@PathVariable("userId") String id){
         return userService.fetchUser(id).getRooms();
 
     }

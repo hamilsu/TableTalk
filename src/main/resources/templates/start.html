@@ -81,18 +81,20 @@
                 if(rooms.length > 0){
 
                     var roomList = document.getElementById("roomList")
+                    var firstRoom = rooms.shift()
 
                     //Just ignore this variable name for now. It's is actually the first room in the list, it's named this way so it makes sense in the following loop
                     //room[0] might need to be room.id
                     var previousRoom = document.createElement('a')
-                    previousRoom.setAttribute('href', '/displayRoom/'+room[0] +'/')
+                    previousRoom.setAttribute('class', 'list-group-item list-group-item-action')
+                    previousRoom.setAttribute('href', '/displayRoom/'+firstRoom.id +'/')
 
                     //room[2] might be room.address
                     var nextAddress = document.createElement('p')
-                    nextAddress.innerHTML = room[2]
+                    nextAddress.innerHTML = firstRoom.address
 
-                    roomList.insertAdjacentElement("afterbegin",lastRoom)
-                    lastRoom.insertAdjacentElement("afterbegin",nextAddress)
+                    roomList.insertAdjacentElement("afterbegin", previousRoom)
+                    previousRoom.insertAdjacentElement("afterbegin",nextAddress)
 
                     //Checking if the user has more than 1 room
                     //Note that we're checking against 0 again because the length of the array changed due to the .shift() call
@@ -100,11 +102,12 @@
                         rooms.forEach((room) => {
 
                             var nextRoom = document.createElement('a')
-                            nextRoom.setAttribute('href', '/displayRoom/'+room[0] +'/')
+                            nextRoom.setAttribute('class', 'list-group-item list-group-item-action')
+                            nextRoom.setAttribute('href', '/displayRoom/'+room.id +'/')
 
 
                             var nextAddress = document.createElement('p')
-                            nextAddress.innerHTML = room[2]
+                            nextAddress.innerHTML = room.address
 
 
                             previousRoom.insertAdjacentElement("afterend",nextRoom)
@@ -146,10 +149,7 @@
         </div>
         <div class="col-sm" style="margin-left: 24px;">
             <h1>My Rooms:</h1>
-            <div id = "roomList" class="list-group" th:each="room : ${rooms}">
-                <a th:href="@{'/displayRoom/' + ${room.id} + '/'}" class="list-group-item list-group-item-action">
-                    <p th:text="${room.address}"/>
-                </a>
+            <div id = "roomList" class="list-group">
             </div>
             </tr>
 
