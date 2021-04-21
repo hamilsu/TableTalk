@@ -109,7 +109,14 @@ public class TableTalkController {
     }
 
 
-
+    /**
+     * Handles the Game/ID endpoint.
+     *
+     * @param id,    game id
+     * @param model, page layout.
+     * @return "room", webpage template.
+     * @throws IOException, bad room ID.
+     */
     @RequestMapping("/displayRoom/{id}/")
     public String room(Model model, @PathVariable("id") int id) throws IOException {
         List<User> list = new ArrayList<User>();
@@ -173,8 +180,9 @@ public class TableTalkController {
     /**
      * Handles the updateRoom/ID endpoint.
      *
-     * @param id,    room id
-     * @return "RedirectView", redirects to display room page on success.
+     * @param id, room id
+     * @param model room layout
+     * @return modelAndView
      * @throws IOException, bad room ID.
      */
 
@@ -199,6 +207,15 @@ public class TableTalkController {
             return "error";
         }
     }
+
+    /**
+     * Handles the createRoom endpoint.
+     * Currently sets hard-coded data for testing.
+     *
+     * @param model room layout
+     * @return createRoom webpage.
+     * @throws IOException, bad room ID.
+     */
 
     @PostMapping("/editRoom/{id}")
     public ModelAndView updateRoom(Room room, @RequestParam("imageFile")MultipartFile imageFile, Model model, @PathVariable("id") int id) throws Exception {
@@ -430,11 +447,12 @@ public class TableTalkController {
 
     }
 
-    /*
+    /**
      * Handles autocomplete of searching games.
      *
      * @param searchTerm
      * @return a list of all the game names.
+     * @throws IOException
      */
     @GetMapping("/gameNamesAutocomplete")
     @ResponseBody
@@ -455,12 +473,25 @@ public class TableTalkController {
         return allGameNames;
     }
 
-
+    /**
+     * Handles autocomplete of searching games.
+     *
+     * @param model , web template
+     * @return "login", login webpage.
+     */
     @RequestMapping ("/login")
     public String login(Model model){
         return "login";
     }
 
+    /**
+     * Handles autocomplete of searching games.
+     *
+     * @param displayName
+     * @param uid , userId
+     * @param model , web template
+     * @return "start", start webpage.
+     */
     @RequestMapping ("/login/{displayName}/{uid}")
     public String processLogin(@PathVariable("displayName") String displayName, @PathVariable("uid") String uid, Model model){
         User user = new User();
