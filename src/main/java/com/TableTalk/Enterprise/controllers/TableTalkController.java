@@ -4,7 +4,6 @@ import com.TableTalk.Enterprise.dto.*;
 import com.TableTalk.Enterprise.services.IGameService;
 import com.TableTalk.Enterprise.services.IRoomService;
 import com.TableTalk.Enterprise.services.IUserService;
-import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +20,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 import java.util.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
@@ -55,7 +52,7 @@ public class TableTalkController {
     }
 
     /**
-     * Handles the Game/ID endpoint.
+     * Handles the fetch game by id endpoint.
      *
      * @param id,    game id
      * @param model, page layout.
@@ -97,7 +94,7 @@ public class TableTalkController {
 
 
     /**
-     * Handles the Game/ID endpoint.
+     * Handles the displayRoom/ID endpoint.
      *
      * @param id,    game id
      * @param model, page layout.
@@ -110,33 +107,13 @@ public class TableTalkController {
         User luke = new User();
         ProfilePicture profilePhoto = new ProfilePicture();
         profilePhoto.setPath("/icons/person-circle.svg");
-        luke.setDisplayedName("Luke Greeley");
-
-        User storm = new User();
-        storm.setDisplayedName("Storm Hamilton");
-
-
-        User anne = new User();
-        anne.setDisplayedName("Anne Catherwood");
-
-
-        User momadu = new User();
-        momadu.setDisplayedName("Momadu Kone");
-
-
-        list.add(luke);
-        list.add(storm);
-        list.add(anne);
 
         Room room = roomService.fetchById(id);
 
         Game game = gameService.fetchGameById(room.getGameId());
-        System.out.println(room.getPhotos());
 
         List<Photo> photos = new ArrayList<Photo>();
         photos = room.getPhotos();
-
-
 
         model.addAttribute("room", room);
         model.addAttribute("game", game);
@@ -180,14 +157,12 @@ public class TableTalkController {
         Game game = gameService.fetchGameById(room.getGameId());
         List<Photo> photos = new ArrayList<Photo>();
         photos = room.getPhotos();
-        System.out.println(photos);
         try {
-//            roomService.update(room);
+            roomService.update(room);
             model.addAttribute("room", room);
             model.addAttribute("game", game);
             model.addAttribute("photos", photos);
-            System.out.println("I am the room in update id " + room);
-//            log.info("Room with ID " + id + " was updated.");
+            log.info("Room with ID " + id + " was updated.");
             return "updateRoom";
         } catch (Exception e) {
             log.error("Unable to update room with ID: " + id + ", message: " + e.getMessage(), e);
@@ -196,11 +171,10 @@ public class TableTalkController {
     }
 
     /**
-     * Handles the createRoom endpoint.
-     * Currently sets hard-coded data for testing.
+     * Handles the update endpoint.
      *
      * @param model room layout
-     * @return createRoom webpage.
+     * @return room webpage.
      * @throws IOException, bad room ID.
      */
 
@@ -344,8 +318,6 @@ public class TableTalkController {
 
     }
 
-
-
     @PostMapping(value = "/User", consumes = "application/json", produces = "application/json")
 
     public User createUser(@RequestBody com.TableTalk.Enterprise.dto.User user) {
@@ -430,7 +402,7 @@ public class TableTalkController {
     }
 
     /**
-     * Handles autocomplete of searching games.
+     * Handles logging in.
      *
      * @param model , web template
      * @return "login", login webpage.
@@ -443,7 +415,7 @@ public class TableTalkController {
 
 
     /**
-     * Handles autocomplete of searching games.
+     * Process logging into application.
      *
      * @param displayName
      * @param uid , userId
