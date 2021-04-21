@@ -100,7 +100,7 @@
                             <img class="d-block w-100" th:src="@{${'/upload/startSlideshow.jpg'}}" alt="FirstSlide">
                         </div>
                         <div class="carousel-item" th:each="photo : ${photos}">
-                            <img class="d-block w-100" th:src="@{${'/upload/' + photo.fileName}}" alt="SecondSlide">
+                            <img class="d-block w-100" th:src="@{${'/upload/' + photo.fileName}}" alt="Post your game night pictures!">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
