@@ -222,7 +222,6 @@ public class TableTalkController {
                 }
             }
 
-
             roomService.update(room);
 
             List<Photo> photos = new ArrayList<Photo>();
@@ -251,7 +250,7 @@ public class TableTalkController {
         return roomService.fetchAll();
     }
 
-    @GetMapping(value = "/room/{id}/", produces = "application/json")
+    @GetMapping("/room/{id}/")
     public ResponseEntity fetchRoomById(@PathVariable("id") int id) {
         Room foundRoom = roomService.fetchById(id);
         HttpHeaders headers = new HttpHeaders();
@@ -280,30 +279,29 @@ public class TableTalkController {
         // the photo being null
         Game game = gameService.fetchGameById(room.getGameId());
         ModelAndView modelAndView = new ModelAndView();
-        try{
-            if (!imageFile.isEmpty()) {
+        try {
+
+            if (!imageFile.isEmpty()){
                 Photo photo = new Photo();
                 try {
                     photo.setFileName(imageFile.getOriginalFilename());
                     photo.setRoom(room);
                     roomService.saveImage(imageFile, photo);
-                    List<Photo> photos = room.getPhotos();
-                    model.addAttribute("room", room);
-                    model.addAttribute("photos", photos);
-
-                    modelAndView.setViewName("room");
+                    photo.setPath("/src/main/upload/" + photo.getFileName());
+                    room.photos.add(photo);
                 } catch (IOException e) {
                     modelAndView.setViewName("error");
                     return modelAndView;
                 }
             }
-            roomService.save(room);
 
+            roomService.save(room);
 
             List<Photo> photos = new ArrayList<Photo>();
             photos = room.getPhotos();
             model.addAttribute("room", room);
             model.addAttribute("photos", photos);
+
             modelAndView.addObject("photos", photos);
             modelAndView.setViewName("room");
         }catch (Exception e) {
@@ -311,10 +309,14 @@ public class TableTalkController {
             modelAndView.setViewName("error");
             return  modelAndView;
         }
+
+
+
         modelAndView.addObject("game", game);
         modelAndView.addObject("room", room);
         return modelAndView;
     }
+
 
 
     /**
@@ -330,10 +332,10 @@ public class TableTalkController {
         try {
             roomService.delete(id);
             log.info("Room with ID " + id + " was deleted.");
-            return new RedirectView("/success");
+            return new RedirectView("/");
         } catch (Exception e) {
             log.error("Unable to delete room with ID: " + id + ", message: " + e.getMessage(), e);
-            return new RedirectView("/");
+            return new RedirectView("error");
         }
 
     }
@@ -404,7 +406,7 @@ public class TableTalkController {
 
     }
 
-  /*
+    /*
      * Handles autocomplete of searching games.
      *
      * @param searchTerm
