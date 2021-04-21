@@ -431,7 +431,7 @@ public class TableTalkController {
         return "login";
     }
   
-      @RequestMapping ("/login/{displayName}/{uid}")
+    @RequestMapping ("/login/{displayName}/{uid}")
     public String processLogin(@PathVariable("displayName") String displayName, @PathVariable("uid") String uid, Model model){
         User user = new User();
         if(userService.userExistsWithID(uid)){
