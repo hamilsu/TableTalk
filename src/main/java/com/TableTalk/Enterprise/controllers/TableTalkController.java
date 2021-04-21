@@ -326,10 +326,10 @@ public class TableTalkController {
         try {
             roomService.delete(id);
             log.info("Room with ID " + id + " was deleted.");
-            return new RedirectView("/success");
+            return new RedirectView("/");
         } catch (Exception e) {
             log.error("Unable to delete room with ID: " + id + ", message: " + e.getMessage(), e);
-            return new RedirectView("/");
+            return new RedirectView("error");
         }
 
     }
