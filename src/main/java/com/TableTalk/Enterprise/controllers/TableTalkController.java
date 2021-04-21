@@ -221,8 +221,6 @@ public class TableTalkController {
             return  modelAndView;
         }
 
-
-
         modelAndView.addObject("game", game);
         modelAndView.addObject("room", room);
         return modelAndView;
@@ -324,21 +322,7 @@ public class TableTalkController {
 
     }
 
-    @PostMapping(value = "/User", consumes = "application/json", produces = "application/json")
 
-    public User createUser(@RequestBody com.TableTalk.Enterprise.dto.User user) {
-
-        return user;
-
-    }
-
-    @DeleteMapping("/User")
-
-    public ResponseEntity deleteUser() {
-
-        return new ResponseEntity(HttpStatus.OK);
-
-    }
 
     /**
      * Handles the logical searching of games.
@@ -438,7 +422,7 @@ public class TableTalkController {
      * @return "start", start webpage.
      */
     @RequestMapping ("/loginSuccessful/{displayName}/{uid}")
-    public String processLogin(@PathVariable("displayName") String displayName, @PathVariable("uid") String uid, Model model){
+    public RedirectView processLogin(@PathVariable("displayName") String displayName, @PathVariable("uid") String uid, Model model){
         User user = new User();
         if(userService.userExistsWithID(uid)){
             user = userService.fetchUser(uid);
@@ -446,7 +430,7 @@ public class TableTalkController {
             user = userService.createUser(uid, displayName);
         }
         model.addAttribute(user);
-        return "start";
+        return new RedirectView("/");
     }
 
     @RequestMapping ("/logout")
