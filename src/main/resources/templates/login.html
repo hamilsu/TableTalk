@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="https://www.thymeleaf.org/%22%3E">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,8 +20,34 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Login to TableTalk</title>
-
     <div th:replace="fragments/initializeFirebase :: initializeFirebase"> </div>
+    <!-- Import for the core Firebase JS SDK, must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+    <!-- Import for Firebase Analytics SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-analytics.js"></script>
+    <!-- Import for Firebase Authorization SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-auth.js"></script>
+
+    <!-- Firebase Configuration and Initialization -->
+    <script>
+        $(function () {
+            document.getElementById("navSearch").style.display = "none";
+            document.getElementById("navMenu").style.display = "none";
+            document.getElementById("loginBtn").style.display = "none";
+        });
+        const firebaseConfig = {
+            apiKey: "AIzaSyDD2ArsrdAQ2Rm5RhKoeF-5s6Lb5ngfMLk",
+            authDomain: "tabletalk-613ad.firebaseapp.com",
+            projectId: "tabletalk-613ad",
+            storageBucket: "tabletalk-613ad.appspot.com",
+            messagingSenderId: "398449356658",
+            appId: "1:398449356658:web:a3ad255e95d82b71bb37eb",
+            measurementId: "G-1K8T8F3E6V"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
 
     <!-- Import for Firebase UI -->
     <script src="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.js"></script>
@@ -30,52 +56,49 @@
     <!-- Defining FirebaseUI Configuration and Initializing UI-->
     <script type="text/javascript">
 
-      // FirebaseUI config.
-      var uiConfig = {
-         callbacks:{
-            signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+<<<<<<< HEAD
+        // FirebaseUI config.
+        var uiConfig = {
+            callbacks:{
+                signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+
+                    // User successfully signed in.
+                    // Return type determines whether we continue the redirect automatically
+                    // or whether we leave that to developer to handle.
 
 
-            // User successfully signed in.
-            // Return type determines whether we continue the redirect automatically
-            // or whether we leave that to developer to handle.
+                    return true;
+                },
 
-            var user = firebase.auth().currentUser
-            redirectUrl = '/loginSuccessful/'+user.displayName+'/'+user.uid+'/'
-
-            window.location.href = (redirectUrl)
-
-
-            return false;
+                // The widget is rendered.
+                // Hide the loader.
+                uiShown: function() {
+                    document.getElementById('loader').style.display = 'none';
+                }
             },
 
-            // The widget is rendered.
-            // Hide the loader.
-            uiShown: function() {
-                document.getElementById('loader').style.display = 'none';
-            }
-         },
+            signInFlow: 'popup',
+            signInSuccessUrl: '/',
 
-        signInFlow: 'popup',
-        signInSuccessUrl: '/loginSuccessful/',
+            signInOptions: [
+                firebase.auth.GoogleAuthProvider.PROVIDER_ID
+            ]
 
-        signInOptions: [
-          firebase.auth.GoogleAuthProvider.PROVIDER_ID
-        ]
+        };
 
-    };
+        // Initialize the FirebaseUI Widget using Firebase.
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
-      // Initialize the FirebaseUI Widget using Firebase.
-      var ui = new firebaseui.auth.AuthUI(firebase.auth());
-
-      // The start method will wait until the DOM is loaded.
-      ui.start('#firebaseui-auth-container', uiConfig);
+        // The start method will wait until the DOM is loaded.
+        ui.start('#firebaseui-auth-container', uiConfig);
     </script>
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar">
 </div>
-<div id="firebaseui-auth-container"></div>
+<div style="margin-top: 24px">
+    <div id="firebaseui-auth-container"></div>
+</div>
 <div id="loader">Loading...</div>
 <input id="User_Id" type="hidden" name="userId" value=""/>
 <input id="User_Name" type="hidden" name="userName" value=""/>
@@ -83,13 +106,3 @@
 </body>
 </html>
 
-
-
-
-
-
-
-
-
-</body>
-</html>
