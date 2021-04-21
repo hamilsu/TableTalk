@@ -35,53 +35,60 @@
                     <p>)</p>
                 </div>
             </div>
-                    <p th:text="${photos}" style="margin-top: auto; margin-bottom: auto;"></p>
-                    <div class="row subhead" style="padding-top: 12px;">
-                        <div class="inline-flex">
-                            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                                <div class="carousel-inner">
 
-                                    <div class="carousel-item active" th:each="photo : ${photos}">
-                                        <img class="d-block w-100" th:src="@{${'/upload/' + photo.fileName}}" alt="SecondSlide">
-                                    </div>
+            <div class="row subhead" style="margin-top: -16px;">
+                <div class="inline-flex">
+                    <img src="/icons/location.svg" class="svg subhead-img" style="margin-right: 8px;">
+                    <p th:text="${room.address}" style="margin-top: auto; margin-bottom: auto;"></p>
+                </div>
+            </div>
+                <p th:text="${photos}" style="margin-top: auto; margin-bottom: auto;"></p>
+                <div class="row subhead" style="padding-top: 12px;">
+                    <div class="inline-flex">
+                        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+
+                                <div class="carousel-item active" th:each="photo : ${photos}">
+                                    <img class="d-block w-100" th:src="@{${'/upload/' + photo.fileName}}" alt="SecondSlide">
                                 </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
                             </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
                         </div>
                     </div>
                 </div>
-             </div>
-        </div>
-        <div class="row" style="margin-top: 8px; float: right;">
+            </div>
+         </div>
+    </div>
+        <div class="row">
             <a type="button" class="btn btn-primary" th:href="@{'/deleteRoom/' + ${room.id} + '/'}">Delete</a>
         </div>
-        <div class="row" style="margin-top: 8px; float: right;">
+        <div class="row">
         <a type="button" class="btn btn-primary" th:href="@{'/updateRoom/' + ${room.id} + '/'}">Update</a>
         </div>
         </div>
     </div>
 </div>
-        <div class="col">
-            <div class="col">
-                <h3>Room Members:</h3>
-                <div class="list-group">
-                    <tr th:each="user: ${room.listOfPlayers}">
-                        <div class="list-group-item list-group-item-action">
-                            <img th:src="${user.photo.path}" class="svg"
-                                 style="margin-right: 8px;vertical-align: middle;">
-                            <td th:text="${user.displayedName}"/>
-                        </div>
-                    </tr>
-                </div>
-            </div>
-        </div>
+<!--        <div class="col">-->
+<!--            <div class="col">-->
+<!--                <h3>Room Members:</h3>-->
+<!--                <div class="list-group">-->
+<!--                    <tr th:each="user: ${room.listOfPlayers}">-->
+<!--                        <div class="list-group-item list-group-item-action">-->
+<!--                            <img th:src="${user.photo.path}" class="svg"-->
+<!--                                 style="margin-right: 8px;vertical-align: middle;">-->
+<!--                            <td th:text="${user.displayedName}"/>-->
+<!--                        </div>-->
+<!--                    </tr>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 
     <div class="row" style="margin-top: 24px; margin-bottom: 64px;">
