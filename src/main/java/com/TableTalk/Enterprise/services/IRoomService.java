@@ -12,7 +12,6 @@ import java.util.List;
  * Room Service handles business logic for Room DTO.
  */
 public interface IRoomService {
-
     /**
      * Save a new Room
      *
@@ -28,11 +27,20 @@ public interface IRoomService {
      */
     List<Room> fetchAll();
 
+    /**
+     * @param id
+     * @throws Exception
+     */
     void delete(int id) throws Exception;
 
     Room update(Room room) throws Exception;
 
+    /**
+     * @param id
+     * @return
+     */
     Room fetchById(int id);
+
 
     List<Room> fetchUserRooms(User user);
 

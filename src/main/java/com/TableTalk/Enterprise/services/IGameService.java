@@ -25,8 +25,20 @@ public interface IGameService {
      * @return a collection of all game entries.
      */
     List<Game> fetchAll();
+
+
+    /**
+     * @param name
+     * @return
+     * @throws IOException
+     */
     GameCollection fetchGamesByName(String name) throws IOException;
 
+    /**
+     * @param id
+     * @return
+     * @throws IOException
+     */
     Game fetchGameById(String id) throws IOException;
 
 }
