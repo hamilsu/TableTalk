@@ -224,7 +224,6 @@ public class TableTalkController {
                 }
             }
 
-
             roomService.update(room);
 
             List<Photo> photos = new ArrayList<Photo>();
@@ -283,30 +282,39 @@ public class TableTalkController {
         Game game = gameService.fetchGameById(room.getGameId());
         ModelAndView modelAndView = new ModelAndView();
         try {
+
+            if (!imageFile.isEmpty()){
+                Photo photo = new Photo();
+                try {
+                    photo.setFileName(imageFile.getOriginalFilename());
+                    photo.setRoom(room);
+                    roomService.saveImage(imageFile, photo);
+                    photo.setPath("/src/main/upload/" + photo.getFileName());
+                    room.photos.add(photo);
+                } catch (IOException e) {
+                    modelAndView.setViewName("error");
+                    return modelAndView;
+                }
+            }
+
             roomService.save(room);
+
+            List<Photo> photos = new ArrayList<Photo>();
+            photos = room.getPhotos();
+            model.addAttribute("room", room);
+            model.addAttribute("photos", photos);
+
+            modelAndView.addObject("photos", photos);
+            modelAndView.setViewName("room");
         }catch (Exception e) {
             e.printStackTrace();
             modelAndView.setViewName("error");
             return  modelAndView;
         }
 
-        Photo photo = new Photo();
-        try {
-            photo.setFileName(imageFile.getOriginalFilename());
-            photo.setRoom(room);
-            roomService.saveImage(imageFile, photo);
-            List<Photo> photos = room.getPhotos();
-            model.addAttribute("room", room);
-            model.addAttribute("photos", photos);
 
-            modelAndView.setViewName("room");
-        } catch (IOException e){
-            modelAndView.setViewName("error");
-            return  modelAndView;
-        }
 
         modelAndView.addObject("game", game);
-        modelAndView.addObject("photos", photo);
         modelAndView.addObject("room", room);
         return modelAndView;
     }
