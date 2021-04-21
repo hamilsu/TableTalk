@@ -1,5 +1,6 @@
 package com.TableTalk.Enterprise.dao;
 
+import com.TableTalk.Enterprise.dto.Photo;
 import com.TableTalk.Enterprise.dto.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -32,11 +33,25 @@ public class RoomSQLDAO implements IRoomDAO {
 
     @Override
     public Room fetch(int id) {
+        System.out.println(id);
         return  roomRepository.findById(id).get();
     }
+
 
     @Override
     public void delete(int id) {
         roomRepository.deleteById(id);
+    }
+
+    @Override
+    public Room update(Room room) throws Exception {
+
+        Integer roomId = room.getId();
+        System.out.println("I;m the room  in the sql dao " + room);
+//        room.setId(roomId);
+//        room.setAddress(room.getAddress());
+        System.out.println("I;m the room id in the sql dao " + roomId);
+        Room createdRoom = roomRepository.save(room);
+        return createdRoom;
     }
 }

@@ -1,11 +1,9 @@
 package com.TableTalk.Enterprise.dto;
 
+import com.sun.istack.Nullable;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,9 +12,13 @@ public @Data
 class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-//    private List<User> listOfPlayers;
+    public int id;
     private LocalDateTime finalizedDate; //Might opt to change this to a nullable class since initially dates would be tbd
     private String address;
     private String gameId;
+
+
+    @Nullable
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
+    public List<Photo> photos;
 }

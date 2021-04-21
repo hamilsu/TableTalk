@@ -18,7 +18,7 @@ class EnterpriseApplicationTests {
 
     @Autowired
     IGameService gameService;
-    
+
     @Autowired
     IRoomService roomService;
 

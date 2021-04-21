@@ -3,7 +3,6 @@ package com.TableTalk.Enterprise.controllers;
 import com.TableTalk.Enterprise.dto.*;
 import com.TableTalk.Enterprise.services.IGameService;
 import com.TableTalk.Enterprise.services.IRoomService;
-import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +31,7 @@ public class TableTalkController {
 
     @Autowired
     IRoomService roomService;
+
 
     Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -53,11 +51,11 @@ public class TableTalkController {
         user.setPhoto(photo);
 
         List<String> listOfRooms = new ArrayList<>();
-        listOfRooms.add("Langsam 102");
-        listOfRooms.add("Main Street");
-        listOfRooms.add("Donahue Street");
-
-        user.setAvailableRooms(listOfRooms);
+        List<Room> rooms = roomService.fetchAll();
+        for(Room room: rooms){
+            System.out.println(room);
+        }
+//        user.setAvailableRooms(listOfRooms);
 
         List<String> listOfGames = new ArrayList<>();
         listOfGames.add("UNO!");
@@ -67,10 +65,228 @@ public class TableTalkController {
 
         user.setGameLibrary(listOfGames);
 
-
+        model.addAttribute("rooms", rooms);
+        model.addAttribute("games", listOfGames);
         model.addAttribute(user);
 
         return "start";
+    }
+
+    @RequestMapping("/displayRoom/{id}/")
+    public String room(Model model, @PathVariable("id") int id) throws IOException {
+        List<User> list = new ArrayList<User>();
+        User luke = new User();
+        ProfilePicture profilePhoto = new ProfilePicture();
+        profilePhoto.setPath("/icons/person-circle.svg");
+        luke.setDisplayedName("Luke Greeley");
+        luke.setPhoto(profilePhoto);
+
+        User storm = new User();
+        storm.setDisplayedName("Storm Hamilton");
+        storm.setPhoto(profilePhoto);
+
+        User anne = new User();
+        anne.setDisplayedName("Anne Catherwood");
+        anne.setPhoto(profilePhoto);
+
+        list.add(luke);
+        list.add(storm);
+        list.add(anne);
+
+        Room room = roomService.fetchById(id);
+
+        Game game = gameService.fetchGameById(room.getGameId());
+        System.out.println(room.getPhotos());
+
+        List<Photo> photos = new ArrayList<Photo>();
+        photos = room.getPhotos();
+
+
+
+        model.addAttribute("room", room);
+        model.addAttribute("game", game);
+        model.addAttribute("photos", photos);
+
+        return "room";
+    }
+
+
+    /**
+     * Handles the createRoom endpoint.
+     * Currently sets hard-coded data for testing.
+     *
+     * @param model room layout
+     * @return createRoom webpage.
+     */
+    @RequestMapping("/createRoom")
+    public String createRoom(Model model) {
+        Room room = new Room();
+        room.setGameId("1");
+        room.setAddress("101 Main St");
+        room.setId(1);
+
+        model.addAttribute(room);
+        return "createRoom";
+    }
+
+    /**
+     * Handles the updateRoom/ID endpoint.
+     *
+     * @param id,    room id
+     * @return "RedirectView", redirects to display room page on success.
+     * @throws IOException, bad room ID.
+     */
+
+    @GetMapping("/updateRoom/{id}/")
+    public String updateRoom(Model model, @PathVariable("id") int id) throws IOException {
+        log.debug("Entering update room endpoint");
+        Room room = roomService.fetchById(id);
+        Game game = gameService.fetchGameById(room.getGameId());
+        List<Photo> photos = new ArrayList<Photo>();
+        photos = room.getPhotos();
+        System.out.println(photos);
+        try {
+//            roomService.update(room);
+            model.addAttribute("room", room);
+            model.addAttribute("game", game);
+            model.addAttribute("photos", photos);
+            System.out.println("I am the room in update id " + room);
+//            log.info("Room with ID " + id + " was updated.");
+            return "updateRoom";
+        } catch (Exception e) {
+            log.error("Unable to update room with ID: " + id + ", message: " + e.getMessage(), e);
+            return "error";
+        }
+    }
+
+    @PostMapping("/editRoom/{id}")
+    public ModelAndView updateRoom(Room room, @RequestParam("imageFile")MultipartFile imageFile, Model model, @PathVariable("id") int id) throws Exception {
+        System.out.println("I am the PHOTOS in updateRoom " + room.photos);
+        System.out.println("I am the room in updateRoom " + room);
+        Game game = gameService.fetchGameById(room.getGameId());
+        System.out.println("I am the game in updateRoom " + game);
+        ModelAndView modelAndView = new ModelAndView();
+
+
+            Photo photo = new Photo();
+            try {
+                photo.setFileName(imageFile.getOriginalFilename());
+                photo.setRoom(room);
+                roomService.saveImage(imageFile, photo);
+                photo.setPath("/src/main/upload/" + photo.getFileName());
+                room.photos.add(photo);
+            } catch (IOException e) {
+                modelAndView.setViewName("error");
+                return modelAndView;
+            }
+
+        try {
+            roomService.update(room);
+
+            List<Photo> photos = new ArrayList<Photo>();
+            photos = room.getPhotos();
+            model.addAttribute("room", room);
+            model.addAttribute("photos", photos);
+
+            modelAndView.addObject("photos", photos);
+            modelAndView.setViewName("room");
+        }catch (Exception e) {
+            e.printStackTrace();
+            modelAndView.setViewName("error");
+            return  modelAndView;
+        }
+
+
+
+        modelAndView.addObject("game", game);
+        modelAndView.addObject("room", room);
+        return modelAndView;
+    }
+
+    @GetMapping("/room")
+    @ResponseBody
+    public List<Room> fetchAllRooms() {
+        return roomService.fetchAll();
+    }
+
+    @GetMapping("/room/{id}/")
+    public ResponseEntity fetchRoomById(@PathVariable("id") int id) {
+        Room foundRoom = roomService.fetchById(id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity(foundRoom, headers, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/room", consumes = "application/json", produces = "application/json")
+    public Room createRoom(Room room) throws Exception {
+        Room newRoom = null;
+        roomService.save(room);
+        return room;
+    }
+
+    /**
+     * Populates room from HTML with Thymeleaf.
+     * Send DTO to service
+     *
+     * @param room
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/saveRoom")
+    public ModelAndView saveRoom(Room room, @RequestParam("imageFile")MultipartFile imageFile, Model model) throws Exception {
+        //todo we shouldn't have to try catch blocks. save everything or save nothing. To do that we have to account for
+        // the photo being null
+        Game game = gameService.fetchGameById(room.getGameId());
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            roomService.save(room);
+        }catch (Exception e) {
+            e.printStackTrace();
+            modelAndView.setViewName("error");
+            return  modelAndView;
+        }
+
+        Photo photo = new Photo();
+        try {
+            photo.setFileName(imageFile.getOriginalFilename());
+            photo.setRoom(room);
+            roomService.saveImage(imageFile, photo);
+            List<Photo> photos = room.getPhotos();
+            model.addAttribute("room", room);
+            model.addAttribute("photos", photos);
+
+            modelAndView.setViewName("room");
+        } catch (IOException e){
+            modelAndView.setViewName("error");
+            return  modelAndView;
+        }
+
+        modelAndView.addObject("game", game);
+        modelAndView.addObject("photos", photo);
+        modelAndView.addObject("room", room);
+        return modelAndView;
+    }
+
+
+    /**
+     * Handles the deleteRoom/ID endpoint.
+     *
+     * @param id,    room id
+     * @return "RedirectView", redirects to display room page on success.
+     * @throws IOException, bad room ID.
+     */
+    @GetMapping("/deleteRoom/{id}/")
+    public RedirectView deleteRoom(@PathVariable("id") int id) {
+        log.debug("Entering delete room endpoint");
+        try {
+            roomService.delete(id);
+            log.info("Room with ID " + id + " was deleted.");
+            return new RedirectView("/success");
+        } catch (Exception e) {
+            log.error("Unable to delete room with ID: " + id + ", message: " + e.getMessage(), e);
+            return new RedirectView("/");
+        }
+
     }
 
     /**
@@ -114,127 +330,6 @@ public class TableTalkController {
 
     }
 
-
-    @GetMapping("/ProfilePicture")
-
-    public ResponseEntity fetchProfilePicture() {
-
-        return new ResponseEntity(HttpStatus.OK);
-
-    }
-
-    @PostMapping(value = "/ProfilePicture", consumes = "application/json", produces = "application/json")
-
-    public ProfilePicture createProfilePicture(@RequestBody com.TableTalk.Enterprise.dto.ProfilePicture profilePicture) {
-
-        return profilePicture;
-
-    }
-
-    @DeleteMapping("/ProfilePicture")
-
-    public ResponseEntity deleteProfilePicture() {
-
-        return new ResponseEntity(HttpStatus.OK);
-
-    }
-
-    @RequestMapping("/displayRoom")
-    public String room(Model model) {
-        List<User> list = new ArrayList<User>();
-        User luke = new User();
-        ProfilePicture photo = new ProfilePicture();
-        photo.setPath("/icons/person-circle.svg");
-        luke.setDisplayedName("Luke Greeley");
-        luke.setPhoto(photo);
-
-        User storm = new User();
-        storm.setDisplayedName("Storm Hamilton");
-        storm.setPhoto(photo);
-
-        User anne = new User();
-        anne.setDisplayedName("Anne Catherwood");
-        anne.setPhoto(photo);
-
-        User momadu = new User();
-        momadu.setDisplayedName("Momadu Kone");
-        momadu.setPhoto(photo);
-
-        list.add(luke);
-        list.add(storm);
-        list.add(anne);
-        list.add(momadu);
-
-        Room room = new Room();
-        room.setId(1);
-//        room.setListOfPlayers(list);
-        room.setFinalizedDate(LocalDateTime.now());
-        room.setAddress("101 Main St. Cincinnati, OH 45219");
-        room.setGameId("1");
-
-        Game game = new Game();
-        if (room.getGameId() == "1") {
-            game.setImageUrl("/uno.jpeg");
-        }
-
-        model.addAttribute(room);
-        model.addAttribute(game);
-
-        return "room";
-    }
-
-    /**
-     * Handles the createRoom endpoint.
-     * Currently sets hard-coded data for testing.
-     *
-     * @param model room layout
-     * @return createRoom webpage.
-     */
-    @RequestMapping("/createRoom")
-    public String createRoom(Model model) {
-        Room room = new Room();
-        room.setGameId("1");
-        room.setAddress("101 Main St");
-        room.setId(1);
-
-        model.addAttribute(room);
-        return "createRoom";
-    }
-
-    @GetMapping("/room")
-    @ResponseBody
-    public List<Room> fetchAllRooms() {
-        return roomService.fetchAll();
-    }
-
-    @GetMapping("/room/{id}/")
-    public ResponseEntity fetchRoomById(@PathVariable("id") int id) {
-        Room foundRoom = roomService.fetchById(id);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        return new ResponseEntity(foundRoom, headers, HttpStatus.OK);
-    }
-
-    @PostMapping(value = "/room", consumes = "application/json", produces = "application/json")
-    public Room createRoom(Room room) throws Exception {
-        Room newRoom = null;
-        roomService.save(room);
-        return room;
-    }
-
-    @DeleteMapping("/deleteRoom/{id}/")
-    public ResponseEntity deleteRoom(@PathVariable("id") int id) {
-        log.debug("Entering delete room endpoint");
-        try {
-            roomService.delete(id);
-            log.info("Room with ID " + id + " was deleted.");
-            return new ResponseEntity(HttpStatus.OK);
-        } catch (Exception e) {
-            log.error("Unable to delete room with ID: " + id + ", message: " + e.getMessage(), e);
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-    }
 
 
     @GetMapping("/User")
@@ -303,30 +398,6 @@ public class TableTalkController {
     }
 
     /**
-     * Handles the availability endpoint.
-     * Currently fills with hard-coded data for proof-of-concept
-     *
-     * @param model, room layout
-     * @return availability template.
-     */
-    @RequestMapping("/availability")
-    public String availability(Model model) {
-        // testing proof of concept
-        Game game = new Game();
-        game.setName("UNO");
-        game.setId("1");
-        model.addAttribute(game);
-
-
-        return "availability";
-    }
-
-    @RequestMapping ("/login")
-    public String login(Model model){
-        return "login";
-    }
-
-    /**
      * Handles autocomplete of searching games.
      *
      * @param searchTerm
@@ -351,41 +422,9 @@ public class TableTalkController {
         return allGameNames;
     }
 
-    /**
-     * Populates room from HTML with Thymeleaf.
-     * Send DTO to service
-     *
-     * @param room
-     * @return
-     * @throws Exception
-     */
-    @PostMapping("/saveRoom")
-    public ModelAndView saveRoom(Room room, @RequestParam("imageFile")MultipartFile imageFile, Model model) throws Exception {
-        //todo we shouldn't have to try catch blocks. save everything or save nothing. To do that we have to account for
-        // the photo being null
-        String returnValue = "createRoom";
-        ModelAndView modelAndView = new ModelAndView();
-        try {
-            roomService.save(room);
-        }catch (Exception e) {
-            e.printStackTrace();
-            modelAndView.setViewName("error");
-            return  modelAndView;
-        }
 
-        Photo photo = new Photo();
-        try {
-            photo.setFileName(imageFile.getOriginalFilename());
-            photo.setRoom(room);
-            roomService.saveImage(imageFile, photo);
-            model.addAttribute("room", room);
-            modelAndView.setViewName("success");
-        } catch (IOException e){
-            modelAndView.setViewName("error");
-            return  modelAndView;
-        }
-        modelAndView.addObject("photo", photo);
-        modelAndView.addObject("room", room);
-        return modelAndView;
+    @RequestMapping ("/login")
+    public String login(Model model){
+        return "login";
     }
 }

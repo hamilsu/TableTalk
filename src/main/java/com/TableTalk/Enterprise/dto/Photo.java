@@ -2,6 +2,7 @@ package com.TableTalk.Enterprise.dto;
 
 import com.sun.istack.Nullable;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -17,7 +18,9 @@ class Photo {
     private String fileName;
     private String comments;
 
+
+    @ToString.Exclude
     @ManyToOne
-    @JoinColumn(name="roomId")
+    @JoinColumn(name="room_id")
     private Room room;
 }

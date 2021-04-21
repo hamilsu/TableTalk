@@ -30,12 +30,16 @@ public interface IRoomService {
 
     void delete(int id) throws Exception;
 
+    Room update(Room room) throws Exception;
 
     Room fetchById(int id);
 
     List<Room> fetchUserRooms(User user);
 
     void saveImage(MultipartFile imageFile, Photo photo) throws IOException;
+
+//    List<Photo> fetchByRoomId(int roomId);
+
 }
 
 
