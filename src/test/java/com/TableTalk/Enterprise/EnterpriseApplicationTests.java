@@ -58,7 +58,6 @@ class EnterpriseApplicationTests {
         game.setName(name);
         game.setUrl(url);
 
-        System.out.println(game);
         gameService.save(game);
 
         List<Game> games = gameService.fetchAll();

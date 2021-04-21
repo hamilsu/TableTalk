@@ -48,6 +48,7 @@ public class TableTalkController {
 
     @RequestMapping("/")
     public String index(Model model) {
+        log.debug("Entering index method");
         return "start";
     }
 
@@ -61,6 +62,7 @@ public class TableTalkController {
      */
     @GetMapping("/Game/{id}/")
     public String fetchGameById(@PathVariable("id") String id, Model model) throws IOException {
+        log.debug("Entering fetch game endpoint");
         Game game = gameService.fetchGameById(id);
 
         StringBuilder strUserRating = new StringBuilder(game.getAverageUserRating().toString());
@@ -80,6 +82,7 @@ public class TableTalkController {
 
     @PostMapping(value = "/Game", consumes = "application/json", produces = "application/json")
     public Game createGame(@RequestBody Game game) {
+        log.debug("Entering create game endpoint");
         return game;
 
     }
@@ -87,7 +90,7 @@ public class TableTalkController {
     @DeleteMapping("/Game")
 
     public ResponseEntity deleteGames() {
-
+        log.debug("Entering delete game endpoint");
         return new ResponseEntity(HttpStatus.OK);
 
     }
@@ -132,6 +135,7 @@ public class TableTalkController {
      */
     @RequestMapping("/createRoom")
     public String createRoom(Model model) {
+        log.debug("Entering create room endpoint");
         Room room = new Room();
         room.setGameId("1");
         room.setAddress("101 Main St");
@@ -232,6 +236,7 @@ public class TableTalkController {
 
     @GetMapping("/room/{id}/")
     public ResponseEntity fetchRoomById(@PathVariable("id") int id) {
+        log.debug("Entering fetch room endpoint");
         Room foundRoom = roomService.fetchById(id);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -240,6 +245,7 @@ public class TableTalkController {
 
     @PostMapping(value = "/room", consumes = "application/json", produces = "application/json")
     public Room createRoom(Room room) throws Exception {
+        log.debug("Entering save room endpoint");
         Room newRoom = null;
         roomService.save(room);
         return room;
@@ -342,13 +348,16 @@ public class TableTalkController {
      */
     @GetMapping(value="/games", consumes="application/json", produces="application/json")
     public ResponseEntity searchGames(@RequestParam(value = "searchTerm", required = true, defaultValue = "None") String searchTerm) {
+        log.debug("Entering search games endpoint");
         try {
             GameCollection games = gameService.fetchGamesByName(searchTerm);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
+            log.info("Game with searchTerm " + searchTerm + " was found.");
             return new ResponseEntity(games, headers, HttpStatus.OK);
         } catch (IOException e) {
             e.printStackTrace();
+            log.error("Unable to find game with searchTerm: " + searchTerm + ", message: " + e.getMessage(), e);
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -363,13 +372,16 @@ public class TableTalkController {
      */
     @GetMapping("/games")
     public String searchGamesForm(@RequestParam(value = "searchTerm", required = true, defaultValue = "None") String searchTerm, Model model) {
+        log.debug("Entering search games endpoint");
         try {
             GameCollection gameList = gameService.fetchGamesByName(searchTerm);
             List<Game> games = gameList.getGames();
             model.addAttribute("games", games);
+            log.info("list of games found: " + games);
             return "games";
         } catch (IOException e) {
             e.printStackTrace();
+            log.error("Unable to show games, message: " + e.getMessage(), e);
             return "error"; //TODO: Actual error handling
         }
 
@@ -385,6 +397,7 @@ public class TableTalkController {
     @GetMapping("/gameNamesAutocomplete")
     @ResponseBody
     public List<LabelValue> gameNamesAutocomplete(@RequestParam(value = "term", required = false, defaultValue = "default") String searchTerm) {
+        log.debug("Entering autocomplete method");
         List<LabelValue> allGameNames = new ArrayList<LabelValue>();
         try {
             GameCollection games = gameService.fetchGamesByName(searchTerm);
@@ -394,8 +407,10 @@ public class TableTalkController {
                 labelValue.setValue(game.getId());
                 allGameNames.add(labelValue);
             }
+            log.info("autocomplete success for searchTerm: " + searchTerm);
         } catch (IOException e) {
             e.printStackTrace();
+            log.error("autocomplete failure for searchTerm: " + searchTerm + ", message: " + e.getMessage(), e);
             return new ArrayList<LabelValue>();
         }
         return allGameNames;
