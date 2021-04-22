@@ -81,3 +81,8 @@ p{
 .nav-width {
     width: 120% !important;
 }
+
+.input-label {
+    margin-bottom: -6px;
+    margin-left: 4px;
+}

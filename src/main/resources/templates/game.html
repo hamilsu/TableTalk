@@ -70,7 +70,8 @@
             <a type="button" class="btn btn-secondary" th:href="${game.url}" target="_blank">Read More</a>
         </div>
         <div class="col-sm">
-            <button type="button" class="btn btn-primary" id="alertbtn">Create room with this game!</button>
+            <a type="button" class="btn btn-primary" id="alertbtn" th:href = "'/createRoom/' + ${game.id} +'/'">Create room with this game!</a>
+
         </div>
     </div>
     <div class="row spacer">
@@ -95,14 +96,6 @@
 
         function goBack() {
             window.history.back();
-        }
-
-        $("#alertbtn").on("click", toggleAlert);
-        $('#alert').on('close.bs.alert', toggleAlert)
-        let game = document.getElementById("gameName").innerText;
-
-        function toggleAlert() {
-            window.alert(game + " has been added to your games!");
         }
 
         $("#Search_Term").autocomplete({

@@ -64,17 +64,37 @@
 <body>
 <div th:replace="fragments/navbar :: navbar">
 </div>
+<script>
+    firebase.auth().onAuthStateChanged(function(user) {
+
+        //This if statement basically says if(thereIsAUserLoggedIn), although user is still an object that can be accessed
+        if (user) {
+            //So if we reach this point, there is a user logged in
+
+
+
+            document.getElementById("loginHref").setAttribute('href', "/logout")
+            document.getElementById("login_Btn").innerHTML = "Log out"
+            document.getElementById("saveForm").setAttribute('action', "/saveRoom/" +user.uid)
+        }
+    else {
+
+    }
+    });
+
+</script>
 
 <div class="container" style="margin-top: 32px;">
     <h1>Create a Room</h1>
 
-    <form action="#" th:action="@{/saveRoom}" th:object="${room}" enctype="multipart/form-data" method="POST" style="margin-top: 24px;">
+    <form id = "saveForm" action="#" th:action="@{/saveRoom}" th:object="${room}" enctype="multipart/form-data" method="POST"
+          style="margin-top: 24px;">
         <div class="form-floating mb-3">
             <input type="text" class="form-control" id="address" th:field="*{address}" placeholder="123 Main Street">
             <label for="address">Address</label>
         </div>
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="Game_Name" placeholder="UNO">
+            <input type="text" class="form-control" id="Game_Name" th:field="${game.name}" disabled>
             <label for="Game_Name">Game</label>
         </div>
         <div class="input-group mb-3">
@@ -83,19 +103,15 @@
         <input id="Game_Id" type="hidden" name="gameId" th:field="*{gameId}"/>
         <div class="row padding-top">
             <div class="col-sm">
-                <a name="back" type="button" class="btn btn-secondary full-width" id="backBtn">Cancel</a>
+                <a name="cancel" type="button" class="btn btn-secondary full-width" id="cancelBtn" href="/">Cancel</a>
             </div>
             <div class="col-sm">
-                <button name="submit" type="submit" class="btn btn-primary full-width" id="submit" value="0">Create Room</button>
+                <button name="submit" type="submit" class="btn btn-primary full-width" id="submit" value="0">Create
+                    Room
+                </button>
             </div>
         </div>
     </form>
-
-<!--    <p th:text="${room}"/>-->
-
 </div>
-
-
 </body>
-
 </html>
