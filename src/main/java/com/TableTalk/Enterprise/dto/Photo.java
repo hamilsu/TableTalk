@@ -1,7 +1,6 @@
 package com.TableTalk.Enterprise.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.Nullable;
 import lombok.Data;
 import lombok.ToString;
 

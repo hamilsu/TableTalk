@@ -94,7 +94,6 @@ class EnterpriseApplicationTests {
         Room room = new Room();
         room.setAddress(address);
         room.setGameId("MEEEEP");
-        System.out.println(room);
         roomService.save(room);
 
         List<Room> rooms = roomService.fetchAll();

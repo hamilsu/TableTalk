@@ -70,7 +70,7 @@
             <a type="button" class="btn btn-secondary" th:href="${game.url}" target="_blank">Read More</a>
         </div>
         <div class="col-sm">
-            <a type="button" class="btn btn-primary" id="alertbtn" href="/createRoom">Create room with this game!</a>
+            <a type="button" class="btn btn-primary" id="alertbtn" th:href = "'/createRoom/' + ${game.id} +'/'">Create room with this game!</a>
                                     <!--            TO DO: PASS GAME TO CREATEROOM            -->
         </div>
     </div>

@@ -19,9 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
-import java.util.*;
 import java.util.ArrayList;
-
+import java.util.List;
 
 
 @Controller
@@ -36,7 +35,6 @@ public class TableTalkController {
 
     @Autowired
     IUserService userService;
-
 
     Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -70,7 +68,7 @@ public class TableTalkController {
         String averageUserRating = strUserRating.toString();
         game.setAverageUserRating(Double.parseDouble(averageUserRating));
 
-        String newDescription = game.getDescription().replace("<p>","")
+        String newDescription = game.getDescription().replace("<p>", "")
                 .replace("</p>", "")
                 .replace("&quot;", "\"")
                 .replace("<br />", "");
@@ -128,19 +126,19 @@ public class TableTalkController {
 
     /**
      * Handles the createRoom endpoint.
-     * Currently sets hard-coded data for testing.
      *
      * @param model room layout
      * @return createRoom webpage.
      */
-    @RequestMapping("/createRoom")
-    public String createRoom(Model model) {
-        log.debug("Entering create room endpoint");
+    @RequestMapping("/createRoom/{gameId}")
+    public String createRoom(@PathVariable("gameId") String gameId, Model model) throws IOException {
+        Game game = gameService.fetchGameById(gameId);
         Room room = new Room();
-        room.setGameId("1");
-        room.setAddress("101 Main St");
+        room.setGameId(gameId);
+        room.setAddress("");
         room.setId(1);
 
+        model.addAttribute(game);
         model.addAttribute(room);
         return "createRoom";
     }
@@ -148,7 +146,7 @@ public class TableTalkController {
     /**
      * Handles the updateRoom/ID endpoint.
      *
-     * @param id, room id
+     * @param id,   room id
      * @param model room layout
      * @return modelAndView
      * @throws IOException, bad room ID.
@@ -183,16 +181,13 @@ public class TableTalkController {
      */
 
     @PostMapping("/editRoom/{id}")
-    public ModelAndView updateRoom(Room room, @RequestParam("imageFile")MultipartFile imageFile, Model model, @PathVariable("id") int id) throws Exception {
-        System.out.println("I am the PHOTOS in updateRoom " + room.photos);
-        System.out.println("I am the room in updateRoom " + room);
+    public ModelAndView updateRoom(Room room, @RequestParam("imageFile") MultipartFile imageFile, Model model, @PathVariable("id") int id) throws Exception {
         Game game = gameService.fetchGameById(room.getGameId());
-        System.out.println("I am the game in updateRoom " + game);
         ModelAndView modelAndView = new ModelAndView();
 
         try {
 
-            if (!imageFile.isEmpty()){
+            if (!imageFile.isEmpty()) {
                 Photo photo = new Photo();
                 try {
                     photo.setFileName(imageFile.getOriginalFilename());
@@ -215,13 +210,11 @@ public class TableTalkController {
 
             modelAndView.addObject("photos", photos);
             modelAndView.setViewName("room");
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             modelAndView.setViewName("error");
-            return  modelAndView;
+            return modelAndView;
         }
-
-
 
         modelAndView.addObject("game", game);
         modelAndView.addObject("room", room);
@@ -260,17 +253,17 @@ public class TableTalkController {
      * @throws Exception
      */
     @PostMapping("/saveRoom")
-    public ModelAndView saveRoom(Room room, @RequestParam("imageFile")MultipartFile imageFile, Model model) throws Exception {
+    public ModelAndView saveRoom(Room room, @RequestParam("imageFile") MultipartFile imageFile, Model model) throws Exception {
         //todo we shouldn't have to try catch blocks. save everything or save nothing. To do that we have to account for
         // the photo being null
         Game game = gameService.fetchGameById(room.getGameId());
         ModelAndView modelAndView = new ModelAndView();
-        try{
+        try {
             roomService.save(room);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             modelAndView.setViewName("error");
-            return  modelAndView;
+            return modelAndView;
         }
         Photo photo = new Photo();
         try {
@@ -283,9 +276,9 @@ public class TableTalkController {
                 model.addAttribute("photos", photos);
                 modelAndView.setViewName("room");
             }
-        } catch (IOException e){
+        } catch (IOException e) {
             modelAndView.setViewName("error");
-            return  modelAndView;
+            return modelAndView;
         }
         modelAndView.addObject("game", game);
         modelAndView.addObject("photos", photo);
@@ -331,11 +324,10 @@ public class TableTalkController {
     }
 
 
-
     /**
      * Handles the deleteRoom/ID endpoint.
      *
-     * @param id,    room id
+     * @param id, room id
      * @return "RedirectView", redirects to display room page on success.
      * @throws IOException, bad room ID.
      */
@@ -355,26 +347,11 @@ public class TableTalkController {
 
     @GetMapping(value = "/getRoomsByUserId/{userId}", produces = "application/json")
     @ResponseBody
-    public List<Room> fetchRoomsByUserId(@PathVariable("userId") String id){
+    public List<Room> fetchRoomsByUserId(@PathVariable("userId") String id) {
         return userService.fetchUser(id).getRooms();
 
     }
 
-    @PostMapping(value = "/User", consumes = "application/json", produces = "application/json")
-
-    public User createUser(@RequestBody com.TableTalk.Enterprise.dto.User user) {
-
-        return user;
-
-    }
-
-    @DeleteMapping("/User")
-
-    public ResponseEntity deleteUser() {
-
-        return new ResponseEntity(HttpStatus.OK);
-
-    }
 
     /**
      * Handles the logical searching of games.
@@ -382,7 +359,7 @@ public class TableTalkController {
      * @param searchTerm, string of what the user is looking for.
      * @return list of games available in auto complete.
      */
-    @GetMapping(value="/games", consumes="application/json", produces="application/json")
+    @GetMapping(value = "/games", consumes = "application/json", produces = "application/json")
     public ResponseEntity searchGames(@RequestParam(value = "searchTerm", required = true, defaultValue = "None") String searchTerm) {
         log.debug("Entering search games endpoint");
         try {
@@ -403,7 +380,7 @@ public class TableTalkController {
      * Handles the graphical searching of games.
      *
      * @param searchTerm
-     * @param model, layout
+     * @param model,     layout
      * @return games template or error template.
      */
     @GetMapping("/games")
@@ -458,35 +435,34 @@ public class TableTalkController {
      * @param model , web template
      * @return "login", login webpage.
      */
-    @RequestMapping ("/login")
-    public String login(Model model){
+    @RequestMapping("/login")
+    public String login(Model model) {
         return "login";
     }
-
 
 
     /**
      * Process logging into application.
      *
      * @param displayName
-     * @param uid , userId
-     * @param model , web template
+     * @param uid         , userId
+     * @param model       , web template
      * @return "start", start webpage.
      */
-    @RequestMapping ("/loginSuccessful/{displayName}/{uid}")
-    public String processLogin(@PathVariable("displayName") String displayName, @PathVariable("uid") String uid, Model model){
+    @RequestMapping("/loginSuccessful/{displayName}/{uid}")
+    public RedirectView processLogin(@PathVariable("displayName") String displayName, @PathVariable("uid") String uid, Model model) {
         User user = new User();
-        if(userService.userExistsWithID(uid)){
+        if (userService.userExistsWithID(uid)) {
             user = userService.fetchUser(uid);
-        }else{
+        } else {
             user = userService.createUser(uid, displayName);
         }
         model.addAttribute(user);
-        return "start";
+        return new RedirectView("/");
     }
 
-    @RequestMapping ("/logout")
-    public String logout(Model model){
+    @RequestMapping("/logout")
+    public String logout(Model model) {
         return "logout";
     }
 
