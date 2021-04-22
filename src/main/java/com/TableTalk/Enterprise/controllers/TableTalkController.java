@@ -294,6 +294,42 @@ public class TableTalkController {
         return modelAndView;
     }
 
+    @PostMapping("/saveRoom/{userId}")
+    public ModelAndView saveRoomWithUser(Room room, @PathVariable("userId")String userId, @RequestParam("imageFile")MultipartFile imageFile, Model model) throws Exception {
+        //todo we shouldn't have to try catch blocks. save everything or save nothing. To do that we have to account for
+        // the photo being null
+        Game game = gameService.fetchGameById(room.getGameId());
+        room.setUser(userService.fetchUser(userId));
+        ModelAndView modelAndView = new ModelAndView();
+        try{
+            roomService.save(room);
+        }catch (Exception e) {
+            e.printStackTrace();
+            modelAndView.setViewName("error");
+            return  modelAndView;
+        }
+        Photo photo = new Photo();
+        try {
+            if (!imageFile.isEmpty()) {
+                photo.setFileName(imageFile.getOriginalFilename());
+                photo.setRoom(room);
+                roomService.saveImage(imageFile, photo);
+                List<Photo> photos = room.getPhotos();
+                model.addAttribute("room", room);
+                model.addAttribute("photos", photos);
+                modelAndView.setViewName("room");
+            }
+        } catch (IOException e){
+            modelAndView.setViewName("error");
+            return  modelAndView;
+        }
+        modelAndView.addObject("game", game);
+        modelAndView.addObject("photos", photo);
+        modelAndView.addObject("room", room);
+        modelAndView.setViewName("room");
+        return modelAndView;
+    }
+
 
 
     /**
