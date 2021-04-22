@@ -1,26 +1,26 @@
 package com.TableTalk.Enterprise.dto;
 
 
-/*
-This could all be completely wrong considering I'm unfamiliar with firebase.
- */
-
+import com.sun.istack.NotNull;
+import com.sun.istack.Nullable;
 import lombok.Data;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "Users")
 public @Data
 class User {
+    @Id
+    private String id;
+
+    @NotNull
     private String displayedName;
-    private List<String> gameLibrary; //A list of [game.id]s. Might opt to do a List<Game> instead once we can estimate the load times of each implementation.
-    private List<String> availableRooms;
 
-    //The following attributes are assumed as part of firebase and may be redundant to add here.
-    private String username;
-    private String password;
+    @Nullable
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    public List<Room> rooms;
 
-
-    //@OneToMany (mappedBy = "username")
-    private ProfilePicture photo; //Might be part of firebase
 
 }

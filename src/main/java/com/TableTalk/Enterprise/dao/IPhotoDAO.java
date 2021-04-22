@@ -4,7 +4,6 @@ import com.TableTalk.Enterprise.dto.Photo;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
 
 public interface IPhotoDAO {
 

@@ -6,15 +6,10 @@ import com.TableTalk.Enterprise.dto.Photo;
 import com.TableTalk.Enterprise.dto.Room;
 import com.TableTalk.Enterprise.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 @Service
